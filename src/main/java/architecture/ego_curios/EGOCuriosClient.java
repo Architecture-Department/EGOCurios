@@ -10,16 +10,16 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
-@Mod(value = GoldenBoughsLib.ID, dist = Dist.CLIENT)
-@EventBusSubscriber(modid = GoldenBoughsLib.ID, value = Dist.CLIENT)
-public class GoldenBoughsLibClient {
-	public GoldenBoughsLibClient(ModContainer container) {
+@Mod(value = EGOCurios.ID, dist = Dist.CLIENT)
+@EventBusSubscriber(modid = EGOCurios.ID, value = Dist.CLIENT)
+public class EGOCuriosClient {
+	public EGOCuriosClient(ModContainer container) {
 		container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 	}
 
 	@SubscribeEvent
 	static void onClientSetup(FMLClientSetupEvent event) {
-		GoldenBoughsLib.LOGGER.info("HELLO FROM CLIENT SETUP");
-		GoldenBoughsLib.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+		EGOCurios.LOGGER.info("HELLO FROM CLIENT SETUP");
+		EGOCurios.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
 	}
 }

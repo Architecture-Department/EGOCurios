@@ -9,14 +9,14 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(GoldenBoughsLib.ID)
-public class GoldenBoughsLib {
+@Mod(EGOCurios.ID)
+public class EGOCurios {
 
 	public static final String ID = "ego_curios";
-	public static final String NAME = "GoldenBoughsLib";
+	public static final String NAME = "E.G.O.Curios";
 	public static final Logger LOGGER = LogManager.getLogger(ID);
 
-	public GoldenBoughsLib(IEventBus modEventBus, ModContainer modContainer) {
+	public EGOCurios(IEventBus modEventBus, ModContainer modContainer) {
 		NeoForge.EVENT_BUS.register(this);
 	}
 

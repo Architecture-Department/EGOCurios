@@ -159,7 +159,7 @@ configurations {
 
 dependencies {
 	if (dev) {
-		implementation project(":GoldenBoughsLib")
+		implementation project(":module:GoldenBoughsLib")
 	} else {
 		implementation jarJar("libs:GoldenBoughsLib:0.1.0")
 	}
@@ -204,6 +204,8 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
 					mod_name               : mod_name,
 					mod_license            : mod_license,
 					mod_version            : mod_version,
+					mod_authors    : mod_authors,
+					mod_description: mod_description,
 	]
 	inputs.properties replaceProperties
 	expand replaceProperties
