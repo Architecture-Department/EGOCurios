@@ -179,7 +179,7 @@ dependencies {
 	implementation(jarJar(group: 'com.github.bawnorton.mixinsquared', name: 'mixinsquared-neoforge', version: '[' + { mixinsquared_version } + ',)'))
 
 	// sparkcore 星火
-	implementation "maven.modrinth:spark-core:${sparkcore_version}"
+	implementation jarJar("curse.maven:spark-core-${sparkcore_version}")
 
 	// Jade
 	implementation "maven.modrinth:jade:${jade_version}+neoforge"

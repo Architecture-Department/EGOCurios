@@ -1,4 +1,4 @@
-package architecture.ego_curios;
+package architecture.ego_curios.core;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 @Mod(EGOCurios.ID)
-public class EGOCurios {
+public final class EGOCurios {
 
 	public static final String ID = "ego_curios";
 	public static final String NAME = "E.G.O.Curios";

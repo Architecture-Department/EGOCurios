@@ -1,4 +1,4 @@
-package architecture.ego_curios;
+package architecture.ego_curios.core;
 
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
@@ -12,7 +12,7 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
 @Mod(value = EGOCurios.ID, dist = Dist.CLIENT)
 @EventBusSubscriber(modid = EGOCurios.ID, value = Dist.CLIENT)
-public class EGOCuriosClient {
+public final class EGOCuriosClient {
 	public EGOCuriosClient(ModContainer container) {
 		container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 	}
