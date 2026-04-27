@@ -1,12 +1,12 @@
 package architecture.ego_curios.datagen;
 
 import architecture.ego_curios.core.EGOCurios;
-import architecture.ego_curios.init.EgoCurioItems;
+import architecture.ego_curios.init.EGOCurioItems;
+import architecture.goldenboughs_lib.mixed.client.IModelBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.client.model.IModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
@@ -15,13 +15,11 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
 import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
 import static net.minecraft.resources.ResourceLocation.parse;
-
 
 /**
  * 物品模型数据生成器
@@ -40,31 +38,11 @@ public final class DatagenItemModel extends ItemModelProvider {
 
 	@Override
 	protected void registerModels() {
-		withExistingParent(EgoCurioItems.REGISTRY, "item/curios/");
-		withExistingParent(EgoArmorItems.REGISTRY, "item/armor/");
-		withExistingParent(ModSpawnEggItems.REGISTRY, "item/spawn_egg/");
-		EgoWeaponItems.REGISTRY.getEntries().stream().map(DeferredHolder::get).forEach(item -> {
-			String path = item.toString();
-			ResourceLocation outputLoc = extendWithFolder(path.contains(":") ? parse(path) : fromNamespaceAndPath(modid, path));
-			if (!existingFileHelper.exists(outputLoc, MODEL)) {
-				geoItem(item);
-			}
-		});
-		creativeRationalityTool(ToolItems.CREATIVE_RATIONALITY_TOOL.get());
-		chaosSword(ToolItems.CHAOS_SWORD.get());
+		withExistingParent(EGOCurioItems.REGISTRY, "item/curios/");
 	}
-
 
 	private ResourceLocation extendWithFolder(ResourceLocation rl) {
 		return rl.getPath().contains("/") ? rl : ResourceLocation.fromNamespaceAndPath(rl.getNamespace(), folder + "/" + rl.getPath());
-	}
-
-	/**
-	 * 为所有 Ego 盔甲生成模型
-	 * 遍历所有注册的盔甲条目并为其创建基础的generated模型
-	 */
-	private void egoArmorItems() {
-		withExistingParent(EgoArmorItems.REGISTRY, "item/armor/");
 	}
 
 	/**
@@ -77,36 +55,8 @@ public final class DatagenItemModel extends ItemModelProvider {
 	private void withExistingParent(DeferredRegister.Items registry, String pathPrefix) {
 		registry.getEntries().stream().map(DeferredHolder::getId).forEach(itemId ->
 			IModelBuilder.of(this.withExistingParent(itemId.getPath(), "item/generated"))
-				.imaginarycraft$getTexture()
+				.goldenboughs_lib$getTexture()
 				.put("layer0", itemId.withPrefix(pathPrefix).toString()));
-	}
-
-	/**
-	 * 为混沌剑生成模型
-	 * 根据不同的伤害类型创建不同的模型变体
-	 *
-	 * @param item 混沌剑物品
-	 */
-	private void chaosSword(Item item) {
-		LinkedHashMap<Float, String> map = new LinkedHashMap<>();
-		map.put(0F, "physics");
-		map.put(0.1F, "spirit");
-		map.put(0.2F, "erosion");
-		map.put(0.3F, "the_soul");
-		createModelFile(item, "weapon/", map, getParent("item/handheld"), ItemPropertyRenderersRegistrar.CURRENT_LC_DAMAGE_TYPE);
-	}
-
-	/**
-	 * 为创造模式理智值工具生成模型
-	 * 根据工具的不同模式创建不同的模型变体
-	 *
-	 * @param item 创造模式理智值工具物品
-	 */
-	private void creativeRationalityTool(Item item) {
-		LinkedHashMap<Float, String> map = new LinkedHashMap<>();
-		map.put(0F, "add");
-		map.put(1F, "decrease");
-		createModelFile(item, "tool/", map, ItemPropertyRenderersRegistrar.MODE_BOOLEAN);
 	}
 
 	/**
@@ -257,6 +207,6 @@ public final class DatagenItemModel extends ItemModelProvider {
 	 * @return 模型文件
 	 */
 	public ModelFile customModelFile(String name) {
-		return new ModelFile.UncheckedModelFile(ImaginaryCraft.modRl(name));
+		return new ModelFile.UncheckedModelFile(EGOCurios.modRl(name));
 	}
 }

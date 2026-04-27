@@ -1,6 +1,6 @@
 package architecture.ego_curios.datagen;
 
-import architecture.imaginarycraft.core.ImaginaryCraft;
+import architecture.ego_curios.core.EGOCurios;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -46,15 +46,15 @@ public final class DatagenCuriosTest extends CuriosDataProvider {
 	public static final ResourceLocation EGO_CURIOS_RIGHT_BACK_VALIDATOR = createTagId(EGO_CURIOS_RIGHT_BACK);
 
 	public DatagenCuriosTest(PackOutput output, ExistingFileHelper fileHelper, CompletableFuture<HolderLookup.Provider> registries) {
-		super(ImaginaryCraft.ID, output, fileHelper, registries);
+		super(EGOCurios.ID, output, fileHelper, registries);
 	}
 
 	private static String createId(String name) {
-		return ImaginaryCraft.modRlText(name);
+		return EGOCurios.modRlText(name);
 	}
 
 	private static ResourceLocation createTagId(String name) {
-		return ImaginaryCraft.modRl(name + "_tag");
+		return EGOCurios.modRl(name + "_tag");
 	}
 
 	@Override
@@ -104,6 +104,6 @@ public final class DatagenCuriosTest extends CuriosDataProvider {
 	}
 
 	public ISlotData createSlot(String nameID, String icon, ResourceLocation validator) {
-		return createSlot(nameID, validator).icon(ImaginaryCraft.modRl(icon));
+		return createSlot(nameID, validator).icon(EGOCurios.modRl(icon));
 	}
 }

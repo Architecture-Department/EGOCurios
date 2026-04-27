@@ -2,12 +2,12 @@ package architecture.ego_curios.init;
 
 import architecture.ego_curios.common.item.EgoCurioItem;
 import architecture.ego_curios.core.EGOCurios;
+import architecture.ego_curios.core.EGOCuriosConstants;
+import architecture.ego_curios.datagen.i18n.ZhCn;
 import architecture.goldenboughs_lib.api.LcDamageType;
-import architecture.goldenboughs_lib.datagen.i18n.ZhCn;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 // TODO 可能需要给饰品添加等级
-public final class EgoCurioItems {
+public final class EGOCurioItems {
 	public static final DeferredRegister.Items REGISTRY = DeferredRegister.createItems(EGOCurios.ID);
 
 	//region 头饰
@@ -704,24 +704,20 @@ public final class EgoCurioItems {
 		return deferredItem;
 	}
 
-	static void init(IEventBus bus) {
-		REGISTRY.register(bus);
-	}
-
 	public enum CuriosType {
-		HEADWEAR("headwear", ImaginaryCraftConstants.EGO_CURIOS_HEADWEAR),
-		CHEEK("cheek", ImaginaryCraftConstants.EGO_CURIOS_CHEEK),
-		HEAD("head", ImaginaryCraftConstants.EGO_CURIOS_HEAD),
-		HINDBRAIN("hindbrain", ImaginaryCraftConstants.EGO_CURIOS_HINDBRAIN),
-		EYE("eye", ImaginaryCraftConstants.EGO_CURIOS_EYE),
-		FACE("face", ImaginaryCraftConstants.EGO_CURIOS_FACE),
-		MASK("mask", ImaginaryCraftConstants.EGO_CURIOS_MASK),
-		MOUTH("mouth", ImaginaryCraftConstants.EGO_CURIOS_MOUTH),
-		NECK("neck", ImaginaryCraftConstants.EGO_CURIOS_NECK),
-		BROOCH("brooch", ImaginaryCraftConstants.EGO_CURIOS_NECK),
-		HAND("hand", ImaginaryCraftConstants.EGO_CURIOS_HAND),
-		GLOVE("glove", ImaginaryCraftConstants.EGO_CURIOS_GLOVE),
-		BACK("back", ImaginaryCraftConstants.EGO_CURIOS_BACK),
+		HEADWEAR("headwear", EGOCuriosConstants.EGO_CURIOS_HEADWEAR),
+		CHEEK("cheek", EGOCuriosConstants.EGO_CURIOS_CHEEK),
+		HEAD("head", EGOCuriosConstants.EGO_CURIOS_HEAD),
+		HINDBRAIN("hindbrain", EGOCuriosConstants.EGO_CURIOS_HINDBRAIN),
+		EYE("eye", EGOCuriosConstants.EGO_CURIOS_EYE),
+		FACE("face", EGOCuriosConstants.EGO_CURIOS_FACE),
+		MASK("mask", EGOCuriosConstants.EGO_CURIOS_MASK),
+		MOUTH("mouth", EGOCuriosConstants.EGO_CURIOS_MOUTH),
+		NECK("neck", EGOCuriosConstants.EGO_CURIOS_NECK),
+		BROOCH("brooch", EGOCuriosConstants.EGO_CURIOS_NECK),
+		HAND("hand", EGOCuriosConstants.EGO_CURIOS_HAND),
+		GLOVE("glove", EGOCuriosConstants.EGO_CURIOS_GLOVE),
+		BACK("back", EGOCuriosConstants.EGO_CURIOS_BACK),
 		;
 		private final String name;
 		private final Set<DeferredItem<? extends Item>> set;

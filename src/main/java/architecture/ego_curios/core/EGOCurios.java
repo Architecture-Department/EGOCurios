@@ -1,5 +1,7 @@
 package architecture.ego_curios.core;
 
+import architecture.ego_curios.init.EGOCurioItems;
+import architecture.ego_curios.init.EGOCuriosCreativeModeTabs;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -24,6 +26,8 @@ public final class EGOCurios {
 
 	public EGOCurios(IEventBus modEventBus, ModContainer modContainer) {
 		NeoForge.EVENT_BUS.register(this);
+		EGOCuriosCreativeModeTabs.REGISTRY.register(modEventBus);
+		EGOCurioItems.REGISTRY.register(modEventBus);
 	}
 
 	@SubscribeEvent

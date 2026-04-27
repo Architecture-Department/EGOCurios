@@ -5,6 +5,10 @@ plugins {
 	id 'idea'
 }
 
+var projectName = [
+		"GoldenBoughsLib",
+]
+
 version = mod_version
 group = mod_group_id
 
@@ -159,10 +163,17 @@ configurations {
 
 dependencies {
 	if (dev) {
-		implementation project(":module:GoldenBoughsLib")
-	} else {
-		implementation jarJar("libs:GoldenBoughsLib:0.1.0")
+		projectName.forEach { name ->
+			{
+				implementation jarJar(project(":module:" + name))
+				interfaceInjectionData jarJar(project(":module:" + name))
+			}
+		}
 	}
+
+	implementation "net.neoforged:neoforge:${neo_version}"
+	implementation "dev.latvian.mods:rhino-neoforge:${rhino_version}"
+	localRuntime "org.javassist:javassist:3.30.2-GA"
 
 	// curios 饰品
 	implementation "top.theillusivec4.curios:curios-neoforge:${curios_api_version}"
@@ -170,9 +181,6 @@ dependencies {
 
 	// geckolib
 	implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
-
-	// 子节码操控
-	localRuntime "org.javassist:javassist:3.30.2-GA"
 
 	// MixinSquared
 	compileOnly(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${mixinsquared_version}"))

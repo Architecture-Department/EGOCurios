@@ -1,11 +1,11 @@
 package architecture.ego_curios.common.item;
 
+import architecture.ego_curios.client.model.GeoCurioModel;
+import architecture.ego_curios.client.renderer.curios.BasicCuriosRenderer;
 import architecture.goldenboughs_lib.api.virtue.VirtueAttributeModifier;
 import architecture.goldenboughs_lib.api.world.item.IEgoItem;
 import architecture.goldenboughs_lib.init.LibDataComponents;
 import architecture.goldenboughs_lib.util.RationalityUtil;
-import architecture.imaginarycraft.client.model.curio.GeoCurioModel;
-import architecture.imaginarycraft.client.renderer.curios.BasicCuriosRenderer;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
