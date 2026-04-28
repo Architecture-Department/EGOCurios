@@ -473,7 +473,7 @@ public final class EGOCurioItems {
 		"magic_bullet_curios", "魔弹", CuriosType.MOUTH,
 		EgoCurioItem::new,
 		new EgoCurioItem.Builder()
-			.model("magic_bullet")
+			.modelPath(EGOCurios.modRl("magic_bullet"))
 			.fortitude(-5)
 			.prudence(-5)
 			.temperance(0)
@@ -653,7 +653,7 @@ public final class EGOCurioItems {
 		"comprehension_back_curios", "理解", CuriosType.BACK,
 		EgoCurioItem::new,
 		new EgoCurioItem.Builder()
-			.model("comprehension_back")
+			.modelPath(EGOCurios.modRl("comprehension_back"))
 			.fortitude(2)
 			.prudence(2)
 			.temperance(2)
@@ -680,7 +680,7 @@ public final class EGOCurioItems {
 		"paradise_lost_curios", "失乐园", CuriosType.BACK,
 		EgoCurioItem::new,
 		new EgoCurioItem.Builder()
-			.model("paradise_lost")
+			.modelPath(EGOCurios.modRl("paradise_lost"))
 			.fortitude(10)
 			.prudence(10)
 			.temperance(0)

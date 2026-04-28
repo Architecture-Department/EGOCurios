@@ -19,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.loading.FMLEnvironment;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
@@ -39,7 +40,7 @@ import java.util.function.UnaryOperator;
 /**
  * E.G.O饰品
  *
- * @author Dusttt
+ * @author Dusttt & 小尽(WangXiaoJin)
  */
 public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem {
 	private final List<Component> tooltips = new ArrayList<>();
@@ -47,12 +48,17 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 	private final boolean isEnderMask;
 	private final @Nullable GeoCurioModel<EgoCurioItem> model;
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-	// 请不要使用该变量，这些仅用与生成国际化文本
-	private @Nullable Map<String, String> tooltipsI18nMap = new LinkedHashMap<>();
-	private @Nullable List<Function<String, MutableComponent>> tooltipsComponent;
-	private @Nullable List<String> tooltipsI18n;
+
 	private @Nullable BasicCuriosRenderer curiosRenderer;
 	private @Nullable Function<EgoCurioItem, BasicCuriosRenderer> curiosRendererFunction;
+
+	// 请不要使用该变量，这些仅用与生成国际化文本
+	@ApiStatus.Internal
+	private @Nullable Map<String, String> tooltipsI18nMap = new LinkedHashMap<>();
+	@ApiStatus.Internal
+	private @Nullable List<Function<String, MutableComponent>> tooltipsComponent;
+	@ApiStatus.Internal
+	private @Nullable List<String> tooltipsI18n;
 
 	public EgoCurioItem(Builder egoCurioBuilder) {
 		super(egoCurioBuilder.properties.component(LibDataComponents.IS_RESTRAIN, false)
@@ -187,7 +193,6 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		private @Nullable Function<EgoCurioItem, BasicCuriosRenderer> curiosRenderer;
 
 		public Builder() {
-			this.model = null;
 		}
 
 		/**
@@ -275,11 +280,11 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 			return this;
 		}
 
-		public Builder model(String modelRl) {
-			return model(new GeoCurioModel<>(modelRl));
+		public Builder modelPath(ResourceLocation modelRl) {
+			return modelPath(new GeoCurioModel<>(modelRl));
 		}
 
-		public Builder model(GeoCurioModel<EgoCurioItem> model) {
+		public Builder modelPath(GeoCurioModel<EgoCurioItem> model) {
 			if (FMLEnvironment.dist.isDedicatedServer()) {
 				return this;
 			}

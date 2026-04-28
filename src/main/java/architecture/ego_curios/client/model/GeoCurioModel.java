@@ -1,15 +1,16 @@
 package architecture.ego_curios.client.model;
 
 import architecture.goldenboughs_lib.client.model.BasicGeoModel;
+import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 
 public class GeoCurioModel<T extends GeoAnimatable> extends BasicGeoModel<T> {
 
-	public GeoCurioModel(String pathName) {
-		this(pathName, pathName, pathName);
+	public GeoCurioModel(ResourceLocation pathName) {
+		super(pathName.withPrefix("curio/"));
 	}
 
-	public GeoCurioModel(String modelPath, String textureName, String animationsName) {
-		super("curio/" + modelPath, "curio/" + textureName, "curio/" + animationsName);
+	public GeoCurioModel(ResourceLocation modelPath, ResourceLocation textureName, ResourceLocation animationsName) {
+		super(modelPath.withPrefix("curio/"), textureName.withPrefix("curio/"), animationsName.withPrefix("curio/"));
 	}
 }
