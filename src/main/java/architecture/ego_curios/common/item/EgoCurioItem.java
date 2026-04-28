@@ -1,7 +1,7 @@
 package architecture.ego_curios.common.item;
 
 import architecture.ego_curios.client.model.GeoCurioModel;
-import architecture.ego_curios.client.renderer.curios.BasicCuriosRenderer;
+import architecture.ego_curios.client.renderer.CuriosRendererControl;
 import architecture.goldenboughs_lib.api.virtue.VirtueAttributeModifier;
 import architecture.goldenboughs_lib.api.world.item.IEgoItem;
 import architecture.goldenboughs_lib.init.LibDataComponents;
@@ -25,6 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
@@ -43,24 +44,28 @@ import java.util.function.UnaryOperator;
  * @author Dusttt & 小尽(WangXiaoJin)
  */
 public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem {
+	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 	private final List<Component> tooltips = new ArrayList<>();
 	private final VirtueAttributeModifier virtueAddAttribute;
 	private final boolean isEnderMask;
-	private final @Nullable GeoCurioModel<EgoCurioItem> model;
-	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+	private final @Nullable GeoCurioModel<? extends EgoCurioItem> model;
 
-	private @Nullable BasicCuriosRenderer curiosRenderer;
-	private @Nullable Function<EgoCurioItem, BasicCuriosRenderer> curiosRendererFunction;
+	private @Nullable CuriosRendererControl<? extends EgoCurioItem> curiosRendererControl;
+	private @Nullable Function<EgoCurioItem, CuriosRendererControl<? extends EgoCurioItem>> curiosRendererFunction;
 
-	// 请不要使用该变量，这些仅用与生成国际化文本
+	//region ########## 请不要使用这些变量，这些仅用于生成国际化文本 ###################
+	@Nullable
 	@ApiStatus.Internal
-	private @Nullable Map<String, String> tooltipsI18nMap = new LinkedHashMap<>();
+	private Map<String, String> tooltipsI18nMap = new LinkedHashMap<>();
+	@Nullable
 	@ApiStatus.Internal
-	private @Nullable List<Function<String, MutableComponent>> tooltipsComponent;
+	private List<Function<String, MutableComponent>> tooltipsComponent;
+	@Nullable
 	@ApiStatus.Internal
-	private @Nullable List<String> tooltipsI18n;
+	private List<String> tooltipsI18n;
+	//endregion
 
-	public EgoCurioItem(Builder egoCurioBuilder) {
+	public EgoCurioItem(Builder<? extends EgoCurioItem> egoCurioBuilder) {
 		super(egoCurioBuilder.properties.component(LibDataComponents.IS_RESTRAIN, false)
 			.stacksTo(1)
 			.fireResistant());
@@ -68,11 +73,12 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		this.isEnderMask = egoCurioBuilder.isEnderMask;
 		if (FMLEnvironment.dist.isDedicatedServer()) {
 			this.model = null;
-			this.curiosRenderer = null;
+			this.curiosRendererControl = null;
 			this.curiosRendererFunction = null;
 		} else {
 			this.model = egoCurioBuilder.model;
-			this.curiosRendererFunction = egoCurioBuilder.curiosRenderer;
+			//noinspection unchecked
+			this.curiosRendererFunction = (Function<EgoCurioItem, CuriosRendererControl<? extends EgoCurioItem>>) (Function) egoCurioBuilder.curiosRenderer;
 		}
 
 		this.tooltipsI18n = egoCurioBuilder.tooltips;
@@ -101,6 +107,7 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		if (this.tooltipsI18n == null) {
 			return itemDescriptionId;
 		}
+
 		AtomicInteger tooltipComponentIndex = new AtomicInteger();
 		this.tooltipsI18n.forEach(tooltipValue -> {
 			int index = tooltipComponentIndex.get();
@@ -109,13 +116,16 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 			if (!FMLEnvironment.production && this.tooltipsI18nMap != null) {
 				this.tooltipsI18nMap.put(key, tooltipValue);
 			}
+
 			if (this.tooltipsComponent != null) {
 				this.tooltips.add(this.tooltipsComponent.get(index).apply(key));
 			}
 		});
+
 		if (FMLEnvironment.production && this.tooltipsI18nMap != null) {
 			this.tooltipsI18nMap = null;
 		}
+
 		this.tooltipsComponent = null;
 		this.tooltipsI18n = null;
 		return itemDescriptionId;
@@ -158,10 +168,11 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 	}
 
 	@Nullable
-	public GeoCurioModel<EgoCurioItem> getModel() {
+	public GeoCurioModel<? extends EgoCurioItem> getModel() {
 		return model;
 	}
 
+	@ApiStatus.Internal
 	public Map<String, String> getAndClearTooltipsI18nMap() {
 		Map<String, String> map = this.tooltipsI18nMap;
 		if (map == null) {
@@ -171,26 +182,26 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		return map;
 	}
 
-	public @Nullable BasicCuriosRenderer getCuriosRenderer() {
-		if (curiosRenderer != null) {
-			return curiosRenderer;
+	public @Nullable CuriosRendererControl<?> getCuriosRenderer() {
+		if (curiosRendererControl != null) {
+			return curiosRendererControl;
 		}
 		if (curiosRendererFunction == null) {
 			return null;
 		}
-		this.curiosRenderer = curiosRendererFunction.apply(this);
+		this.curiosRendererControl = curiosRendererFunction.apply(this);
 		this.curiosRendererFunction = null;
-		return curiosRenderer;
+		return curiosRendererControl;
 	}
 
-	public static class Builder {
+	public static class Builder<T extends EgoCurioItem> {
 		private final VirtueAttributeModifier.Builder virtueAddAttribute = new VirtueAttributeModifier.Builder();
 		private final List<String> tooltips = new ArrayList<>();
 		private final List<Function<String, MutableComponent>> tooltipsComponent = new ArrayList<>();
 		private boolean isEnderMask;
 		private Properties properties = new Properties();
-		private @Nullable GeoCurioModel<EgoCurioItem> model;
-		private @Nullable Function<EgoCurioItem, BasicCuriosRenderer> curiosRenderer;
+		private @Nullable GeoCurioModel<T> model;
+		private @Nullable Function<T, CuriosRendererControl<T>> curiosRenderer;
 
 		public Builder() {
 		}
@@ -200,7 +211,7 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		 *
 		 * @param maxHealth 最大生命值
 		 */
-		public Builder fortitude(int maxHealth) {
+		public Builder<T> fortitude(int maxHealth) {
 			this.virtueAddAttribute.fortitude(maxHealth);
 			return this;
 		}
@@ -210,7 +221,7 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		 *
 		 * @param maxRationality 最大理智
 		 */
-		public Builder prudence(int maxRationality) {
+		public Builder<T> prudence(int maxRationality) {
 			this.virtueAddAttribute.prudence(maxRationality);
 			return this;
 		}
@@ -224,7 +235,7 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		 * @param workSuccessRate 工作成功率
 		 * @param workSpeed       工作速度
 		 */
-		public Builder temperance(int blockBreakSpeed, int attackKnockback, int workSuccessRate, int workSpeed) {
+		public Builder<T> temperance(int blockBreakSpeed, int attackKnockback, int workSuccessRate, int workSpeed) {
 			this.virtueAddAttribute.temperance(blockBreakSpeed, attackKnockback, workSuccessRate, workSpeed);
 			return this;
 		}
@@ -236,7 +247,7 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		 * @param attackKnockback 攻击击退
 		 * @param workValue       工作成功率，工作速度
 		 */
-		public Builder temperance(int blockBreakSpeed, int attackKnockback, int workValue) {
+		public Builder<T> temperance(int blockBreakSpeed, int attackKnockback, int workValue) {
 			this.virtueAddAttribute.temperance(blockBreakSpeed, attackKnockback, workValue);
 			return this;
 		}
@@ -244,7 +255,7 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		/**
 		 * 自律
 		 */
-		public Builder temperance(int value) {
+		public Builder<T> temperance(int value) {
 			this.virtueAddAttribute.temperance(value);
 			return this;
 		}
@@ -256,7 +267,7 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		 * @param swimSpeed     游泳速度
 		 * @param attackSpeed   攻击速度
 		 */
-		public Builder justice(int movementSpeed, int swimSpeed, int attackSpeed) {
+		public Builder<T> justice(int movementSpeed, int swimSpeed, int attackSpeed) {
 			this.virtueAddAttribute.justice(movementSpeed, swimSpeed, attackSpeed);
 			return this;
 		}
@@ -267,7 +278,7 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		 * @param speed       移动速度，游泳速度
 		 * @param attackSpeed 攻击速度
 		 */
-		public Builder justice(int speed, int attackSpeed) {
+		public Builder<T> justice(int speed, int attackSpeed) {
 			this.virtueAddAttribute.justice(speed, attackSpeed);
 			return this;
 		}
@@ -275,25 +286,25 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		/**
 		 * 正义
 		 */
-		public Builder justice(int value) {
+		public Builder<T> justice(int value) {
 			this.virtueAddAttribute.justice(value);
 			return this;
 		}
 
-		public Builder modelPath(ResourceLocation modelRl) {
-			return modelPath(new GeoCurioModel<>(modelRl));
+		public Builder<T> model(ResourceLocation modelRl) {
+			return model(new GeoCurioModel<>(modelRl));
 		}
 
-		public Builder modelPath(GeoCurioModel<EgoCurioItem> model) {
+		public Builder<T> model(GeoCurioModel<T> model) {
 			if (FMLEnvironment.dist.isDedicatedServer()) {
 				return this;
 			}
 			this.model = model;
-			this.curiosRenderer = BasicCuriosRenderer::new;
+			this.curiosRenderer = CuriosRendererControl::new;
 			return this;
 		}
 
-		public Builder renderer(Function<EgoCurioItem, BasicCuriosRenderer> curiosRenderer) {
+		public Builder<T> rendererControl(Function<T, CuriosRendererControl<T>> curiosRenderer) {
 			if (FMLEnvironment.dist.isDedicatedServer()) {
 				return this;
 			}
@@ -301,36 +312,43 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 			return this;
 		}
 
-		public Builder properties(Properties properties) {
+		public Builder<T> renderer(Function<T, GeoArmorRenderer<T>> curiosRenderer) {
+			if (FMLEnvironment.dist.isDedicatedServer()) {
+				return this;
+			}
+			this.curiosRenderer = (item) -> new CuriosRendererControl<>(item, curiosRenderer.apply(item));
+			return this;
+		}
+
+		public Builder<T> properties(Properties properties) {
 			this.properties = properties;
 			return this;
 		}
 
-		public Builder enderMask() {
+		/**
+		 * 启用类似南瓜头的屏蔽末影人对视的作用
+		 */
+		public Builder<T> enderMask() {
 			this.isEnderMask = true;
 			return this;
 		}
 
-		public Builder addTooltip(String zhCn) {
+		public Builder<T> addTooltip(String zhCn) {
 			this.tooltips.add(zhCn);
 			this.tooltipsComponent.add(Component::translatable);
 			return this;
 		}
 
-		public Builder addTooltip(String zhCn, UnaryOperator<MutableComponent> component) {
+		public Builder<T> addTooltip(String zhCn, UnaryOperator<MutableComponent> component) {
 			this.tooltips.add(zhCn);
 			this.tooltipsComponent.add((key) -> component.apply(Component.translatable(key)));
 			return this;
 		}
 
-		public Builder addTooltip(String zhCn, Style style) {
+		public Builder<T> addTooltip(String zhCn, Style style) {
 			this.tooltips.add(zhCn);
 			this.tooltipsComponent.add((key) -> Component.translatable(key).setStyle(style));
 			return this;
-		}
-
-		public EgoCurioItem build() {
-			return new EgoCurioItem(this);
 		}
 	}
 }

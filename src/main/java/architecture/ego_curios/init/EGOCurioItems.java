@@ -1,5 +1,7 @@
 package architecture.ego_curios.init;
 
+import architecture.ego_curios.client.renderer.ComprehensionBackCuriosRenderer;
+import architecture.ego_curios.common.item.ComprehensionBackCurioItem;
 import architecture.ego_curios.common.item.EgoCurioItem;
 import architecture.ego_curios.core.EGOCurios;
 import architecture.ego_curios.core.EGOCuriosConstants;
@@ -23,7 +25,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> SYRINX = register(
 		"syrinx_curios", "泣婴", CuriosType.HEADWEAR,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(-2)
 			.prudence(-2)
 			.temperance(0)
@@ -32,7 +34,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> LAMP = register(
 		"lamp_curios", "目灯", CuriosType.HEADWEAR,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(3)
 			.prudence(0)
 			.temperance(3)
@@ -40,7 +42,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> HORNET = register(
 		"hornet_curios", "黄蜂", CuriosType.HEADWEAR,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(2)
 			.prudence(3)
 			.temperance(0)
@@ -48,7 +50,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> LAETITIA = register(
 		"laetitia_curios", "蕾蒂希娅", CuriosType.HEADWEAR,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(4)
 			.temperance(0)
@@ -56,7 +58,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> HEAVEN = register(
 		"heaven_curios", "穿刺极乐", CuriosType.HEADWEAR,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(4)
 			.prudence(0)
 			.temperance(2)
@@ -64,7 +66,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> DIFFRACTION = register(
 		"diffraction_curios", "虚无衍射体", CuriosType.HEADWEAR,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(6)
 			.temperance(0)
@@ -73,7 +75,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> DISCORD = register(
 		"discord_curios", "不和", CuriosType.HEADWEAR,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(-10)
 			.prudence(-10)
 			.temperance(0)
@@ -83,7 +85,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> PINK = register(
 		"pink_curios", "粉红军备", CuriosType.HEADWEAR,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(5)
 			.temperance(0)
@@ -92,7 +94,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> HYPOCRISY = register(
 		"hypocrisy_curios", "伪善", CuriosType.HEADWEAR,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(3)
 			.prudence(3)
 			.temperance(0)
@@ -100,7 +102,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> ADORATION = register(
 		"adoration_curios", "爱慕", CuriosType.HEADWEAR,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(5)
 			.prudence(10)
 			.temperance(-5)
@@ -111,7 +113,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> STANDARD_TRAINING_EGO = register(
 		"standard_training_ego_curios", "教学用E.G.O", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(2)
 			.prudence(2)
 			.temperance(0)
@@ -120,7 +122,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> PENITENCE = register(
 		"penitence_curios", "忏悔", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(2)
 			.temperance(0)
@@ -129,7 +131,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> IN_THE_NAME_OF_LOVE_AND_HATE = register(
 		"in_the_name_of_love_and_hate_curios", "以爱与恨之名", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(2)
@@ -138,7 +140,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> BEAR_PAWS = register(
 		"bear_paws_curios", "熊熊抱", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(4)
 			.temperance(0)
@@ -146,7 +148,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> HORN = register(
 		"horn_curios", "犄角", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(2)
 			.prudence(2)
 			.temperance(0)
@@ -154,7 +156,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> CHRISTMAS = register(
 		"christmas_curios", "悲惨圣诞", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(-4)
 			.prudence(8)
 			.temperance(0)
@@ -162,7 +164,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> FAINT_AROMA = register(
 		"faint_aroma_curios", "余香", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(0, 2, 0, 2)
@@ -170,7 +172,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> SHEEP_IS_CLOTHING = register(
 		"sheep_is_clothing_curios", "羊皮", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(9)
 			.prudence(-3)
 			.temperance(0)
@@ -179,7 +181,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> INSPIRED_BRAVERY_BLUE = register(
 		"inspired_bravery_blue_curios", "内在勇气", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(0)
@@ -188,7 +190,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> RECKLESS_FOOLISHNESS_BLUE = register(
 		"reckless_foolishness_blue_curios", "匹夫之勇", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(-5)
 			.temperance(0)
@@ -197,7 +199,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> RECKLESS_FOOLISHNESS_ORANGE = register(
 		"reckless_foolishness_orange_curios", "匹夫之勇", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(-10)
 			.temperance(0)
@@ -206,7 +208,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> RECKLESS_FOOLISHNESS_RED = register(
 		"reckless_foolishness_red_curios", "匹夫之勇", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(-20)
 			.temperance(0)
@@ -215,7 +217,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> BLACK_SWAN = register(
 		"black_swan_curios", "黑天鹅", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(-4)
 			.prudence(-4)
 			.temperance(10)
@@ -223,7 +225,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> ENGULFING_DREAM = register(
 		"engulfing_dream_curios", "迷魂梦境", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(4)
 			.temperance(0)
@@ -231,7 +233,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> CHERRY_BLOSSOMS = register(
 		"cherry_blossoms_curios", "落樱", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(2)
 			.temperance(0)
@@ -239,7 +241,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> FEATHER_OF_HONOR = register(
 		"feather_of_honor_curios", "荣耀之羽", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(2)
 			.temperance(0)
@@ -247,7 +249,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> SO_CUTE = register(
 		"so_cute_curios", "超特么可爱！！！", CuriosType.HEAD,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(4)
 			.prudence(0)
 			.temperance(-2)
@@ -258,7 +260,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> BENEDICTION = register(
 		"benediction_curios", "祝福", CuriosType.HINDBRAIN,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(6)
 			.prudence(6)
 			.temperance(6)
@@ -272,7 +274,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> COMPREHENSION_EYE = register(
 		"comprehension_eye_curios", "理解", CuriosType.EYE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(2)
 			.prudence(2)
 			.temperance(2)
@@ -280,7 +282,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> SOLITUDE = register(
 		"solitude_curios", "孤独", CuriosType.EYE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(3)
@@ -289,7 +291,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> DA_CAPO = register(
 		"da_capo_curios", "Da Capo", CuriosType.EYE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(4)
@@ -299,7 +301,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> GRINDER_MK4 = register(
 		"grinder_mk4_curios", "粉碎机Mk4", CuriosType.EYE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(4)
@@ -308,7 +310,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> RED_EYES = register(
 		"red_eyes_curios", "赤瞳", CuriosType.EYE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(3)
@@ -317,7 +319,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> JUSTITIA = register(
 		"justitia_curios", "正义裁决者", CuriosType.EYE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(0)
@@ -327,7 +329,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> SMILE = register(
 		"smile_curios", "笑靥", CuriosType.EYE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(5)
 			.prudence(5)
 			.temperance(0)
@@ -336,7 +338,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> CENSORED = register(
 		"censored_curios", "CENSORED", CuriosType.EYE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(10)
 			.temperance(0)
@@ -345,7 +347,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> TODAY_IS_EXPRESSION = register(
 		"today_is_expression_curios", "此刻的神色", CuriosType.EYE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(-2)
 			.temperance(4)
@@ -354,7 +356,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> SOUND_OF_A_STAR = register(
 		"sound_of_a_star_curios", "新星之声", CuriosType.EYE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder().fortitude(0)
+		new EgoCurioItem.Builder<>().fortitude(0)
 			.prudence(0)
 			.temperance(0)
 			.justice(10, 0)
@@ -362,7 +364,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> TOUGH = register(
 		"tough_curios", "谢顶之灾", CuriosType.EYE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(0)
@@ -373,7 +375,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> COBALT_SCAR = register(
 		"cobalt_scar_curios", "郁蓝创痕", CuriosType.FACE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(4)
 			.prudence(0)
 			.temperance(0)
@@ -385,7 +387,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> MIMICRY = register(
 		"mimicry_curios", "拟态", CuriosType.CHEEK,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(10)
 			.prudence(0)
 			.temperance(0)
@@ -395,7 +397,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> HARMONY = register(
 		"harmony_curios", "谐奏放射器", CuriosType.CHEEK,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(8)
 			.prudence(-4)
 			.temperance(0)
@@ -404,7 +406,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> THOSE_WHO_KNOW_THE_CRUELTY_OF_WINTER_AND_THE_AROMA_OF_ROSES = register(
 		"those_who_know_the_cruelty_of_winter_and_the_aroma_of_roses_curios", "我深知严冬的残酷...和玫瑰的芬芳...", CuriosType.CHEEK,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(6)
 			.prudence(6)
 			.temperance(0)
@@ -415,7 +417,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> THE_SWORD_SHARPENED_WITH_TEARS = register(
 		"the_sword_sharpened_with_tears_curios", "盈泪之剑", CuriosType.CHEEK,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(2)
 			.temperance(0)
@@ -426,7 +428,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> REGRET = register(
 		"regret_curios", "悔恨", CuriosType.MASK,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(2)
 			.prudence(2)
 			.temperance(0)
@@ -434,7 +436,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> CRIMSON_SCAR = register(
 		"crimson_scar_curios", "猩红创痕", CuriosType.MASK,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(2)
 			.prudence(0)
 			.temperance(0)
@@ -445,7 +447,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> FOURTH_MATCH_FLAME = register(
 		"fourth_match_flame_curios", "终末火柴之光", CuriosType.MOUTH,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(4)
 			.prudence(0)
 			.temperance(0)
@@ -454,7 +456,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> SANGUINE_DESIRE = register(
 		"sanguine_desire_curios", "血之渴望", CuriosType.MOUTH,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(4)
 			.prudence(0)
 			.temperance(0)
@@ -463,7 +465,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> SODA = register(
 		"soda_curios", "美味苏打", CuriosType.MOUTH,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(2)
 			.prudence(0)
 			.temperance(0)
@@ -472,8 +474,8 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> MAGIC_BULLET = register(
 		"magic_bullet_curios", "魔弹", CuriosType.MOUTH,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
-			.modelPath(EGOCurios.modRl("magic_bullet"))
+		new EgoCurioItem.Builder<>()
+			.model(EGOCurios.modRl("magic_bullet"))
 			.fortitude(-5)
 			.prudence(-5)
 			.temperance(0)
@@ -482,7 +484,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> ECSTASY = register(
 		"ecstasy_curios", "沉醉", CuriosType.MOUTH,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(5)
 			.prudence(0)
 			.temperance(0)
@@ -490,7 +492,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> LANTERN = register(
 		"lantern_curios", "诱捕幻灯", CuriosType.MOUTH,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(6)
 			.temperance(0)
@@ -502,7 +504,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> OUR_GALAXY = register(
 		"our_galaxy_curios", "小小银河", CuriosType.NECK,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(3)
@@ -511,7 +513,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> BEAK = register(
 		"beak_curios", "小喙", CuriosType.NECK,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(0)
@@ -519,7 +521,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> HARVEST = register(
 		"harvest_curios", "猎头长耙", CuriosType.NECK,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(4)
 			.temperance(0)
@@ -527,7 +529,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> PLEASURE = register(
 		"pleasure_curios", "因乐癫狂", CuriosType.NECK,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(10)
 			.temperance(-6)
@@ -539,7 +541,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> NOISE = register(
 		"noise_curios", "噪音", CuriosType.BROOCH,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(0)
@@ -548,7 +550,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> LOGGING = register(
 		"logging_curios", "伐木者", CuriosType.BROOCH,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(2)
 			.prudence(0)
 			.temperance(2)
@@ -557,7 +559,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> GREEN_STEM = register(
 		"green_stem_curios", "绿色枝干", CuriosType.BROOCH,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(6)
 			.temperance(0)
@@ -566,7 +568,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> FRAGMENTS_FROM_SOMEWHERE = register(
 		"fragments_from_somewhere_curios", "彼方的裂片", CuriosType.BROOCH,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(2)
@@ -574,7 +576,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> MOONLIGHT = register(
 		"moonlight_curios", "月光", CuriosType.BROOCH,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(1)
 			.prudence(1)
 			.temperance(1)
@@ -586,7 +588,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> GOLD_RUSH = register(
 		"gold_rush_curios", "闪金冲锋", CuriosType.HAND,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(6)
 			.prudence(0)
 			.temperance(0)
@@ -595,7 +597,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> AMITA = register(
 		"amita_curios", "无量", CuriosType.HAND,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(10)
 			.prudence(-4)
 			.temperance(0)
@@ -606,7 +608,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> WRIST_CUTTER = register(
 		"wrist_cutter_curios", "割腕者", CuriosType.GLOVE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(2)
@@ -614,7 +616,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> SPORE = register(
 		"spore_curios", "荧光菌孢", CuriosType.GLOVE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(5)
 			.temperance(2)
@@ -622,7 +624,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> EXUVIAE = register(
 		"exuviae_curios", "脱落之皮", CuriosType.GLOVE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(5)
 			.prudence(2)
 			.temperance(0)
@@ -630,7 +632,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> GAZE = register(
 		"gaze_curios", "凝视", CuriosType.GLOVE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(4)
 			.prudence(0)
 			.temperance(0)
@@ -638,7 +640,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> WINGBEAT = register(
 		"wingbeat_curios", "翅振", CuriosType.GLOVE,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(0)
 			.prudence(0)
 			.temperance(2)
@@ -649,11 +651,12 @@ public final class EGOCurioItems {
 	// TODO ALEPH等级的版本要区分效果
 	// TODO 理解 的数值需要调整
 	// TODO 实装效果
-	public static final DeferredItem<EgoCurioItem> COMPREHENSION_BACK = register(
+	public static final DeferredItem<ComprehensionBackCurioItem> COMPREHENSION_BACK = register(
 		"comprehension_back_curios", "理解", CuriosType.BACK,
-		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
-			.modelPath(EGOCurios.modRl("comprehension_back"))
+		ComprehensionBackCurioItem::new,
+		new EgoCurioItem.Builder<ComprehensionBackCurioItem>()
+			.model(EGOCurios.modRl("comprehension_back"))
+			.renderer(ComprehensionBackCuriosRenderer::new)
 			.fortitude(2)
 			.prudence(2)
 			.temperance(2)
@@ -661,7 +664,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> SOLEMN_LAMENT = register(
 		"solemn_lament_curios", "圣宣", CuriosType.BACK,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(2)
 			.prudence(2)
 			.temperance(2)
@@ -669,7 +672,7 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> THROUGH_THE_DARK_TWILIGHT = register(
 		"through_the_dark_twilight_curios", "破晓", CuriosType.BACK,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
+		new EgoCurioItem.Builder<>()
 			.fortitude(7)
 			.prudence(7)
 			.temperance(7)
@@ -679,8 +682,8 @@ public final class EGOCurioItems {
 	public static final DeferredItem<EgoCurioItem> PARADISE_LOST = register(
 		"paradise_lost_curios", "失乐园", CuriosType.BACK,
 		EgoCurioItem::new,
-		new EgoCurioItem.Builder()
-			.modelPath(EGOCurios.modRl("paradise_lost"))
+		new EgoCurioItem.Builder<>()
+			.model(EGOCurios.modRl("paradise_lost"))
 			.fortitude(10)
 			.prudence(10)
 			.temperance(0)
@@ -689,15 +692,15 @@ public final class EGOCurioItems {
 
 	private static <T extends EgoCurioItem> DeferredItem<T> register(
 		EntityType<?> entityType, String zhName, CuriosType type,
-		Function<EgoCurioItem.Builder, ? extends T> item,
-		EgoCurioItem.Builder builder) {
+		Function<EgoCurioItem.Builder<T>, ? extends T> item,
+		EgoCurioItem.Builder<T> builder) {
 		return register("%s_curios_%s".formatted(entityType.getDescriptionId(), type), zhName, type, item, builder);
 	}
 
 	private static <T extends EgoCurioItem> DeferredItem<T> register(
 		String id, String zhName, CuriosType type,
-		Function<EgoCurioItem.Builder, ? extends T> item,
-		EgoCurioItem.Builder builder) {
+		Function<EgoCurioItem.Builder<T>, ? extends T> item,
+		EgoCurioItem.Builder<T> builder) {
 		DeferredItem<T> deferredItem = REGISTRY.register(id, () -> item.apply(builder));
 		type.addCurio(deferredItem);
 		ZhCn.addI18nItemText(zhName, deferredItem);
@@ -705,19 +708,19 @@ public final class EGOCurioItems {
 	}
 
 	public enum CuriosType {
-		HEADWEAR("headwear", EGOCuriosConstants.EGO_CURIOS_HEADWEAR),
-		CHEEK("cheek", EGOCuriosConstants.EGO_CURIOS_CHEEK),
-		HEAD("head", EGOCuriosConstants.EGO_CURIOS_HEAD),
-		HINDBRAIN("hindbrain", EGOCuriosConstants.EGO_CURIOS_HINDBRAIN),
-		EYE("eye", EGOCuriosConstants.EGO_CURIOS_EYE),
-		FACE("face", EGOCuriosConstants.EGO_CURIOS_FACE),
-		MASK("mask", EGOCuriosConstants.EGO_CURIOS_MASK),
-		MOUTH("mouth", EGOCuriosConstants.EGO_CURIOS_MOUTH),
-		NECK("neck", EGOCuriosConstants.EGO_CURIOS_NECK),
-		BROOCH("brooch", EGOCuriosConstants.EGO_CURIOS_NECK),
-		HAND("hand", EGOCuriosConstants.EGO_CURIOS_HAND),
-		GLOVE("glove", EGOCuriosConstants.EGO_CURIOS_GLOVE),
-		BACK("back", EGOCuriosConstants.EGO_CURIOS_BACK),
+		HEADWEAR("headwear", EGOCuriosConstants.EGO_CURIOS_HEADWEAR_SET),
+		CHEEK("cheek", EGOCuriosConstants.EGO_CURIOS_CHEEK_SET),
+		HEAD("head", EGOCuriosConstants.EGO_CURIOS_HEAD_SET),
+		HINDBRAIN("hindbrain", EGOCuriosConstants.EGO_CURIOS_HINDBRAIN_SET),
+		EYE("eye", EGOCuriosConstants.EGO_CURIOS_EYE_SET),
+		FACE("face", EGOCuriosConstants.EGO_CURIOS_FACE_SET),
+		MASK("mask", EGOCuriosConstants.EGO_CURIOS_MASK_SET),
+		MOUTH("mouth", EGOCuriosConstants.EGO_CURIOS_MOUTH_SET),
+		NECK("neck", EGOCuriosConstants.EGO_CURIOS_NECK_SET),
+		BROOCH("brooch", EGOCuriosConstants.EGO_CURIOS_NECK_SET),
+		HAND("hand", EGOCuriosConstants.EGO_CURIOS_HAND_SET),
+		GLOVE("glove", EGOCuriosConstants.EGO_CURIOS_GLOVE_SET),
+		BACK("back", EGOCuriosConstants.EGO_CURIOS_BACK_SET),
 		;
 		private final String name;
 		private final Set<DeferredItem<? extends Item>> set;

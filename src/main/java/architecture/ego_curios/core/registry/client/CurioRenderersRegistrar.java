@@ -1,6 +1,6 @@
 package architecture.ego_curios.core.registry.client;
 
-import architecture.ego_curios.client.renderer.curios.BasicCuriosRenderer;
+import architecture.ego_curios.client.renderer.CuriosRendererControl;
 import architecture.ego_curios.common.item.EgoCurioItem;
 import architecture.ego_curios.core.EGOCurios;
 import architecture.ego_curios.init.EGOCurioItems;
@@ -31,8 +31,8 @@ public final class CurioRenderersRegistrar {
 			return;
 		}
 		CuriosRendererRegistry.register(item, () -> {
-			BasicCuriosRenderer curiosRenderer = item.getCuriosRenderer();
-			return curiosRenderer == null ? new BasicCuriosRenderer(item) : curiosRenderer;
+			CuriosRendererControl<?> curiosRendererControl = item.getCuriosRenderer();
+			return curiosRendererControl == null ? new CuriosRendererControl<>(item) : curiosRendererControl;
 		});
 	}
 }
