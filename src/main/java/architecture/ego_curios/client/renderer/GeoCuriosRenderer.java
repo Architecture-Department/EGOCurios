@@ -1,5 +1,6 @@
 package architecture.ego_curios.client.renderer;
 
+import architecture.ego_curios.common.item.EgoCurioItem;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.Entity;
@@ -14,8 +15,8 @@ import top.theillusivec4.curios.api.SlotContext;
 public class GeoCuriosRenderer<T extends Item & GeoItem> extends GeoArmorRenderer<T> {
 	protected SlotContext slotContext;
 
-	public GeoCuriosRenderer(T armorItem) {
-		super(armorItem);
+	public GeoCuriosRenderer(EgoCurioItem armorItem) {
+		super((GeoModel<T>) armorItem.getModel());
 	}
 
 	public GeoCuriosRenderer(GeoModel<T> model) {

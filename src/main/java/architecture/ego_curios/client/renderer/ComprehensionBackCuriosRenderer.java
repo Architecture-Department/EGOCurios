@@ -40,15 +40,26 @@ public class ComprehensionBackCuriosRenderer extends GeoCuriosRenderer<Comprehen
 		super.prepForRender(slotContext, entity, stack, slot, baseModel, bufferSource, partialTick, limbSwing, limbSwingAmount, netHeadYaw, headPitch);
 		switch (slotContext.identifier()) {
 			case EGOCuriosConstants.EGO_CURIOS_LEFT_BACK -> {
-				rightUpperTentacleRoot.setHidden(true);
-				rightMiddleTentacleRoot.setHidden(true);
-				rightLowerTentacleRoot.setHidden(true);
+				setBoneVisible(rightUpperTentacleRoot, false);
+				setBoneVisible(rightMiddleTentacleRoot, false);
+				setBoneVisible(rightLowerTentacleRoot, false);
 			}
 			case EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK -> {
-				leftUpperTentacleRoot.setHidden(true);
-				leftMiddleTentacleRoot.setHidden(true);
-				leftLowerTentacleRoot.setHidden(true);
+				setBoneVisible(leftUpperTentacleRoot, false);
+				setBoneVisible(leftMiddleTentacleRoot, false);
+				setBoneVisible(leftLowerTentacleRoot, false);
 			}
 		}
+	}
+
+	@Override
+	public void doPostRenderCleanup() {
+		super.doPostRenderCleanup();
+		setBoneVisible(rightUpperTentacleRoot, true);
+		setBoneVisible(rightMiddleTentacleRoot, true);
+		setBoneVisible(rightLowerTentacleRoot, true);
+		setBoneVisible(leftUpperTentacleRoot, true);
+		setBoneVisible(leftMiddleTentacleRoot, true);
+		setBoneVisible(leftLowerTentacleRoot, true);
 	}
 }
