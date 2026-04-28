@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 // TODO 可能需要给饰品添加等级
-public final class EGOCurioItems {
+public final class EGOCuriosItems {
 	public static final DeferredRegister.Items REGISTRY = DeferredRegister.createItems(EGOCurios.ID);
 
 	//region 头饰
@@ -132,6 +132,7 @@ public final class EGOCurioItems {
 		"in_the_name_of_love_and_hate_curios", "以爱与恨之名", CuriosType.HEAD,
 		EgoCurioItem::new,
 		new EgoCurioItem.Builder<>()
+			.model(EGOCurios.modRl("in_the_name_of_love_and_hate"))
 			.fortitude(0)
 			.prudence(0)
 			.temperance(2)

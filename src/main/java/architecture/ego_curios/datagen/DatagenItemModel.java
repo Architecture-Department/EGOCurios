@@ -1,7 +1,7 @@
 package architecture.ego_curios.datagen;
 
 import architecture.ego_curios.core.EGOCurios;
-import architecture.ego_curios.init.EGOCurioItems;
+import architecture.ego_curios.init.EGOCuriosItems;
 import architecture.goldenboughs_lib.mixed.client.IModelBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -38,7 +38,7 @@ public final class DatagenItemModel extends ItemModelProvider {
 
 	@Override
 	protected void registerModels() {
-		withExistingParent(EGOCurioItems.REGISTRY, "item/curios/");
+		withExistingParent(EGOCuriosItems.REGISTRY, "item/curios/");
 	}
 
 	private ResourceLocation extendWithFolder(ResourceLocation rl) {

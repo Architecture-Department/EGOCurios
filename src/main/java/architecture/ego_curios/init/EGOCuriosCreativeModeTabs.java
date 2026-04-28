@@ -22,8 +22,8 @@ public final class EGOCuriosCreativeModeTabs {
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EGO_CURIOS = register(
 		"ego_curios", "E.G.O饰品", (name, zhCn) ->
 			createCreativeModeTab(name, zhCn, (parameters, output) ->
-				addRegistryItem(EGOCurioItems.REGISTRY, output), () ->
-				EGOCurioItems.BENEDICTION.get().getDefaultInstance()));
+				addRegistryItem(EGOCuriosItems.REGISTRY, output), () ->
+				EGOCuriosItems.BENEDICTION.get().getDefaultInstance()));
 
 	private static DeferredHolder<CreativeModeTab, CreativeModeTab> register(
 		String name,

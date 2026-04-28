@@ -1,8 +1,20 @@
 package architecture.ego_curios.common.item;
 
+import architecture.ego_curios.core.EGOCuriosConstants;
+import architecture.ego_curios.init.EGOCuriosAttachments;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
+import top.theillusivec4.curios.api.SlotContext;
 
 /**
  * 理解 后背 饰品
@@ -10,15 +22,159 @@ import software.bernie.geckolib.animation.PlayState;
 public class ComprehensionBackCurioItem extends EgoCurioItem {
 	public ComprehensionBackCurioItem(Builder<ComprehensionBackCurioItem> egoCurioBuilder) {
 		super(egoCurioBuilder);
+		GeoItem.registerSyncedAnimatable(this);
 	}
 
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 		super.registerControllers(controllers);
-		controllers.add(
-			new AnimationController<>(this, "controller", 20, (a) -> {
-				return PlayState.STOP;
-			})
-		);
+		var idle = new AnimationController<>(this, "idle", (state) -> {
+			if (state.isCurrentAnimationStage("idle")) {
+				return PlayState.CONTINUE;
+			}
+			return state.getController().tryTriggerAnimation("idle") ? PlayState.CONTINUE : PlayState.STOP;
+		});
+		idle.triggerableAnim("idle", RawAnimation.begin().thenPlay("idle"));
+
+		var attack = new AnimationController<>(this, "attack", 4, (state) -> PlayState.STOP);
+		attack.triggerableAnim("left_upper_attack", RawAnimation.begin().thenPlay("left_upper_attack"));
+		attack.triggerableAnim("left_middle_attack", RawAnimation.begin().thenPlay("left_middle_attack"));
+		attack.triggerableAnim("left_lower_attack", RawAnimation.begin().thenPlay("left_lower_attack"));
+		attack.triggerableAnim("right_upper_attack", RawAnimation.begin().thenPlay("right_upper_attack"));
+		attack.triggerableAnim("right_middle_attack", RawAnimation.begin().thenPlay("right_middle_attack"));
+		attack.triggerableAnim("right_lower_attack", RawAnimation.begin().thenPlay("right_lower_attack"));
+
+		controllers.add(attack, idle);
+	}
+
+	@Override
+	public void onUnequip(SlotContext slotContext, ItemStack newStackInSlot, ItemStack stackBeingUnequipped) {
+		super.onUnequip(slotContext, newStackInSlot, stackBeingUnequipped);
+		LivingEntity entity = slotContext.entity();
+		if (!(entity.level() instanceof ServerLevel serverLevel)) {
+			return;
+		}
+
+		entity.removeData(EGOCuriosAttachments.COMPREHENSION_BACK_CURIO_ITEM_ATTACK_LOGIC);
+	}
+
+	@Override
+	public void onEquip(SlotContext slotContext, ItemStack previousStack, ItemStack stackBeingEquipped) {
+		super.onEquip(slotContext, previousStack, stackBeingEquipped);
+		LivingEntity entity = slotContext.entity();
+		if (!(entity.level() instanceof ServerLevel serverLevel)) {
+			return;
+		}
+		String identifier = slotContext.identifier();
+		switch (identifier) {
+			case EGOCuriosConstants.EGO_CURIOS_LEFT_BACK ->
+				entity.setData(EGOCuriosAttachments.COMPREHENSION_BACK_CURIO_ITEM_ATTACK_LOGIC, new AttackLogic(entity, stackBeingEquipped, true));
+			case EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK ->
+				entity.setData(EGOCuriosAttachments.COMPREHENSION_BACK_CURIO_ITEM_ATTACK_LOGIC, new AttackLogic(entity, stackBeingEquipped, false));
+		}
+	}
+
+	public static class AttackLogic {
+		private final LivingEntity entity;
+		private final ItemStack itemStack;
+		private final boolean isLeft;
+		private @Nullable LivingEntity lastHurtByMob;
+		private @Nullable LivingEntity lastHurtMob;
+		private int tickCount;
+		private int upperTickCount;
+		private int middleTickCount;
+		private int lowerTickCount;
+
+		public AttackLogic(LivingEntity entity, ItemStack itemStack, boolean isLeft) {
+			this.entity = entity;
+			this.itemStack = itemStack;
+			this.isLeft = isLeft;
+		}
+
+		public void tick() {
+			if (tickCount % 10 == 0) {
+				lastHurtByMob = isTarget(entity.getLastHurtByMob());
+				lastHurtMob = isTarget(entity.getLastHurtMob());
+			}
+			RandomSource random = entity.getRandom();
+
+			tickCount++;
+
+			if (upperTickCount > 0) {
+				upperTickCount--;
+			} else {
+				if (random.nextBoolean() && getTarget() != null) {
+					upperTickCount = random.nextInt(35, 50);
+					upperAttack();
+				}
+			}
+
+			if (middleTickCount > 0) {
+				middleTickCount--;
+			} else {
+				if (random.nextBoolean() && getTarget() != null) {
+					middleTickCount = random.nextInt(35, 50);
+					middleAttack();
+				}
+			}
+
+			if (lowerTickCount > 0) {
+				lowerTickCount--;
+			} else {
+				if (random.nextBoolean() && getTarget() != null) {
+					lowerTickCount = random.nextInt(35, 50);
+					lowerAttack();
+				}
+			}
+		}
+
+		public void upperAttack() {
+			play(isLeft ? "left_upper_attack" : "right_upper_attack");
+		}
+
+		public void middleAttack() {
+			play(isLeft ? "left_middle_attack" : "right_middle_attack");
+		}
+
+		public void lowerAttack() {
+			play(isLeft ? "left_lower_attack" : "right_lower_attack");
+		}
+
+		private void play(String animation) {
+			Item item = itemStack.getItem();
+			if (!(item instanceof GeoItem geoItem)) {
+				return;
+			}
+			if (!(entity.level() instanceof ServerLevel serverLevel)) {
+				return;
+			}
+
+			AnimatableManager<GeoAnimatable> manager = geoItem.getAnimatableInstanceCache()
+				.getManagerForId(GeoItem.getOrAssignId(itemStack, serverLevel));
+			manager.tryTriggerAnimation("attack", animation);
+		}
+
+		private LivingEntity isTarget(LivingEntity entity) {
+			if (entity == null || !entity.isAlive() || entity.isRemoved()) {
+				return null;
+			}
+			return entity;
+		}
+
+		public @Nullable LivingEntity getTarget() {
+			if (isTarget(lastHurtByMob) != null && distanceToSqr(lastHurtByMob)) {
+				return lastHurtByMob;
+			}
+
+			if (isTarget(lastHurtMob) != null && distanceToSqr(lastHurtMob)) {
+				return lastHurtMob;
+			}
+
+			return null;
+		}
+
+		private boolean distanceToSqr(LivingEntity entity) {
+			return entity.distanceToSqr(entity) < 2.6f;
+		}
 	}
 }

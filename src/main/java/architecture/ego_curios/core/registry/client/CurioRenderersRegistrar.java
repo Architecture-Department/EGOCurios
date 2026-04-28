@@ -3,7 +3,7 @@ package architecture.ego_curios.core.registry.client;
 import architecture.ego_curios.client.renderer.CuriosRendererControl;
 import architecture.ego_curios.common.item.EgoCurioItem;
 import architecture.ego_curios.core.EGOCurios;
-import architecture.ego_curios.init.EGOCurioItems;
+import architecture.ego_curios.init.EGOCuriosItems;
 import net.minecraft.world.item.Item;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -19,7 +19,7 @@ public final class CurioRenderersRegistrar {
 	 */
 	@SubscribeEvent
 	public static void onClientSetup(FMLClientSetupEvent event) {
-		for (DeferredHolder<Item, ? extends Item> itemDeferredHolder : EGOCurioItems.REGISTRY.getEntries()) {
+		for (DeferredHolder<Item, ? extends Item> itemDeferredHolder : EGOCuriosItems.REGISTRY.getEntries()) {
 			if (itemDeferredHolder.get() instanceof EgoCurioItem egoCurioItem) {
 				register(egoCurioItem);
 			}

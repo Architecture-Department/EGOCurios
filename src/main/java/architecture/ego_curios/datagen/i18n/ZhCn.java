@@ -3,7 +3,7 @@ package architecture.ego_curios.datagen.i18n;
 import architecture.ego_curios.common.item.EgoCurioItem;
 import architecture.ego_curios.core.EGOCurios;
 import architecture.ego_curios.core.EGOCuriosConstants;
-import architecture.ego_curios.init.EGOCurioItems;
+import architecture.ego_curios.init.EGOCuriosItems;
 import architecture.ego_curios.init.tag.CuriosItemTags;
 import architecture.goldenboughs_lib.datagen.i18n.DatagenI18n;
 import net.minecraft.data.PackOutput;
@@ -44,7 +44,7 @@ public final class ZhCn extends DatagenI18n {
 		MAP.forEach(this::add);
 
 		// 饰品描述
-		EGOCurioItems.REGISTRY.getEntries().stream()
+		EGOCuriosItems.REGISTRY.getEntries().stream()
 			.map(DeferredHolder::get)
 			.filter(EgoCurioItem.class::isInstance)
 			.map(EgoCurioItem.class::cast)

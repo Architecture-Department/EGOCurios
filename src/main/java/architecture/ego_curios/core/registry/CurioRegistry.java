@@ -1,10 +1,12 @@
 package architecture.ego_curios.core.registry;
 
 import architecture.ego_curios.core.EGOCuriosConstants;
+import architecture.ego_curios.init.EGOCuriosItems;
 import architecture.ego_curios.init.tag.CuriosItemTags;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import static top.theillusivec4.curios.api.CuriosApi.registerCurioPredicate;
@@ -29,7 +31,15 @@ public final class CurioRegistry {
 		createValidators(EGOCuriosConstants.EGO_CURIOS_GLOVE_VALIDATOR, CuriosItemTags.EGO_CURIOS_GLOVE);
 		registerCurioPredicate(EGOCuriosConstants.EGO_CURIOS_LEFT_BACK_VALIDATOR,
 			(slotResult) -> {
-				if (!slotResult.stack().is(CuriosItemTags.EGO_CURIOS_BACK)) {
+				ItemStack stack = slotResult.stack();
+				var item = stack.getItem();
+				// 跳过重复检查
+				// TODO 扩展成tag的形式
+				if (item == EGOCuriosItems.COMPREHENSION_BACK.get()) {
+					return true;
+				}
+
+				if (!stack.is(CuriosItemTags.EGO_CURIOS_BACK)) {
 					return false;
 				}
 
@@ -38,7 +48,6 @@ public final class CurioRegistry {
 					return false;
 				}
 
-				var item = slotResult.stack().getItem();
 				for (var a : curiosInventory.get().findCurios(item)) {
 					if (a.slotContext().identifier().equals(EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK)) {
 						return false;
@@ -48,7 +57,15 @@ public final class CurioRegistry {
 			});
 		registerCurioPredicate(EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK_VALIDATOR,
 			(slotResult) -> {
-				if (!slotResult.stack().is(CuriosItemTags.EGO_CURIOS_BACK)) {
+				ItemStack stack = slotResult.stack();
+				var item = stack.getItem();
+				// 跳过重复检查
+				// TODO 扩展成tag的形式
+				if (item == EGOCuriosItems.COMPREHENSION_BACK.get()) {
+					return true;
+				}
+
+				if (!stack.is(CuriosItemTags.EGO_CURIOS_BACK)) {
 					return false;
 				}
 
@@ -57,7 +74,6 @@ public final class CurioRegistry {
 					return false;
 				}
 
-				var item = slotResult.stack().getItem();
 				for (var a : curiosInventory.get().findCurios(item)) {
 					if (a.slotContext().identifier().equals(EGOCuriosConstants.EGO_CURIOS_LEFT_BACK)) {
 						return false;
