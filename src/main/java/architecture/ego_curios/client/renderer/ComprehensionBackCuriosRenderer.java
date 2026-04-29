@@ -1,7 +1,6 @@
 package architecture.ego_curios.client.renderer;
 
 import architecture.ego_curios.common.item.ComprehensionBackCurioItem;
-import architecture.ego_curios.core.EGOCuriosConstants;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.Entity;
@@ -27,29 +26,30 @@ public class ComprehensionBackCuriosRenderer extends GeoCuriosRenderer<Comprehen
 	@Override
 	protected void grabRelevantBones(BakedGeoModel bakedModel) {
 		super.grabRelevantBones(bakedModel);
-		leftUpperTentacleRoot = bakedModel.getBone("left_upper_tentacle_root").orElse(null);
-		leftMiddleTentacleRoot = bakedModel.getBone("left_middle_tentacle_root").orElse(null);
-		leftLowerTentacleRoot = bakedModel.getBone("left_lower_tentacle_root").orElse(null);
-		rightUpperTentacleRoot = bakedModel.getBone("right_upper_tentacle_root").orElse(null);
-		rightMiddleTentacleRoot = bakedModel.getBone("right_middle_tentacle_root").orElse(null);
-		rightLowerTentacleRoot = bakedModel.getBone("right_lower_tentacle_root").orElse(null);
+		// 因为模型搞反了，所以这里需要搞反
+		rightUpperTentacleRoot = bakedModel.getBone("left_upper_tentacle_root").orElse(null);
+		rightMiddleTentacleRoot = bakedModel.getBone("left_middle_tentacle_root").orElse(null);
+		rightLowerTentacleRoot = bakedModel.getBone("left_lower_tentacle_root").orElse(null);
+		leftUpperTentacleRoot = bakedModel.getBone("right_upper_tentacle_root").orElse(null);
+		leftMiddleTentacleRoot = bakedModel.getBone("right_middle_tentacle_root").orElse(null);
+		leftLowerTentacleRoot = bakedModel.getBone("right_lower_tentacle_root").orElse(null);
 	}
 
 	@Override
 	public void prepForRender(SlotContext slotContext, Entity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> baseModel, MultiBufferSource bufferSource, float partialTick, float limbSwing, float limbSwingAmount, float netHeadYaw, float headPitch) {
 		super.prepForRender(slotContext, entity, stack, slot, baseModel, bufferSource, partialTick, limbSwing, limbSwingAmount, netHeadYaw, headPitch);
-		switch (slotContext.identifier()) {
-			case EGOCuriosConstants.EGO_CURIOS_LEFT_BACK -> {
-				setBoneVisible(rightUpperTentacleRoot, false);
-				setBoneVisible(rightMiddleTentacleRoot, false);
-				setBoneVisible(rightLowerTentacleRoot, false);
-			}
-			case EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK -> {
-				setBoneVisible(leftUpperTentacleRoot, false);
-				setBoneVisible(leftMiddleTentacleRoot, false);
-				setBoneVisible(leftLowerTentacleRoot, false);
-			}
-		}
+//		switch (slotContext.identifier()) {
+//			case EGOCuriosConstants.EGO_CURIOS_LEFT_BACK -> {
+//				setBoneVisible(rightUpperTentacleRoot, false);
+//				setBoneVisible(rightMiddleTentacleRoot, false);
+//				setBoneVisible(rightLowerTentacleRoot, false);
+//			}
+//			case EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK -> {
+//				setBoneVisible(leftUpperTentacleRoot, false);
+//				setBoneVisible(leftMiddleTentacleRoot, false);
+//				setBoneVisible(leftLowerTentacleRoot, false);
+//			}
+//		}
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package architecture.ego_curios.common.item;
 
+import architecture.ego_curios.api.AttackLogicHolder;
+import architecture.ego_curios.core.EGOCurios;
 import architecture.ego_curios.core.EGOCuriosConstants;
 import architecture.ego_curios.init.EGOCuriosAttachments;
 import net.minecraft.server.level.ServerLevel;
@@ -29,24 +31,20 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 		super.registerControllers(controllers);
-		var idle = new AnimationController<>(this, "idle", 4, (state) -> {
+		controllers.add(new AnimationController<>(this, "idle", 4, (state) -> {
 			if (state.isCurrentAnimationStage("idle")) {
 				return PlayState.CONTINUE;
 			}
 			return state.getController().tryTriggerAnimation("idle") ? PlayState.CONTINUE : PlayState.STOP;
-		});
-		idle.triggerableAnim("idle", RawAnimation.begin().thenPlay("idle"));
+		}).triggerableAnim("idle", RawAnimation.begin().thenPlay("idle")));
 
-
-		var attack = new AnimationController<>(this, "attack", 4, (state) -> PlayState.STOP);
-		attack.triggerableAnim("left_upper_attack", RawAnimation.begin().thenPlay("left_upper_attack"));
-		attack.triggerableAnim("left_middle_attack", RawAnimation.begin().thenPlay("left_middle_attack"));
-		attack.triggerableAnim("left_lower_attack", RawAnimation.begin().thenPlay("left_lower_attack"));
-		attack.triggerableAnim("right_upper_attack", RawAnimation.begin().thenPlay("right_upper_attack"));
-		attack.triggerableAnim("right_middle_attack", RawAnimation.begin().thenPlay("right_middle_attack"));
-		attack.triggerableAnim("right_lower_attack", RawAnimation.begin().thenPlay("right_lower_attack"));
-
-		controllers.add(idle, attack);
+		controllers.add(new AnimationController<>(this, "attack", 4, (state) -> PlayState.STOP)
+			.triggerableAnim("left_upper_attack", RawAnimation.begin().thenPlay("left_upper_attack"))
+			.triggerableAnim("left_middle_attack", RawAnimation.begin().thenPlay("left_middle_attack"))
+			.triggerableAnim("left_lower_attack", RawAnimation.begin().thenPlay("left_lower_attack"))
+			.triggerableAnim("right_upper_attack", RawAnimation.begin().thenPlay("right_upper_attack"))
+			.triggerableAnim("right_middle_attack", RawAnimation.begin().thenPlay("right_middle_attack"))
+			.triggerableAnim("right_lower_attack", RawAnimation.begin().thenPlay("right_lower_attack")));
 	}
 
 	@Override
@@ -57,7 +55,12 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 			return;
 		}
 
-		entity.removeData(EGOCuriosAttachments.COMPREHENSION_BACK_CURIO_ITEM_ATTACK_LOGIC);
+		String identifier = slotContext.identifier();
+		AttackLogicHolder data = entity.getData(EGOCuriosAttachments.ATTACK_LOGIC_HOLDER);
+		switch (identifier) {
+			case EGOCuriosConstants.EGO_CURIOS_LEFT_BACK -> data.remove(EGOCurios.modRl(getDescriptionId() + ".left_back"));
+			case EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK -> data.remove(EGOCurios.modRl(getDescriptionId() + ".right_back"));
+		}
 	}
 
 	@Override
@@ -68,15 +71,16 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 			return;
 		}
 		String identifier = slotContext.identifier();
+		AttackLogicHolder data = entity.getData(EGOCuriosAttachments.ATTACK_LOGIC_HOLDER);
 		switch (identifier) {
 			case EGOCuriosConstants.EGO_CURIOS_LEFT_BACK ->
-				entity.setData(EGOCuriosAttachments.COMPREHENSION_BACK_CURIO_ITEM_ATTACK_LOGIC, new AttackLogic(entity, stackBeingEquipped, true));
+				data.add(EGOCurios.modRl(getDescriptionId() + ".left_back"), new AttackLogic(entity, stackBeingEquipped, true));
 			case EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK ->
-				entity.setData(EGOCuriosAttachments.COMPREHENSION_BACK_CURIO_ITEM_ATTACK_LOGIC, new AttackLogic(entity, stackBeingEquipped, false));
+				data.add(EGOCurios.modRl(getDescriptionId() + ".right_back"), new AttackLogic(entity, stackBeingEquipped, false));
 		}
 	}
 
-	public static class AttackLogic {
+	public static class AttackLogic implements AttackLogicHolder.IAttackLogic {
 		private final LivingEntity entity;
 		private final ItemStack itemStack;
 		private final boolean isLeft;
@@ -93,6 +97,7 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 			this.isLeft = isLeft;
 		}
 
+		@Override
 		public void tick() {
 			if (tickCount % 10 == 0) {
 				lastHurtByMob = isTarget(entity.getLastHurtByMob());
@@ -106,7 +111,7 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 				upperTickCount--;
 			} else {
 				if (random.nextBoolean() && getTarget() != null) {
-					upperTickCount = random.nextInt(35, 50);
+					upperTickCount = getUpperTickCount(random);
 					upperAttack();
 				}
 			}
@@ -115,7 +120,7 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 				middleTickCount--;
 			} else {
 				if (random.nextBoolean() && getTarget() != null) {
-					middleTickCount = random.nextInt(35, 50);
+					middleTickCount = getUpperTickCount(random);
 					middleAttack();
 				}
 			}
@@ -124,10 +129,15 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 				lowerTickCount--;
 			} else {
 				if (random.nextBoolean() && getTarget() != null) {
-					lowerTickCount = random.nextInt(35, 50);
+					lowerTickCount = getUpperTickCount(random);
 					lowerAttack();
 				}
 			}
+		}
+
+		private static int getUpperTickCount(RandomSource random) {
+//			return random.nextInt(35, 50);
+			return 5;
 		}
 
 		public void upperAttack() {
@@ -144,17 +154,14 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 
 		private void play(String animation) {
 			Item item = itemStack.getItem();
-			if (!(item instanceof GeoItem geoItem)) {
-				return;
-			}
-			if (!(entity.level() instanceof ServerLevel serverLevel)) {
+			if (!(item instanceof GeoItem geoItem) || !(entity.level() instanceof ServerLevel serverLevel)) {
 				return;
 			}
 
-			geoItem.triggerArmorAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
 			geoItem.triggerAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
-			geoItem.stopTriggeredArmorAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
 			geoItem.stopTriggeredAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
+			geoItem.triggerArmorAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
+			geoItem.stopTriggeredArmorAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
 		}
 
 		private LivingEntity isTarget(LivingEntity entity) {

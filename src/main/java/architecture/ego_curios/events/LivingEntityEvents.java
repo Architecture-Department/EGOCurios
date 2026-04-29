@@ -17,7 +17,7 @@ public final class LivingEntityEvents {
 		Entity entity = event.getEntity();
 		if (entity.isAlive()) {
 			if (entity instanceof LivingEntity) {
-				var comprehensionBackCurioItemAttackLogic = entity.getExistingDataOrNull(EGOCuriosAttachments.COMPREHENSION_BACK_CURIO_ITEM_ATTACK_LOGIC);
+				var comprehensionBackCurioItemAttackLogic = entity.getExistingDataOrNull(EGOCuriosAttachments.ATTACK_LOGIC_HOLDER);
 				if (comprehensionBackCurioItemAttackLogic != null) {
 					comprehensionBackCurioItemAttackLogic.tick();
 				}

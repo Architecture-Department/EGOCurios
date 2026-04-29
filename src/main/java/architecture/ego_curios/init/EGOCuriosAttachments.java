@@ -1,8 +1,9 @@
 package architecture.ego_curios.init;
 
-import architecture.ego_curios.common.item.ComprehensionBackCurioItem;
+import architecture.ego_curios.api.AttackLogicHolder;
 import architecture.ego_curios.core.EGOCurios;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.attachment.IAttachmentHolder;
@@ -18,8 +19,13 @@ import java.util.function.Supplier;
 public final class EGOCuriosAttachments {
 	public static final DeferredRegister<AttachmentType<?>> REGISTRY = EGOCurios.modRegister(NeoForgeRegistries.ATTACHMENT_TYPES);
 
-	public static final DeferredHolder<AttachmentType<?>, AttachmentType<ComprehensionBackCurioItem.AttackLogic>> COMPREHENSION_BACK_CURIO_ITEM_ATTACK_LOGIC = register("comprehension_back_curio_item_attack_logic",
-		AttachmentType.builder(() -> null));
+	public static final DeferredHolder<AttachmentType<?>, AttachmentType<AttackLogicHolder>> ATTACK_LOGIC_HOLDER = register("attack_logic_holder",
+		AttachmentType.builder((attachmentHolder) -> {
+			if (!(attachmentHolder instanceof LivingEntity livingEntity)) {
+				throw new IllegalArgumentException("Attachment holder must be a LivingEntity");
+			}
+			return new AttackLogicHolder(livingEntity);
+		}));
 
 	private static <T> @NotNull DeferredHolder<AttachmentType<?>, AttachmentType<T>> registerPlayer(
 		final String name,

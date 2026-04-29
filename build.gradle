@@ -3,10 +3,13 @@ plugins {
 	id 'maven-publish'
 	id 'net.neoforged.moddev' version '2.0.141'
 	id 'idea'
+
+	id 'org.jetbrains.kotlin.jvm' version '2.2.20'
 }
 
 var projectName = [
 		"GoldenBoughsLib",
+		"ResonatorCombatFramework",
 ]
 
 version = mod_version
@@ -201,7 +204,7 @@ dependencies {
 	implementation "maven.modrinth:moonlight:${moonlight_version}"
 
 	// Kotlin
-//	implementation "thedarkcolour:kotlinforforge-neoforge:${kff_version}"
+	implementation "thedarkcolour:kotlinforforge-neoforge:${kff_version}"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
