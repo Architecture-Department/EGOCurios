@@ -35,6 +35,20 @@ public class CuriosRendererControl<T extends Item & GeoItem> implements ICurioRe
 		this.renderer = renderer;
 	}
 
+	public static @NotNull EquipmentSlot getEquipmentSlot(final SlotContext slotContext) {
+		return switch (slotContext.identifier()) {
+			case EGOCuriosConstants.EGO_CURIOS_HEADWEAR, EGOCuriosConstants.EGO_CURIOS_HEAD,
+				 EGOCuriosConstants.EGO_CURIOS_HINDBRAIN, EGOCuriosConstants.EGO_CURIOS_EYE,
+				 EGOCuriosConstants.EGO_CURIOS_FACE, EGOCuriosConstants.EGO_CURIOS_CHEEK,
+				 EGOCuriosConstants.EGO_CURIOS_MASK, EGOCuriosConstants.EGO_CURIOS_MOUTH -> EquipmentSlot.HEAD;
+			case EGOCuriosConstants.EGO_CURIOS_NECK, EGOCuriosConstants.EGO_CURIOS_BROOCH,
+				 EGOCuriosConstants.EGO_CURIOS_LEFT_BACK, EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK ->
+					EquipmentSlot.CHEST;
+			case EGOCuriosConstants.EGO_CURIOS_HAND, EGOCuriosConstants.EGO_CURIOS_GLOVE -> EquipmentSlot.MAINHAND;
+			default -> EquipmentSlot.BODY;
+		};
+	}
+
 	@Override
 	public <LE extends LivingEntity, M extends EntityModel<LE>> void render(
 		ItemStack stack,
@@ -64,18 +78,5 @@ public class CuriosRendererControl<T extends Item & GeoItem> implements ICurioRe
 		}
 		// 进行渲染
 		renderer.defaultRender(matrixStack, this.curioItem, renderTypeBuffer, null, null, netHeadYaw, partialTicks, light);
-	}
-
-	public static @NotNull EquipmentSlot getEquipmentSlot(final SlotContext slotContext) {
-		return switch (slotContext.identifier()) {
-			case EGOCuriosConstants.EGO_CURIOS_HEADWEAR, EGOCuriosConstants.EGO_CURIOS_HEAD,
-			     EGOCuriosConstants.EGO_CURIOS_HINDBRAIN, EGOCuriosConstants.EGO_CURIOS_EYE,
-			     EGOCuriosConstants.EGO_CURIOS_FACE, EGOCuriosConstants.EGO_CURIOS_CHEEK,
-			     EGOCuriosConstants.EGO_CURIOS_MASK, EGOCuriosConstants.EGO_CURIOS_MOUTH -> EquipmentSlot.HEAD;
-			case EGOCuriosConstants.EGO_CURIOS_NECK, EGOCuriosConstants.EGO_CURIOS_BROOCH,
-			     EGOCuriosConstants.EGO_CURIOS_LEFT_BACK, EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK -> EquipmentSlot.CHEST;
-			case EGOCuriosConstants.EGO_CURIOS_HAND, EGOCuriosConstants.EGO_CURIOS_GLOVE -> EquipmentSlot.MAINHAND;
-			default -> EquipmentSlot.BODY;
-		};
 	}
 }

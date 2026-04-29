@@ -97,6 +97,11 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 			this.isLeft = isLeft;
 		}
 
+		private static int getUpperTickCount(RandomSource random) {
+//			return random.nextInt(35, 50);
+			return 5;
+		}
+
 		@Override
 		public void tick() {
 			if (tickCount % 10 == 0) {
@@ -133,11 +138,6 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 					lowerAttack();
 				}
 			}
-		}
-
-		private static int getUpperTickCount(RandomSource random) {
-//			return random.nextInt(35, 50);
-			return 5;
 		}
 
 		public void upperAttack() {
