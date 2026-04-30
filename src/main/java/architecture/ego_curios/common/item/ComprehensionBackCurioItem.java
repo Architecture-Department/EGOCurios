@@ -38,7 +38,12 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 			return state.getController().tryTriggerAnimation("idle") ? PlayState.CONTINUE : PlayState.STOP;
 		}).triggerableAnim("idle", RawAnimation.begin().thenPlay("idle")));
 
-		controllers.add(new AnimationController<>(this, "attack", 4, (state) -> PlayState.STOP)
+		controllers.add(new AnimationController<>(this, "attack", 4, (state) -> {
+			if (state.animationTick > 5) {
+				return state.setAndContinue(RawAnimation.begin().thenPlay("left_upper_attack"));
+			}
+			return PlayState.STOP;
+		})
 			.triggerableAnim("left_upper_attack", RawAnimation.begin().thenPlay("left_upper_attack"))
 			.triggerableAnim("left_middle_attack", RawAnimation.begin().thenPlay("left_middle_attack"))
 			.triggerableAnim("left_lower_attack", RawAnimation.begin().thenPlay("left_lower_attack"))
