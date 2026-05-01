@@ -11,7 +11,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.PlayState;
@@ -25,7 +24,6 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 	public ComprehensionBackCurioItem(Builder<ComprehensionBackCurioItem> egoCurioBuilder) {
 		super(egoCurioBuilder);
 		GeoItem.registerSyncedAnimatable(this);
-		SingletonGeoAnimatable.registerSyncedAnimatable(this);
 	}
 
 	@Override

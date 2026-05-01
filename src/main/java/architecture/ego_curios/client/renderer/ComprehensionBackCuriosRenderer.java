@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
+import software.bernie.geckolib.model.GeoModel;
 import top.theillusivec4.curios.api.SlotContext;
 
 public class ComprehensionBackCuriosRenderer extends GeoCuriosRenderer<ComprehensionBackCurioItem> {
@@ -19,8 +20,8 @@ public class ComprehensionBackCuriosRenderer extends GeoCuriosRenderer<Comprehen
 	protected GeoBone rightMiddleTentacleRoot = null;
 	protected GeoBone rightLowerTentacleRoot = null;
 
-	public ComprehensionBackCuriosRenderer(ComprehensionBackCurioItem armorItem) {
-		super(armorItem);
+	public ComprehensionBackCuriosRenderer(GeoModel<ComprehensionBackCurioItem> model) {
+		super(model);
 	}
 
 	@Override

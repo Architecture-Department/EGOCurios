@@ -1,15 +1,18 @@
 package architecture.ego_curios.init;
 
 import architecture.ego_curios.client.renderer.ComprehensionBackCuriosRenderer;
+import architecture.ego_curios.client.renderer.GeoCuriosRenderer;
 import architecture.ego_curios.common.item.ComprehensionBackCurioItem;
 import architecture.ego_curios.common.item.EgoCurioItem;
 import architecture.ego_curios.core.EGOCurios;
 import architecture.ego_curios.core.EGOCuriosConstants;
+import architecture.ego_curios.core.registry.client.CurioRenderersRegistrar;
 import architecture.ego_curios.datagen.i18n.ZhCn;
 import architecture.goldenboughs_lib.api.LcDamageType;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -692,19 +695,31 @@ public final class EGOCuriosItems {
 	//endregion
 
 	private static <T extends EgoCurioItem> DeferredItem<T> register(
-		EntityType<?> entityType, String zhName, CuriosType type,
-		Function<EgoCurioItem.Builder<T>, ? extends T> item,
-		EgoCurioItem.Builder<T> builder) {
+		EntityType<?> entityType, String zhName, CuriosType type, Function<EgoCurioItem.Builder<T>, ? extends T> item,
+		EgoCurioItem.Builder<T> builder
+	) {
 		return register("%s_curios_%s".formatted(entityType.getDescriptionId(), type), zhName, type, item, builder);
 	}
 
 	private static <T extends EgoCurioItem> DeferredItem<T> register(
-		String id, String zhName, CuriosType type,
-		Function<EgoCurioItem.Builder<T>, ? extends T> item,
-		EgoCurioItem.Builder<T> builder) {
-		DeferredItem<T> deferredItem = REGISTRY.register(id, () -> item.apply(builder));
+		String id, String zhName, CuriosType type, Function<EgoCurioItem.Builder<T>, ? extends T> builderFunction,
+		EgoCurioItem.Builder<T> builder
+	) {
+
+		DeferredItem<T> deferredItem = REGISTRY.register(id, () -> builderFunction.apply(builder));
+
+		if (!FMLEnvironment.dist.isClient()) {
+			var curiosRenderer = builder.curiosRenderer;
+			if (curiosRenderer != null) {
+				//noinspection rawtypes,unchecked
+				CurioRenderersRegistrar.addRenderer((DeferredItem<EgoCurioItem>) deferredItem,
+					(Function<EgoCurioItem, GeoCuriosRenderer<EgoCurioItem>>) (Function) curiosRenderer.apply(builder.model));
+			}
+		}
+
 		type.addCurio(deferredItem);
 		ZhCn.addI18nItemText(zhName, deferredItem);
+
 		return deferredItem;
 	}
 
