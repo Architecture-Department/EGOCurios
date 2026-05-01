@@ -7,12 +7,15 @@ import architecture.goldenboughs_lib.api.world.item.IEgoItem;
 import architecture.goldenboughs_lib.init.LibDataComponents;
 import architecture.goldenboughs_lib.util.RationalityUtil;
 import com.google.common.collect.Multimap;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -24,10 +27,14 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.animatable.client.GeoRenderProvider;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
+import top.theillusivec4.curios.api.client.ICurioRenderer;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.util.ArrayList;
@@ -35,6 +42,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
@@ -174,6 +182,28 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		}
 		this.tooltipsI18nMap = null;
 		return map;
+	}
+
+	@Override
+	public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+		consumer.accept(new GeoRenderProvider() {
+			private GeoArmorRenderer<?> renderer;
+			private boolean isInitialized;
+
+			@Nullable
+			@Override
+			public <T extends LivingEntity> HumanoidModel<?> getGeoArmorRenderer(@Nullable T livingEntity, ItemStack itemStack, @Nullable EquipmentSlot equipmentSlot, @Nullable HumanoidModel<T> original) {
+				if (!isInitialized) {
+					ICurioRenderer iCurioRenderer = CuriosRendererRegistry.getRenderer(itemStack.getItem()).orElse(null);
+					if (iCurioRenderer instanceof GeoArmorRenderer<?> geoArmorRenderer) {
+						renderer = geoArmorRenderer;
+					}
+					isInitialized = true;
+				}
+
+				return this.renderer;
+			}
+		});
 	}
 
 	public static class Builder<T extends EgoCurioItem> {

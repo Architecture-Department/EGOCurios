@@ -4,6 +4,8 @@ import architecture.ego_curios.api.AttackLogicHolder;
 import architecture.ego_curios.core.EGOCurios;
 import architecture.ego_curios.core.EGOCuriosConstants;
 import architecture.ego_curios.init.EGOCuriosAttachments;
+import architecture.goldenboughs_lib.common.payload.toc.GeckolibAnimationSynchroPayload;
+import architecture.goldenboughs_lib.util.PayloadUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,6 +18,7 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 import top.theillusivec4.curios.api.SlotContext;
 
 /**
@@ -37,17 +40,22 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 			return state.getController().tryTriggerAnimation("idle") ? PlayState.CONTINUE : PlayState.STOP;
 		}).triggerableAnim("idle", RawAnimation.begin().thenPlay("idle")));
 
-		controllers.add(new AnimationController<>(this, "attack", 4, (state) -> {
-//			if (state.animationTick > 5) {
-//				return state.setAndContinue(RawAnimation.begin().thenPlay("left_upper_attack"));
-//			}
-			return PlayState.CONTINUE;
-		}).receiveTriggeredAnimations()
+		controllers.add(new AnimationController<>(this, "upper", 6,
+			(state) -> PlayState.CONTINUE)
+			.receiveTriggeredAnimations()
 			.triggerableAnim("left_upper_attack", RawAnimation.begin().thenPlay("left_upper_attack"))
+			.triggerableAnim("right_upper_attack", RawAnimation.begin().thenPlay("right_upper_attack")));
+
+		controllers.add(new AnimationController<>(this, "middle", 6,
+			(state) -> PlayState.CONTINUE)
+			.receiveTriggeredAnimations()
 			.triggerableAnim("left_middle_attack", RawAnimation.begin().thenPlay("left_middle_attack"))
+			.triggerableAnim("right_middle_attack", RawAnimation.begin().thenPlay("right_middle_attack")));
+
+		controllers.add(new AnimationController<>(this, "lower", 6,
+			(state) -> PlayState.CONTINUE)
+			.receiveTriggeredAnimations()
 			.triggerableAnim("left_lower_attack", RawAnimation.begin().thenPlay("left_lower_attack"))
-			.triggerableAnim("right_upper_attack", RawAnimation.begin().thenPlay("right_upper_attack"))
-			.triggerableAnim("right_middle_attack", RawAnimation.begin().thenPlay("right_middle_attack"))
 			.triggerableAnim("right_lower_attack", RawAnimation.begin().thenPlay("right_lower_attack")));
 	}
 
@@ -102,7 +110,7 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 		}
 
 		private static int getUpperTickCount(RandomSource random) {
-			return random.nextInt(35, 50);
+			return random.nextInt(40, 60);
 //			return 5;
 		}
 
@@ -145,30 +153,27 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 		}
 
 		public void upperAttack() {
-			play(isLeft ? "left_upper_attack" : "right_upper_attack");
+			play("upper", isLeft ? "left_upper_attack" : "right_upper_attack");
 		}
 
 		public void middleAttack() {
-			play(isLeft ? "left_middle_attack" : "right_middle_attack");
+			play("middle", isLeft ? "left_middle_attack" : "right_middle_attack");
 		}
 
 		public void lowerAttack() {
-			play(isLeft ? "left_lower_attack" : "right_lower_attack");
+			play("lower", isLeft ? "left_lower_attack" : "right_lower_attack");
 		}
 
-		private void play(String animation) {
+		private void play(String controllerName, String animationName) {
 			Item item = itemStack.getItem();
+			GeoItem.getId(itemStack);
 			if (!(item instanceof GeoItem geoItem) || !(entity.level() instanceof ServerLevel serverLevel)) {
 				return;
 			}
 
 			long id = GeoItem.getOrAssignId(itemStack, serverLevel);
-			geoItem.triggerAnim(entity, id, "attack", animation);
-			var controller = geoItem.getAnimatableInstanceCache().getManagerForId(id).getAnimationControllers().get("attack");
-			controller.forceAnimationReset();
-//			geoItem.stopTriggeredAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
-//			geoItem.triggerArmorAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
-//			geoItem.stopTriggeredArmorAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
+			PayloadUtil.sendToPlayersTrackingEntityAndSelf(entity, new GeckolibAnimationSynchroPayload(
+				GeckoLibUtil.getSyncedSingletonAnimatableId(geoItem), -id, controllerName, animationName));
 		}
 
 		private LivingEntity isTarget(LivingEntity entity) {
