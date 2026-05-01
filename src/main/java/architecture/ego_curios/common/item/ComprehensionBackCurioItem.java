@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.PlayState;
@@ -23,7 +24,7 @@ import top.theillusivec4.curios.api.SlotContext;
 public class ComprehensionBackCurioItem extends EgoCurioItem {
 	public ComprehensionBackCurioItem(Builder<ComprehensionBackCurioItem> egoCurioBuilder) {
 		super(egoCurioBuilder);
-		GeoItem.registerSyncedAnimatable(this);
+		SingletonGeoAnimatable.registerSyncedAnimatable(this);
 	}
 
 	@Override
@@ -40,8 +41,8 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 //			if (state.animationTick > 5) {
 //				return state.setAndContinue(RawAnimation.begin().thenPlay("left_upper_attack"));
 //			}
-			return PlayState.STOP;
-		})
+			return PlayState.CONTINUE;
+		}).receiveTriggeredAnimations()
 			.triggerableAnim("left_upper_attack", RawAnimation.begin().thenPlay("left_upper_attack"))
 			.triggerableAnim("left_middle_attack", RawAnimation.begin().thenPlay("left_middle_attack"))
 			.triggerableAnim("left_lower_attack", RawAnimation.begin().thenPlay("left_lower_attack"))
@@ -161,10 +162,13 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 				return;
 			}
 
-			geoItem.triggerAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
-			geoItem.stopTriggeredAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
-			geoItem.triggerArmorAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
-			geoItem.stopTriggeredArmorAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
+			long id = GeoItem.getOrAssignId(itemStack, serverLevel);
+			geoItem.triggerAnim(entity, id, "attack", animation);
+			var controller = geoItem.getAnimatableInstanceCache().getManagerForId(id).getAnimationControllers().get("attack");
+			controller.forceAnimationReset();
+//			geoItem.stopTriggeredAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
+//			geoItem.triggerArmorAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
+//			geoItem.stopTriggeredArmorAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "attack", animation);
 		}
 
 		private LivingEntity isTarget(LivingEntity entity) {
