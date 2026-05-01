@@ -12,7 +12,6 @@ import architecture.goldenboughs_lib.api.LcDamageType;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -708,13 +707,11 @@ public final class EGOCuriosItems {
 
 		DeferredItem<T> deferredItem = REGISTRY.register(id, () -> builderFunction.apply(builder));
 
-		if (!FMLEnvironment.dist.isClient()) {
-			var curiosRenderer = builder.curiosRenderer;
-			if (curiosRenderer != null) {
-				//noinspection rawtypes,unchecked
-				CurioRenderersRegistrar.addRenderer((DeferredItem<EgoCurioItem>) deferredItem,
-					(Function<EgoCurioItem, GeoCuriosRenderer<EgoCurioItem>>) (Function) curiosRenderer.apply(builder.model));
-			}
+		var curiosRenderer = builder.curiosRenderer;
+		if (curiosRenderer != null) {
+			//noinspection rawtypes,unchecked
+			CurioRenderersRegistrar.addRenderer((DeferredItem<EgoCurioItem>) deferredItem,
+				(Function<EgoCurioItem, GeoCuriosRenderer<EgoCurioItem>>) (Function) curiosRenderer.apply(builder.model));
 		}
 
 		type.addCurio(deferredItem);

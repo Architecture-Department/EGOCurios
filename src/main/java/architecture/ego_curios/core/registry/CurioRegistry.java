@@ -33,7 +33,6 @@ public final class CurioRegistry {
 			(slotResult) -> {
 				ItemStack stack = slotResult.stack();
 				var item = stack.getItem();
-				// 跳过重复检查
 				// TODO 扩展成tag的形式
 				if (item == EGOCuriosItems.COMPREHENSION_BACK.get()) {
 					return true;
@@ -59,7 +58,6 @@ public final class CurioRegistry {
 			(slotResult) -> {
 				ItemStack stack = slotResult.stack();
 				var item = stack.getItem();
-				// 跳过重复检查
 				// TODO 扩展成tag的形式
 				if (item == EGOCuriosItems.COMPREHENSION_BACK.get()) {
 					return true;
