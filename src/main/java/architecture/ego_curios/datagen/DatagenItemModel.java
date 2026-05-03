@@ -38,7 +38,7 @@ public final class DatagenItemModel extends ItemModelProvider {
 
 	@Override
 	protected void registerModels() {
-		withExistingParent(EGOCuriosItems.REGISTRY, "item/curios/");
+		withExistingParent(EGOCuriosItems.REGISTRY, "item/curio/");
 	}
 
 	private ResourceLocation extendWithFolder(ResourceLocation rl) {

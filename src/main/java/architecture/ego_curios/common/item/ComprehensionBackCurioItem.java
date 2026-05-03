@@ -4,8 +4,7 @@ import architecture.ego_curios.api.AttackLogicHolder;
 import architecture.ego_curios.core.EGOCurios;
 import architecture.ego_curios.core.EGOCuriosConstants;
 import architecture.ego_curios.init.EGOCuriosAttachments;
-import architecture.goldenboughs_lib.common.payload.toc.GeckolibAnimationSynchroPayload;
-import architecture.goldenboughs_lib.util.PayloadUtil;
+import architecture.goldenboughs_lib.mixed.geckolib.IAnimationController;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,7 +17,6 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import top.theillusivec4.curios.api.SlotContext;
 
 /**
@@ -33,30 +31,88 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 		super.registerControllers(controllers);
-		controllers.add(new AnimationController<>(this, "idle", 4, (state) -> {
+		RawAnimation idle = RawAnimation.begin().thenPlay("idle");
+		AnimationController.AnimationStateHandler<ComprehensionBackCurioItem> animationHandler = (state) -> {
 			if (state.isCurrentAnimationStage("idle")) {
 				return PlayState.CONTINUE;
 			}
 			return state.getController().tryTriggerAnimation("idle") ? PlayState.CONTINUE : PlayState.STOP;
-		}).triggerableAnim("idle", RawAnimation.begin().thenPlay("idle")));
+		};
 
-		controllers.add(new AnimationController<>(this, "upper", 6,
-			(state) -> PlayState.CONTINUE)
-			.receiveTriggeredAnimations()
-			.triggerableAnim("left_upper_attack", RawAnimation.begin().thenPlay("left_upper_attack"))
-			.triggerableAnim("right_upper_attack", RawAnimation.begin().thenPlay("right_upper_attack")));
+		var upper = new AnimationController<>(this, "upper", 6, animationHandler);
+		IAnimationController.of(upper).goldenboughs_lib$enabledBones(
+			"left_upper_tentacle_root",
+			"left_upper_tentacle",
+			"left_upper_tentacle2",
+			"left_upper_tentacle3",
+			"left_upper_tentacle4",
+			"left_upper_tentacle5",
+			"left_upper_tentacle6",
+			"left_upper_tentacle7",
 
-		controllers.add(new AnimationController<>(this, "middle", 6,
-			(state) -> PlayState.CONTINUE)
-			.receiveTriggeredAnimations()
+			"right_upper_tentacle_root",
+			"right_upper_tentacle",
+			"right_upper_tentacle2",
+			"right_upper_tentacle3",
+			"right_upper_tentacle4",
+			"right_upper_tentacle5",
+			"right_upper_tentacle6",
+			"right_upper_tentacle7");
+		upper
+			.triggerableAnim("idle", idle)
+			.triggerableAnim("left_upper_attack", RawAnimation.begin().thenPlay("right_upper_attack"))
+			.triggerableAnim("right_upper_attack", RawAnimation.begin().thenPlay("right_upper_attack"));
+		controllers.add(upper);
+
+		var middle = new AnimationController<>(this, "middle", 6, animationHandler);
+		IAnimationController.of(middle).goldenboughs_lib$enabledBones(
+			"left_middle_tentacle_root",
+			"left_middle_tentacle",
+			"left_middle_tentacle2",
+			"left_middle_tentacle3",
+			"left_middle_tentacle4",
+			"left_middle_tentacle5",
+			"left_middle_tentacle6",
+			"left_middle_tentacle7",
+
+			"right_middle_tentacle_root",
+			"right_middle_tentacle",
+			"right_middle_tentacle2",
+			"right_middle_tentacle3",
+			"right_middle_tentacle4",
+			"right_middle_tentacle5",
+			"right_middle_tentacle6",
+			"right_middle_tentacle7");
+		middle
+			.triggerableAnim("idle", idle)
 			.triggerableAnim("left_middle_attack", RawAnimation.begin().thenPlay("left_middle_attack"))
-			.triggerableAnim("right_middle_attack", RawAnimation.begin().thenPlay("right_middle_attack")));
+			.triggerableAnim("right_middle_attack", RawAnimation.begin().thenPlay("right_middle_attack"));
+		controllers.add(middle);
 
-		controllers.add(new AnimationController<>(this, "lower", 6,
-			(state) -> PlayState.CONTINUE)
-			.receiveTriggeredAnimations()
+		var lower = new AnimationController<>(this, "lower", 6, animationHandler);
+		IAnimationController.of(lower).goldenboughs_lib$enabledBones(
+			"left_lower_tentacle_root",
+			"left_lower_tentacle",
+			"left_lower_tentacle2",
+			"left_lower_tentacle3",
+			"left_lower_tentacle4",
+			"left_lower_tentacle5",
+			"left_lower_tentacle6",
+			"left_lower_tentacle7",
+
+			"right_lower_tentacle_root",
+			"right_lower_tentacle",
+			"right_lower_tentacle2",
+			"right_lower_tentacle3",
+			"right_lower_tentacle4",
+			"right_lower_tentacle5",
+			"right_lower_tentacle6",
+			"right_lower_tentacle7");
+		lower
+			.triggerableAnim("idle", idle)
 			.triggerableAnim("left_lower_attack", RawAnimation.begin().thenPlay("left_lower_attack"))
-			.triggerableAnim("right_lower_attack", RawAnimation.begin().thenPlay("right_lower_attack")));
+			.triggerableAnim("right_lower_attack", RawAnimation.begin().thenPlay("right_lower_attack"));
+		controllers.add(lower);
 	}
 
 	@Override
@@ -111,7 +167,6 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 
 		private static int getUpperTickCount(RandomSource random) {
 			return random.nextInt(40, 60);
-//			return 5;
 		}
 
 		@Override
@@ -172,8 +227,7 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 			}
 
 			long id = GeoItem.getOrAssignId(itemStack, serverLevel);
-			PayloadUtil.sendToPlayersTrackingEntityAndSelf(entity, new GeckolibAnimationSynchroPayload(
-				GeckoLibUtil.getSyncedSingletonAnimatableId(geoItem), -id, controllerName, animationName));
+			geoItem.triggerArmorAnim(entity, id, controllerName, animationName);
 		}
 
 		private LivingEntity isTarget(LivingEntity entity) {

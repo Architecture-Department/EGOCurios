@@ -8,10 +8,14 @@ import software.bernie.geckolib.animatable.GeoAnimatable;
 public class GeoCurioModel<T extends Item & GeoAnimatable> extends BasicGeoModel<T> {
 
 	public GeoCurioModel(ResourceLocation pathName) {
-		super(pathName.withPrefix("curio/"));
+		super(getPath(pathName));
 	}
 
 	public GeoCurioModel(ResourceLocation modelPath, ResourceLocation textureName, ResourceLocation animationsName) {
-		super(modelPath.withPrefix("curio/"), textureName.withPrefix("curio/"), animationsName.withPrefix("curio/"));
+		super(getPath(modelPath), getPath(textureName), getPath(animationsName));
+	}
+
+	public static ResourceLocation getPath(ResourceLocation pathName) {
+		return pathName.withPrefix("curio/");
 	}
 }
