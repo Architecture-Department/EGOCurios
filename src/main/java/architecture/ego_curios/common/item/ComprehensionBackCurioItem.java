@@ -39,17 +39,10 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 			return state.getController().tryTriggerAnimation("idle") ? PlayState.CONTINUE : PlayState.STOP;
 		};
 
-		var upper = new AnimationController<>(this, "upper", 6, animationHandler);
-		IAnimationController.of(upper).goldenboughs_lib$enabledBones(
-			"left_upper_tentacle_root",
-			"left_upper_tentacle",
-			"left_upper_tentacle2",
-			"left_upper_tentacle3",
-			"left_upper_tentacle4",
-			"left_upper_tentacle5",
-			"left_upper_tentacle6",
-			"left_upper_tentacle7",
+		// TODO 依旧模型的命名反了
 
+		var left_upper = new AnimationController<>(this, "left_upper", 6, animationHandler);
+		IAnimationController.of(left_upper).goldenboughs_lib$enabledBones(
 			"right_upper_tentacle_root",
 			"right_upper_tentacle",
 			"right_upper_tentacle2",
@@ -58,23 +51,28 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 			"right_upper_tentacle5",
 			"right_upper_tentacle6",
 			"right_upper_tentacle7");
-		upper
+		left_upper
 			.triggerableAnim("idle", idle)
-			.triggerableAnim("left_upper_attack", RawAnimation.begin().thenPlay("right_upper_attack"))
+			.triggerableAnim("left_upper_attack", RawAnimation.begin().thenPlay("left_upper_attack"));
+		controllers.add(left_upper);
+
+		var right_upper = new AnimationController<>(this, "right_upper", 6, animationHandler);
+		IAnimationController.of(right_upper).goldenboughs_lib$enabledBones(
+			"left_upper_tentacle_root",
+			"left_upper_tentacle",
+			"left_upper_tentacle2",
+			"left_upper_tentacle3",
+			"left_upper_tentacle4",
+			"left_upper_tentacle5",
+			"left_upper_tentacle6",
+			"left_upper_tentacle7");
+		right_upper
+			.triggerableAnim("idle", idle)
 			.triggerableAnim("right_upper_attack", RawAnimation.begin().thenPlay("right_upper_attack"));
-		controllers.add(upper);
+		controllers.add(right_upper);
 
-		var middle = new AnimationController<>(this, "middle", 6, animationHandler);
-		IAnimationController.of(middle).goldenboughs_lib$enabledBones(
-			"left_middle_tentacle_root",
-			"left_middle_tentacle",
-			"left_middle_tentacle2",
-			"left_middle_tentacle3",
-			"left_middle_tentacle4",
-			"left_middle_tentacle5",
-			"left_middle_tentacle6",
-			"left_middle_tentacle7",
-
+		var left_middle = new AnimationController<>(this, "left_middle", 6, animationHandler);
+		IAnimationController.of(left_middle).goldenboughs_lib$enabledBones(
 			"right_middle_tentacle_root",
 			"right_middle_tentacle",
 			"right_middle_tentacle2",
@@ -83,23 +81,28 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 			"right_middle_tentacle5",
 			"right_middle_tentacle6",
 			"right_middle_tentacle7");
-		middle
+		left_middle
 			.triggerableAnim("idle", idle)
-			.triggerableAnim("left_middle_attack", RawAnimation.begin().thenPlay("left_middle_attack"))
+			.triggerableAnim("left_middle_attack", RawAnimation.begin().thenPlay("left_middle_attack"));
+		controllers.add(left_middle);
+
+		var right_middle = new AnimationController<>(this, "right_middle", 6, animationHandler);
+		IAnimationController.of(right_middle).goldenboughs_lib$enabledBones(
+			"left_middle_tentacle_root",
+			"left_middle_tentacle",
+			"left_middle_tentacle2",
+			"left_middle_tentacle3",
+			"left_middle_tentacle4",
+			"left_middle_tentacle5",
+			"left_middle_tentacle6",
+			"left_middle_tentacle7");
+		right_middle
+			.triggerableAnim("idle", idle)
 			.triggerableAnim("right_middle_attack", RawAnimation.begin().thenPlay("right_middle_attack"));
-		controllers.add(middle);
+		controllers.add(right_middle);
 
-		var lower = new AnimationController<>(this, "lower", 6, animationHandler);
-		IAnimationController.of(lower).goldenboughs_lib$enabledBones(
-			"left_lower_tentacle_root",
-			"left_lower_tentacle",
-			"left_lower_tentacle2",
-			"left_lower_tentacle3",
-			"left_lower_tentacle4",
-			"left_lower_tentacle5",
-			"left_lower_tentacle6",
-			"left_lower_tentacle7",
-
+		var left_lower = new AnimationController<>(this, "left_lower", 6, animationHandler);
+		IAnimationController.of(left_lower).goldenboughs_lib$enabledBones(
 			"right_lower_tentacle_root",
 			"right_lower_tentacle",
 			"right_lower_tentacle2",
@@ -108,11 +111,25 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 			"right_lower_tentacle5",
 			"right_lower_tentacle6",
 			"right_lower_tentacle7");
-		lower
+		left_lower
 			.triggerableAnim("idle", idle)
-			.triggerableAnim("left_lower_attack", RawAnimation.begin().thenPlay("left_lower_attack"))
+			.triggerableAnim("left_lower_attack", RawAnimation.begin().thenPlay("left_lower_attack"));
+		controllers.add(left_lower);
+
+		var right_lower = new AnimationController<>(this, "right_lower", 6, animationHandler);
+		IAnimationController.of(right_lower).goldenboughs_lib$enabledBones(
+			"left_lower_tentacle_root",
+			"left_lower_tentacle",
+			"left_lower_tentacle2",
+			"left_lower_tentacle3",
+			"left_lower_tentacle4",
+			"left_lower_tentacle5",
+			"left_lower_tentacle6",
+			"left_lower_tentacle7");
+		right_lower
+			.triggerableAnim("idle", idle)
 			.triggerableAnim("right_lower_attack", RawAnimation.begin().thenPlay("right_lower_attack"));
-		controllers.add(lower);
+		controllers.add(right_lower);
 	}
 
 	@Override
@@ -208,15 +225,18 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 		}
 
 		public void upperAttack() {
-			play("upper", isLeft ? "left_upper_attack" : "right_upper_attack");
+			play(isLeft ? "left_upper" : "right_upper",
+				isLeft ? "left_upper_attack" : "right_upper_attack");
 		}
 
 		public void middleAttack() {
-			play("middle", isLeft ? "left_middle_attack" : "right_middle_attack");
+			play(isLeft ? "left_middle" : "right_middle",
+				isLeft ? "left_middle_attack" : "right_middle_attack");
 		}
 
 		public void lowerAttack() {
-			play("lower", isLeft ? "left_lower_attack" : "right_lower_attack");
+			play(isLeft ? "left_lower" : "right_lower",
+				isLeft ? "left_lower_attack" : "right_lower_attack");
 		}
 
 		private void play(String controllerName, String animationName) {

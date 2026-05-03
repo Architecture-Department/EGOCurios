@@ -36,6 +36,7 @@ public class ComprehensionBackCuriosRenderer extends GeoCuriosRenderer<Comprehen
 	protected void grabRelevantBones(BakedGeoModel bakedModel) {
 		super.grabRelevantBones(bakedModel);
 		// 因为模型搞反了，所以这里需要搞反
+		// TODO 依旧模型的命名反了
 		rightUpperTentacleRoot = bakedModel.getBone("left_upper_tentacle_root").orElse(null);
 		rightMiddleTentacleRoot = bakedModel.getBone("left_middle_tentacle_root").orElse(null);
 		rightLowerTentacleRoot = bakedModel.getBone("left_lower_tentacle_root").orElse(null);
