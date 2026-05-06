@@ -1,9 +1,9 @@
 package architecture.ego_curios.common.item;
 
-import architecture.ego_curios.client.model.GeoCurioModel;
 import architecture.ego_curios.client.renderer.GeoCuriosRenderer;
 import architecture.goldenboughs_lib.api.virtue.VirtueAttributeModifier;
 import architecture.goldenboughs_lib.api.world.item.IEgoItem;
+import architecture.goldenboughs_lib.client.model.curio.GeoCurioModel;
 import architecture.goldenboughs_lib.init.LibDataComponents;
 import architecture.goldenboughs_lib.util.RationalityUtil;
 import com.google.common.collect.Multimap;
@@ -30,6 +30,7 @@ import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.client.GeoRenderProvider;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import top.theillusivec4.curios.api.SlotContext;
@@ -210,10 +211,10 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		private final VirtueAttributeModifier.Builder virtueAddAttribute = new VirtueAttributeModifier.Builder();
 		private final List<String> tooltips = new ArrayList<>();
 		private final List<Function<String, MutableComponent>> tooltipsComponent = new ArrayList<>();
+		public @Nullable GeoModel<T> model;
+		public @Nullable Function<GeoModel<T>, Function<T, GeoCuriosRenderer<T>>> curiosRenderer;
 		private boolean isEnderMask;
 		private Properties properties = new Properties();
-		public @Nullable GeoCurioModel<T> model;
-		public @Nullable Function<GeoCurioModel<T>, Function<T, GeoCuriosRenderer<T>>> curiosRenderer;
 
 		public Builder() {
 		}
@@ -307,13 +308,13 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 			return model(new GeoCurioModel<>(modelRl));
 		}
 
-		public Builder<T> model(GeoCurioModel<T> model) {
+		public Builder<T> model(GeoModel<T> model) {
 			this.model = model;
 			renderer(GeoCuriosRenderer::new);
 			return this;
 		}
 
-		public Builder<T> renderer(Function<GeoCurioModel<T>, GeoCuriosRenderer<T>> curiosRenderer) {
+		public Builder<T> renderer(Function<GeoModel<T>, GeoCuriosRenderer<T>> curiosRenderer) {
 			this.curiosRenderer = model1 -> item1 -> curiosRenderer.apply(model1);
 			return this;
 		}

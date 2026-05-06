@@ -2,18 +2,11 @@ package architecture.ego_curios.client.renderer;
 
 import architecture.ego_curios.common.item.ComprehensionBackCurioItem;
 import architecture.ego_curios.core.EGOCuriosConstants;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.GeoModel;
@@ -71,23 +64,5 @@ public class ComprehensionBackCuriosRenderer extends GeoCuriosRenderer<Comprehen
 		setBoneVisible(leftUpperTentacleRoot, true);
 		setBoneVisible(leftMiddleTentacleRoot, true);
 		setBoneVisible(leftLowerTentacleRoot, true);
-	}
-
-	@Override
-	public <LE extends LivingEntity, M extends EntityModel<LE>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<LE, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		super.render(stack, slotContext, matrixStack, renderLayerParent, renderTypeBuffer, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
-	}
-
-	@Override
-	public void defaultRender(PoseStack poseStack, ComprehensionBackCurioItem animatable, MultiBufferSource bufferSource, @Nullable RenderType renderType, @Nullable VertexConsumer buffer, float yaw, float partialTick, int packedLight) {
-//		AnimatableInstanceCache animatableInstanceCache = getAnimatable().getAnimatableInstanceCache();
-//		AnimatableManager<GeoAnimatable> managerForId = animatableInstanceCache.getManagerForId(GeoItem.getId(currentStack));
-//		RawAnimation attack = managerForId.getAnimationControllers().get("attack").getTriggeredAnimation();
-//		Object text = attack;
-//		if (attack != null) {
-//			text = attack.getAnimationStages();
-//		}
-//		Minecraft.getInstance().gui.setOverlayMessage(Component.literal("" + text), false);
-		super.defaultRender(poseStack, animatable, bufferSource, renderType, buffer, yaw, partialTick, packedLight);
 	}
 }

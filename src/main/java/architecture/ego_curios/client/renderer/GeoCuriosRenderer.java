@@ -25,21 +25,6 @@ public class GeoCuriosRenderer<T extends Item & GeoItem> extends GeoArmorRendere
 		super(model);
 	}
 
-	public void prepForRender(
-		SlotContext slotContext, Entity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> baseModel,
-		MultiBufferSource bufferSource,
-		float partialTick, float limbSwing, float limbSwingAmount, float netHeadYaw, float headPitch
-	) {
-		this.slotContext = slotContext;
-		super.prepForRender(entity, stack, slot, baseModel, bufferSource, partialTick, limbSwing, limbSwingAmount, netHeadYaw, headPitch);
-	}
-
-	@Override
-	public void doPostRenderCleanup() {
-		slotContext = null;
-		super.doPostRenderCleanup();
-	}
-
 	public static @NotNull EquipmentSlot getEquipmentSlot(final SlotContext slotContext) {
 		return switch (slotContext.identifier()) {
 			case EGOCuriosConstants.EGO_CURIOS_HEADWEAR,
@@ -61,6 +46,21 @@ public class GeoCuriosRenderer<T extends Item & GeoItem> extends GeoArmorRendere
 
 			default -> EquipmentSlot.BODY;
 		};
+	}
+
+	public void prepForRender(
+		SlotContext slotContext, Entity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> baseModel,
+		MultiBufferSource bufferSource,
+		float partialTick, float limbSwing, float limbSwingAmount, float netHeadYaw, float headPitch
+	) {
+		this.slotContext = slotContext;
+		super.prepForRender(entity, stack, slot, baseModel, bufferSource, partialTick, limbSwing, limbSwingAmount, netHeadYaw, headPitch);
+	}
+
+	@Override
+	public void doPostRenderCleanup() {
+		slotContext = null;
+		super.doPostRenderCleanup();
 	}
 
 	@Override

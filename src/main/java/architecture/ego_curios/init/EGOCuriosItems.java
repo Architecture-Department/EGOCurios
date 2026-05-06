@@ -9,6 +9,7 @@ import architecture.ego_curios.core.EGOCuriosConstants;
 import architecture.ego_curios.core.registry.client.CurioRenderersRegistrar;
 import architecture.ego_curios.datagen.i18n.ZhCn;
 import architecture.goldenboughs_lib.api.LcDamageType;
+import architecture.resonator_combat_framework.util.ModelUtil;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -658,7 +659,9 @@ public final class EGOCuriosItems {
 		"comprehension_back_curios", "理解", CuriosType.BACK,
 		ComprehensionBackCurioItem::new,
 		new EgoCurioItem.Builder<ComprehensionBackCurioItem>()
-			.model(EGOCurios.modRl("comprehension_back"))
+			.model(new ModelUtil.ModelBuilder<ComprehensionBackCurioItem>(EGOCurios.ID)
+				.curioPath("comprehension_back")
+				.build())
 			.renderer(ComprehensionBackCuriosRenderer::new)
 			.fortitude(2)
 			.prudence(2)
