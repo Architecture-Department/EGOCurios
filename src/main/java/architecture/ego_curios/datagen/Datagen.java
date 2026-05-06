@@ -29,7 +29,7 @@ public final class Datagen {
 		CompletableFuture<HolderLookup.Provider> completableFuture = event.getLookupProvider();
 
 		ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-		// 服务端数据生成|
+		// 服务端数据生成
 		buildServer(event, generator, new ModDatagenDatapackBuiltinEntries(output, completableFuture, new RegistrySetBuilder()));
 		buildServer(event, generator, new DatagenCuriosTest(output, existingFileHelper, completableFuture));
 

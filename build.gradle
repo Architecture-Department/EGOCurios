@@ -2,8 +2,8 @@ plugins {
 }
 
 var projectName = [
-		"GoldenBoughsLib",
-		"ResonatorCombatFramework",
+				"GoldenBoughsLib",
+				"ResonatorCombatFramework",
 ]
 
 version = mod_version
@@ -88,11 +88,11 @@ configurations {
 
 dependencies {
 	projectName.forEach { name ->
-			{
-				implementation jarJar(project(":module:" + name))
-				interfaceInjectionData jarJar(project(":module:" + name))
-			}
+		{
+			implementation jarJar(project(":module:" + name))
+			interfaceInjectionData jarJar(project(":module:" + name))
 		}
+	}
 
 	implementation "net.neoforged:neoforge:${neo_version}"
 	runtimeOnly "org.javassist:javassist:${javassist_version}"
@@ -108,11 +108,6 @@ dependencies {
 	compileOnly(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${mixinsquared_version}"))
 	implementation(jarJar("com.github.bawnorton.mixinsquared:mixinsquared-neoforge:${mixinsquared_version}"))
 
-	// sparkcore 星火
-	compileOnly "io.github.solarmoonqaq:spark-core:${spark_core_version}"
-//	implementation "curse.maven:spark-core-${maven_spark_core_version}"
-	runtimeOnly "maven.modrinth:spark-core:${modrinth_spark_core_version}"
-
 	// Kotlin
 	implementation "thedarkcolour:kotlinforforge-neoforge:${kotlinforforge_version}"
 
@@ -127,6 +122,8 @@ dependencies {
 	// 试验假人
 	implementation "maven.modrinth:mmmmmmmmmmmm:${mmmmmmmmmmmm_version}"
 	implementation "maven.modrinth:moonlight:${moonlight_version}"
+
+	implementation jarJar(fileTree(dir: "../../libs", include: ["*.jar"]))
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

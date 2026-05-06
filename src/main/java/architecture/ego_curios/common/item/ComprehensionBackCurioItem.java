@@ -155,6 +155,12 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 		if (!(entity.level() instanceof ServerLevel serverLevel)) {
 			return;
 		}
+//		EntityPatch entityPatch = (EntityPatch)entity;
+
+//		new PhysicsRigidBody()
+//		createCollisionBoxBoundToBone
+//		DynamicAwareRegistry
+
 		String identifier = slotContext.identifier();
 		AttackLogicHolder data = entity.getData(EGOCuriosAttachments.ATTACK_LOGIC_HOLDER);
 		switch (identifier) {
