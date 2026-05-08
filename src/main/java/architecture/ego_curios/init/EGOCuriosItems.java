@@ -1,7 +1,7 @@
 package architecture.ego_curios.init;
 
-import architecture.ego_curios.client.renderer.ComprehensionBackCuriosRenderer;
-import architecture.ego_curios.client.renderer.GeoCuriosRenderer;
+import architecture.ego_curios.client.renderer.ComprehensionBackCurioRenderer;
+import architecture.ego_curios.client.renderer.GeoCurioRenderer;
 import architecture.ego_curios.common.item.ComprehensionBackCurioItem;
 import architecture.ego_curios.common.item.EgoCurioItem;
 import architecture.ego_curios.core.EGOCurios;
@@ -662,7 +662,7 @@ public final class EGOCuriosItems {
 			.model(new ModelUtil.ModelBuilder<ComprehensionBackCurioItem>(EGOCurios.ID)
 				.curioPath("comprehension_back")
 				.build())
-			.renderer(ComprehensionBackCuriosRenderer::new)
+//			.renderer(ComprehensionBackCurioRenderer::new)
 			.fortitude(2)
 			.prudence(2)
 			.temperance(2)
@@ -714,7 +714,7 @@ public final class EGOCuriosItems {
 		if (curiosRenderer != null) {
 			//noinspection rawtypes,unchecked
 			CurioRenderersRegistrar.addRenderer((DeferredItem<EgoCurioItem>) deferredItem,
-				(Function<EgoCurioItem, GeoCuriosRenderer<EgoCurioItem>>) (Function) curiosRenderer.apply(builder.model));
+				(Function<EgoCurioItem, GeoCurioRenderer<EgoCurioItem>>) (Function) curiosRenderer.apply(builder.model));
 		}
 
 		type.addCurio(deferredItem);

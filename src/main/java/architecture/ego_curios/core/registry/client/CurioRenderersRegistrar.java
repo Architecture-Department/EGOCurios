@@ -1,8 +1,10 @@
 package architecture.ego_curios.core.registry.client;
 
-import architecture.ego_curios.client.renderer.GeoCuriosRenderer;
+import architecture.ego_curios.client.renderer.GeoCurioRenderer;
+import architecture.ego_curios.client.renderer.SparkGeoCurioRenderer;
 import architecture.ego_curios.common.item.EgoCurioItem;
 import architecture.ego_curios.core.EGOCurios;
+import architecture.ego_curios.init.EGOCuriosItems;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -18,7 +20,7 @@ import java.util.function.Function;
 @EventBusSubscriber(modid = EGOCurios.ID, value = Dist.CLIENT)
 public final class CurioRenderersRegistrar {
 	@ApiStatus.Internal
-	private static final Map<DeferredItem<EgoCurioItem>, Function<EgoCurioItem, GeoCuriosRenderer<EgoCurioItem>>> RENDERER_MAP = new HashMap<>();
+	private static final Map<DeferredItem<EgoCurioItem>, Function<EgoCurioItem, GeoCurioRenderer<EgoCurioItem>>> RENDERER_MAP = new HashMap<>();
 
 	/**
 	 * 注册饰品渲染
@@ -29,9 +31,10 @@ public final class CurioRenderersRegistrar {
 			EgoCurioItem egoCurioItem = entry.getKey().get();
 			CuriosRendererRegistry.register(egoCurioItem, () -> entry.getValue().apply(egoCurioItem));
 		}
+		CuriosRendererRegistry.register(EGOCuriosItems.COMPREHENSION_BACK.asItem(), SparkGeoCurioRenderer::new);
 	}
 
-	public static void addRenderer(DeferredItem<EgoCurioItem> item, Function<EgoCurioItem, GeoCuriosRenderer<EgoCurioItem>> renderer) {
+	public static void addRenderer(DeferredItem<EgoCurioItem> item, Function<EgoCurioItem, GeoCurioRenderer<EgoCurioItem>> renderer) {
 		RENDERER_MAP.put(item, renderer);
 	}
 }

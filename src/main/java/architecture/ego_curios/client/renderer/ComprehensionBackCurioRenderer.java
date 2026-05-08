@@ -12,7 +12,7 @@ import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.GeoModel;
 import top.theillusivec4.curios.api.SlotContext;
 
-public class ComprehensionBackCuriosRenderer extends GeoCuriosRenderer<ComprehensionBackCurioItem> {
+public class ComprehensionBackCurioRenderer extends GeoCurioRenderer<ComprehensionBackCurioItem> {
 	protected GeoBone leftUpperTentacleRoot = null;
 	protected GeoBone leftMiddleTentacleRoot = null;
 	protected GeoBone leftLowerTentacleRoot = null;
@@ -21,7 +21,7 @@ public class ComprehensionBackCuriosRenderer extends GeoCuriosRenderer<Comprehen
 	protected GeoBone rightMiddleTentacleRoot = null;
 	protected GeoBone rightLowerTentacleRoot = null;
 
-	public ComprehensionBackCuriosRenderer(GeoModel<ComprehensionBackCurioItem> model) {
+	public ComprehensionBackCurioRenderer(GeoModel<ComprehensionBackCurioItem> model) {
 		super(model);
 	}
 

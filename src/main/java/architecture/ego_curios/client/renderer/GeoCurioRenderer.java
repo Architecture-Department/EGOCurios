@@ -1,6 +1,5 @@
 package architecture.ego_curios.client.renderer;
 
-import architecture.ego_curios.core.EGOCuriosConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
@@ -11,41 +10,16 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.client.ICurioRenderer;
 
-public class GeoCuriosRenderer<T extends Item & GeoItem> extends GeoArmorRenderer<T> implements ICurioRenderer {
+public class GeoCurioRenderer<T extends Item & GeoItem> extends GeoArmorRenderer<T> implements CuriosRenderer {
 	protected SlotContext slotContext;
 
-	public GeoCuriosRenderer(GeoModel<T> model) {
+	public GeoCurioRenderer(GeoModel<T> model) {
 		super(model);
-	}
-
-	public static @NotNull EquipmentSlot getEquipmentSlot(final SlotContext slotContext) {
-		return switch (slotContext.identifier()) {
-			case EGOCuriosConstants.EGO_CURIOS_HEADWEAR,
-			     EGOCuriosConstants.EGO_CURIOS_HEAD,
-			     EGOCuriosConstants.EGO_CURIOS_HINDBRAIN,
-			     EGOCuriosConstants.EGO_CURIOS_EYE,
-			     EGOCuriosConstants.EGO_CURIOS_FACE,
-			     EGOCuriosConstants.EGO_CURIOS_CHEEK,
-			     EGOCuriosConstants.EGO_CURIOS_MASK,
-			     EGOCuriosConstants.EGO_CURIOS_MOUTH -> EquipmentSlot.HEAD;
-
-			case EGOCuriosConstants.EGO_CURIOS_NECK,
-			     EGOCuriosConstants.EGO_CURIOS_BROOCH,
-			     EGOCuriosConstants.EGO_CURIOS_LEFT_BACK,
-			     EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK -> EquipmentSlot.CHEST;
-
-			case EGOCuriosConstants.EGO_CURIOS_HAND,
-			     EGOCuriosConstants.EGO_CURIOS_GLOVE -> EquipmentSlot.MAINHAND;
-
-			default -> EquipmentSlot.BODY;
-		};
 	}
 
 	public void prepForRender(
@@ -74,9 +48,12 @@ public class GeoCuriosRenderer<T extends Item & GeoItem> extends GeoArmorRendere
 			return;
 		}
 		// 预推送当前渲染状态机
-		prepForRender(slotContext, slotContext.entity(), stack, getEquipmentSlot(slotContext), humanoidModel, renderTypeBuffer, partialTicks, limbSwing, limbSwingAmount, netHeadYaw, headPitch);
+		LivingEntity entity = slotContext.entity();
+		EquipmentSlot equipmentSlot = CuriosRenderer.getEquipmentSlot(slotContext);
+		prepForRender(slotContext, entity, stack, equipmentSlot, humanoidModel, renderTypeBuffer, partialTicks, limbSwing, limbSwingAmount, netHeadYaw, headPitch);
 		// 进行渲染
 		//noinspection unchecked
-		defaultRender(matrixStack, (T) stack.getItem(), renderTypeBuffer, null, null, netHeadYaw, partialTicks, light);
+		T item = (T) stack.getItem();
+		defaultRender(matrixStack, item, renderTypeBuffer, null, null, netHeadYaw, partialTicks, light);
 	}
 }

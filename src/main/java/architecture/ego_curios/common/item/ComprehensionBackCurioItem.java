@@ -1,15 +1,24 @@
 package architecture.ego_curios.common.item;
 
+import architecture.ego_curios.CurioAnimAppurtenanceInfo;
 import architecture.ego_curios.api.AttackLogicHolder;
+import architecture.ego_curios.api.CurioApiKt;
+import architecture.ego_curios.common.payload.toc.CurioAppurtenanceSynchroPayload;
 import architecture.ego_curios.core.EGOCurios;
 import architecture.ego_curios.core.EGOCuriosConstants;
 import architecture.ego_curios.init.EGOCuriosAttachments;
 import architecture.goldenboughs_lib.mixed.geckolib.IAnimationController;
+import architecture.resonator_combat_framework.api.IAppurtenanceExecute;
+import architecture.resonator_combat_framework.common.payload.toc.AppurtenanceSynchroPayload;
+import cn.solarmoon.spark_core.animation.model.ModelIndex;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
@@ -18,11 +27,12 @@ import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 /**
  * 理解 后背 饰品
  */
-public class ComprehensionBackCurioItem extends EgoCurioItem {
+public class ComprehensionBackCurioItem extends EgoCurioItem implements IAppurtenanceExecute {
 	public ComprehensionBackCurioItem(Builder<ComprehensionBackCurioItem> egoCurioBuilder) {
 		super(egoCurioBuilder);
 		SingletonGeoAnimatable.registerSyncedAnimatable(this);
@@ -140,7 +150,12 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 			return;
 		}
 
+		int index = slotContext.index();
 		String identifier = slotContext.identifier();
+
+		CurioAppurtenanceSynchroPayload.send(entity, false, identifier, index);
+		remove(entity, stackBeingUnequipped);
+
 		AttackLogicHolder data = entity.getData(EGOCuriosAttachments.ATTACK_LOGIC_HOLDER);
 		switch (identifier) {
 			case EGOCuriosConstants.EGO_CURIOS_LEFT_BACK -> data.remove(EGOCurios.modRl(getDescriptionId() + ".left_back"));
@@ -151,12 +166,17 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 	@Override
 	public void onEquip(SlotContext slotContext, ItemStack previousStack, ItemStack stackBeingEquipped) {
 		super.onEquip(slotContext, previousStack, stackBeingEquipped);
+
 		LivingEntity entity = slotContext.entity();
 		if (!(entity.level() instanceof ServerLevel serverLevel)) {
 			return;
 		}
 
+		int index = slotContext.index();
 		String identifier = slotContext.identifier();
+		CurioAppurtenanceSynchroPayload.send(entity, true, identifier, index);
+		add(entity, stackBeingEquipped);
+
 		AttackLogicHolder data = entity.getData(EGOCuriosAttachments.ATTACK_LOGIC_HOLDER);
 		switch (identifier) {
 			case EGOCuriosConstants.EGO_CURIOS_LEFT_BACK ->
@@ -164,6 +184,43 @@ public class ComprehensionBackCurioItem extends EgoCurioItem {
 			case EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK ->
 				data.add(EGOCurios.modRl(getDescriptionId() + ".right_back"), new AttackLogic(entity, stackBeingEquipped, false));
 		}
+	}
+
+	@Override
+	public void add(@NotNull Entity entity, @NotNull ItemStack itemStack, @NotNull CompoundTag nbt) {
+		if (!(entity instanceof LivingEntity livingEntity)) return;
+
+		ICuriosItemHandler iCuriosItemHandler = CurioApiKt.getCuriosInventory(livingEntity).orElse(null);
+		if (iCuriosItemHandler == null) {
+			return;
+		}
+		if (!containsIdentifier(nbt)) {
+			return;
+		}
+
+		entity.getAppurtenanceInfoMap().put("curio_" + getIdentifier(nbt), new CurioAnimAppurtenanceInfo<>(
+			livingEntity,
+			itemStack,
+			new ModelIndex("curio", EGOCurios.modRl("comprehension_back"))
+		));
+	}
+
+	private static String getIdentifier(CompoundTag nbt) {
+		return nbt.getString("identifier");
+	}
+
+	private static boolean containsIdentifier(CompoundTag nbt) {
+		return nbt.contains("identifier");
+	}
+
+	@Override
+	public void remove(@NotNull Entity entity, @NotNull ItemStack itemStack, @NotNull CompoundTag nbt) {
+		if (!(entity instanceof LivingEntity livingEntity)) return;
+		if (!containsIdentifier(nbt)) {
+			return;
+		}
+
+		entity.getAppurtenanceInfoMap().remove("curio_" + getIdentifier(nbt));
 	}
 
 	public static class AttackLogic implements AttackLogicHolder.IAttackLogic {
