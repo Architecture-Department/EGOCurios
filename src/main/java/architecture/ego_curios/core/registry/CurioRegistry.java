@@ -1,5 +1,6 @@
 package architecture.ego_curios.core.registry;
 
+import architecture.ego_curios.api.CuriosApiKt;
 import architecture.ego_curios.core.EGOCuriosConstants;
 import architecture.ego_curios.init.EGOCuriosItems;
 import architecture.ego_curios.init.tag.CuriosItemTags;
@@ -7,7 +8,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import top.theillusivec4.curios.api.CuriosApi;
 
 import static top.theillusivec4.curios.api.CuriosApi.registerCurioPredicate;
 
@@ -42,7 +42,7 @@ public final class CurioRegistry {
 					return false;
 				}
 
-				var curiosInventory = CuriosApi.getCuriosInventory(slotResult.slotContext().entity());
+				var curiosInventory = CuriosApiKt.getCuriosInventory(slotResult.slotContext().entity());
 				if (curiosInventory.isEmpty()) {
 					return false;
 				}
@@ -67,7 +67,7 @@ public final class CurioRegistry {
 					return false;
 				}
 
-				var curiosInventory = CuriosApi.getCuriosInventory(slotResult.slotContext().entity());
+				var curiosInventory = CuriosApiKt.getCuriosInventory(slotResult.slotContext().entity());
 				if (curiosInventory.isEmpty()) {
 					return false;
 				}

@@ -129,7 +129,7 @@ open class GeoArmorRenderer<T, S> : IGeoRendererExpand<T, S> where S : IAnimatab
 		setAllBonesVisible(false)
 
 		val renderer = this@GeoArmorRenderer
-		baseHumanoidModel?.apply {
+		baseHumanoidModel?.run {
 			when (currentSlot) {
 				EquipmentSlot.HEAD -> {
 					renderer.bipedHead.setRecursionVisible(head.visible)
@@ -308,7 +308,7 @@ open class GeoArmorRenderer<T, S> : IGeoRendererExpand<T, S> where S : IAnimatab
 
 	fun OBone?.matchModelPartRot(modelPart: ModelPart) {
 		this ?: return
-		tmpM4.apply { rotateZYX(-modelPart.xRot, -modelPart.yRot, modelPart.zRot) }
+		tmpM4.run { rotateZYX(-modelPart.xRot, -modelPart.yRot, modelPart.zRot) }
 	}
 
 	fun OBone?.getChildren(): List<OBone> {

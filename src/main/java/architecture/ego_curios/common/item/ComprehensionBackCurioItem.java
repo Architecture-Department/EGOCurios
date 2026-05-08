@@ -3,13 +3,13 @@ package architecture.ego_curios.common.item;
 import architecture.ego_curios.CurioAnimAppurtenanceInfo;
 import architecture.ego_curios.api.AttackLogicHolder;
 import architecture.ego_curios.common.payload.toc.CurioAppurtenanceSynchroPayload;
+import architecture.ego_curios.common.payload.toc.SlotContextExpand;
 import architecture.ego_curios.core.EGOCurios;
 import architecture.ego_curios.core.EGOCuriosConstants;
 import architecture.ego_curios.init.EGOCuriosAttachments;
 import architecture.goldenboughs_lib.mixed.geckolib.IAnimationController;
 import architecture.resonator_combat_framework.api.IAppurtenanceExecute;
 import cn.solarmoon.spark_core.animation.model.ModelIndex;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -25,6 +25,8 @@ import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 import top.theillusivec4.curios.api.SlotContext;
+
+import java.util.Map;
 
 /**
  * 理解 后背 饰品
@@ -147,11 +149,10 @@ public class ComprehensionBackCurioItem extends EgoCurioItem implements IAppurte
 			return;
 		}
 
-		int index = slotContext.index();
-		String identifier = slotContext.identifier();
+		CurioAppurtenanceSynchroPayload.send(false, slotContext);
 
-		CurioAppurtenanceSynchroPayload.send(entity, false, identifier, index);
-		remove(entity, stackBeingUnequipped);
+		String identifier = slotContext.identifier();
+		removeAppurtenance(entity, identifier);
 
 		AttackLogicHolder data = entity.getData(EGOCuriosAttachments.ATTACK_LOGIC_HOLDER);
 		switch (identifier) {
@@ -169,10 +170,10 @@ public class ComprehensionBackCurioItem extends EgoCurioItem implements IAppurte
 			return;
 		}
 
-		int index = slotContext.index();
+		CurioAppurtenanceSynchroPayload.send(true, slotContext);
+
 		String identifier = slotContext.identifier();
-		CurioAppurtenanceSynchroPayload.send(entity, true, identifier, index);
-		add(entity, stackBeingEquipped);
+		addAppurtenance(entity, stackBeingEquipped, identifier);
 
 		AttackLogicHolder data = entity.getData(EGOCuriosAttachments.ATTACK_LOGIC_HOLDER);
 		switch (identifier) {
@@ -184,37 +185,37 @@ public class ComprehensionBackCurioItem extends EgoCurioItem implements IAppurte
 	}
 
 	@Override
-	public void remove(@NotNull Entity entity, @NotNull ItemStack itemStack, @NotNull CompoundTag nbt) {
+	public void remove(@NotNull Entity entity, @NotNull ItemStack itemStack, @NotNull Map<@NotNull String, ? extends @NotNull Object> map) {
 		if (!(entity instanceof LivingEntity livingEntity)) return;
 
-		if (!containsIdentifier(nbt)) {
+		if (!(map.get("slotContext") instanceof SlotContextExpand slotContextExpand)) {
 			return;
 		}
 
-		entity.getAppurtenanceInfoMap().remove("curio_" + getIdentifier(nbt));
+		removeAppurtenance(entity, slotContextExpand.getIdentifier());
 	}
 
-	@Override
-	public void add(@NotNull Entity entity, @NotNull ItemStack itemStack, @NotNull CompoundTag nbt) {
-		if (!(entity instanceof LivingEntity livingEntity)) return;
+	public void removeAppurtenance(Entity entity, String identifier) {
+		entity.getAppurtenanceInfoMap().remove("curio_" + identifier);
+	}
 
-		if (!containsIdentifier(nbt)) {
-			return;
-		}
-
-		entity.getAppurtenanceInfoMap().put("curio_" + getIdentifier(nbt), new CurioAnimAppurtenanceInfo<>(
+	public void addAppurtenance(LivingEntity livingEntity, ItemStack itemStack, String identifier) {
+		livingEntity.getAppurtenanceInfoMap().put("curio_" + identifier, new CurioAnimAppurtenanceInfo<>(
 			livingEntity,
 			itemStack,
 			new ModelIndex("curio", EGOCurios.modRl("comprehension_back"))
 		));
 	}
 
-	private static String getIdentifier(CompoundTag nbt) {
-		return nbt.getString("identifier");
-	}
+	@Override
+	public void add(@NotNull Entity entity, @NotNull ItemStack itemStack, @NotNull Map<@NotNull String, ? extends @NotNull Object> map) {
+		if (!(entity instanceof LivingEntity livingEntity)) return;
 
-	private static boolean containsIdentifier(CompoundTag nbt) {
-		return nbt.contains("identifier");
+		if (!(map.get("slotContext") instanceof SlotContextExpand slotContextExpand)) {
+			return;
+		}
+
+		addAppurtenance(livingEntity, itemStack, slotContextExpand.getIdentifier());
 	}
 
 	public static class AttackLogic implements AttackLogicHolder.IAttackLogic {

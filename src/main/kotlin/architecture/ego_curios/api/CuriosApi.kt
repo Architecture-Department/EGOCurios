@@ -20,6 +20,7 @@ import top.theillusivec4.curios.api.SlotResult
 import top.theillusivec4.curios.api.type.ISlotType
 import top.theillusivec4.curios.api.type.capability.ICurio
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler
 import java.util.*
 import java.util.function.Predicate
 
@@ -145,7 +146,7 @@ fun EntityType<*>.getEntitySlots(isClient: Boolean): MutableMap<String, ISlotTyp
  * @param level ItemStack 所在的世界
  * @return 指定 ItemStack 的槽位类型
  */
-fun Level.getItemStackSlots(stack: ItemStack?): MutableMap<String, ISlotType> {
+fun Level.getItemStackSlots(stack: ItemStack): MutableMap<String, ISlotType> {
 	return CuriosApi.getItemStackSlots(stack, this)
 }
 
@@ -156,7 +157,7 @@ fun Level.getItemStackSlots(stack: ItemStack?): MutableMap<String, ISlotType> {
  * @param level ItemStack 所在的世界
  * @return 指定 ItemStack 的槽位类型
  */
-fun ItemStack?.getItemStackSlots(level: Level): MutableMap<String, ISlotType> {
+fun ItemStack.getItemStackSlots(level: Level): MutableMap<String, ISlotType> {
 	return CuriosApi.getItemStackSlots(this, level)
 }
 
@@ -167,7 +168,7 @@ fun ItemStack?.getItemStackSlots(level: Level): MutableMap<String, ISlotType> {
  * @param isClient true表示客户端槽位，false表示服务端槽位
  * @return 指定 ItemStack 的槽位类型
  */
-fun ItemStack?.getItemStackSlots(isClient: Boolean): MutableMap<String, ISlotType> {
+fun ItemStack.getItemStackSlots(isClient: Boolean): MutableMap<String, ISlotType> {
 	return CuriosApi.getItemStackSlots(this, isClient)
 }
 
@@ -178,7 +179,7 @@ fun ItemStack?.getItemStackSlots(isClient: Boolean): MutableMap<String, ISlotTyp
  * @param livingEntity 拥有槽位类型的实体
  * @return 指定 ItemStack 和实体的槽位类型
  */
-fun LivingEntity.getItemStackSlots(stack: ItemStack?): MutableMap<String, ISlotType> {
+fun LivingEntity.getItemStackSlots(stack: ItemStack): MutableMap<String, ISlotType> {
 	return CuriosApi.getItemStackSlots(stack, this)
 }
 
@@ -189,7 +190,7 @@ fun LivingEntity.getItemStackSlots(stack: ItemStack?): MutableMap<String, ISlotT
  * @param livingEntity 拥有槽位类型的实体
  * @return 指定 ItemStack 和实体的槽位类型
  */
-fun ItemStack?.getItemStackSlots(livingEntity: LivingEntity): MutableMap<String, ISlotType> {
+fun ItemStack.getItemStackSlots(livingEntity: LivingEntity): MutableMap<String, ISlotType> {
 	return CuriosApi.getItemStackSlots(this, livingEntity)
 }
 
@@ -199,7 +200,7 @@ fun ItemStack?.getItemStackSlots(livingEntity: LivingEntity): MutableMap<String,
  * @param this 要获取 curio 能力的 [ItemStack]
  * @return curio 能力的 [Optional]
  */
-fun ItemStack?.getCurio(): Optional<ICurio> {
+fun ItemStack.getCurio(): Optional<ICurio> {
 	return CuriosApi.getCurio(this)
 }
 
@@ -213,8 +214,25 @@ fun LivingEntity?.getCuriosInventory(): Optional<ICuriosItemHandler> {
 	return CuriosApi.getCuriosInventory(this)
 }
 
-fun LivingEntity?.getStackInSlot(index: Int): ItemStack? {
-	return getCuriosInventory().orElse(null)?.equippedCurios?.getStackInSlot(index)
+fun LivingEntity?.getStackInSlot(name: String, index: Int): ItemStack {
+	this ?: return ItemStack.EMPTY
+	return getCuriosInventoryCurios(name)?.run {
+		if (0 < index || slots <= index) return@run null
+		return@run (stacks?.getStackInSlot(index) ?: cosmeticStacks?.getStackInSlot(index))
+	} ?: ItemStack.EMPTY
+}
+
+fun LivingEntity?.getStackInSlot(name: String, index: Int, isCosmetic: Boolean): ItemStack {
+	this ?: return ItemStack.EMPTY
+	return getCuriosInventoryCurios(name)?.run {
+		if (0 < index || slots <= index) return@run null
+		return@run (if (isCosmetic) cosmeticStacks?.getStackInSlot(index) else stacks?.getStackInSlot(index))
+	} ?: ItemStack.EMPTY
+}
+
+fun LivingEntity?.getCuriosInventoryCurios(name: String): ICurioStacksHandler? {
+	this ?: return null
+	return getCuriosInventory().orElse(null)?.curios[name]
 }
 
 /**
@@ -224,7 +242,7 @@ fun LivingEntity?.getStackInSlot(index: Int): ItemStack? {
  * @param stack 待检查的 ItemStack
  * @return 如果 ItemStack 对槽位有效则返回 true，否则返回 false
  */
-fun SlotContext?.isStackValid(stack: ItemStack?): Boolean {
+fun SlotContext?.isStackValid(stack: ItemStack): Boolean {
 	return CuriosApi.isStackValid(this, stack)
 }
 
@@ -241,7 +259,7 @@ fun SlotContext?.isStackValid(stack: ItemStack?): Boolean {
  */
 fun SlotContext?.getAttributeModifiers(
 	id: ResourceLocation?,
-	stack: ItemStack?
+	stack: ItemStack
 ): Multimap<Holder<Attribute?>?, AttributeModifier?> {
 	return CuriosApi.getAttributeModifiers(this, id, stack)
 }
@@ -257,7 +275,7 @@ fun SlotContext?.getAttributeModifiers(
  * @param slotContext 关于 ItemStack 已装备或可能装备的槽位的上下文
  * @return 属性修饰符映射
  */
-fun ItemStack?.getAttributeModifiers(
+fun ItemStack.getAttributeModifiers(
 	id: ResourceLocation?,
 	slotContext: SlotContext?
 ): Multimap<Holder<Attribute?>?, AttributeModifier?> {
@@ -293,7 +311,7 @@ fun addSlotModifier(
  * @param operation  修饰符的操作类型
  * @param slot       ItemStack 提供修饰符的槽位
  */
-fun ItemStack?.addSlotModifier(
+fun ItemStack.addSlotModifier(
 	identifier: String?,
 	id: ResourceLocation?,
 	amount: Double,
@@ -333,7 +351,7 @@ fun EquipmentSlotGroup?.withSlotModifier(
  * @param operation 修饰符的操作类型
  * @param slot      ItemStack 提供修饰符的槽位
  */
-fun ItemStack?.addModifier(
+fun ItemStack.addModifier(
 	attribute: Holder<Attribute?>?, id: ResourceLocation?,
 	amount: Double, operation: AttributeModifier.Operation?,
 	slot: String?
