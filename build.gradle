@@ -100,7 +100,6 @@ dependencies {
 	}
 
 	implementation "net.neoforged:neoforge:${neo_version}"
-	implementation 'androidx.privacysandbox.tools:tools-core:1.0.0-alpha14'
 	runtimeOnly "org.javassist:javassist:${javassist_version}"
 
 	// curios 饰品

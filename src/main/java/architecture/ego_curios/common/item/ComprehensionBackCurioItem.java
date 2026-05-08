@@ -2,14 +2,12 @@ package architecture.ego_curios.common.item;
 
 import architecture.ego_curios.CurioAnimAppurtenanceInfo;
 import architecture.ego_curios.api.AttackLogicHolder;
-import architecture.ego_curios.api.CurioApiKt;
 import architecture.ego_curios.common.payload.toc.CurioAppurtenanceSynchroPayload;
 import architecture.ego_curios.core.EGOCurios;
 import architecture.ego_curios.core.EGOCuriosConstants;
 import architecture.ego_curios.init.EGOCuriosAttachments;
 import architecture.goldenboughs_lib.mixed.geckolib.IAnimationController;
 import architecture.resonator_combat_framework.api.IAppurtenanceExecute;
-import architecture.resonator_combat_framework.common.payload.toc.AppurtenanceSynchroPayload;
 import cn.solarmoon.spark_core.animation.model.ModelIndex;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -27,7 +25,6 @@ import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 /**
  * 理解 后背 饰品
@@ -187,13 +184,20 @@ public class ComprehensionBackCurioItem extends EgoCurioItem implements IAppurte
 	}
 
 	@Override
+	public void remove(@NotNull Entity entity, @NotNull ItemStack itemStack, @NotNull CompoundTag nbt) {
+		if (!(entity instanceof LivingEntity livingEntity)) return;
+
+		if (!containsIdentifier(nbt)) {
+			return;
+		}
+
+		entity.getAppurtenanceInfoMap().remove("curio_" + getIdentifier(nbt));
+	}
+
+	@Override
 	public void add(@NotNull Entity entity, @NotNull ItemStack itemStack, @NotNull CompoundTag nbt) {
 		if (!(entity instanceof LivingEntity livingEntity)) return;
 
-		ICuriosItemHandler iCuriosItemHandler = CurioApiKt.getCuriosInventory(livingEntity).orElse(null);
-		if (iCuriosItemHandler == null) {
-			return;
-		}
 		if (!containsIdentifier(nbt)) {
 			return;
 		}
@@ -211,16 +215,6 @@ public class ComprehensionBackCurioItem extends EgoCurioItem implements IAppurte
 
 	private static boolean containsIdentifier(CompoundTag nbt) {
 		return nbt.contains("identifier");
-	}
-
-	@Override
-	public void remove(@NotNull Entity entity, @NotNull ItemStack itemStack, @NotNull CompoundTag nbt) {
-		if (!(entity instanceof LivingEntity livingEntity)) return;
-		if (!containsIdentifier(nbt)) {
-			return;
-		}
-
-		entity.getAppurtenanceInfoMap().remove("curio_" + getIdentifier(nbt));
 	}
 
 	public static class AttackLogic implements AttackLogicHolder.IAttackLogic {
