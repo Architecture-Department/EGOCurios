@@ -20,7 +20,7 @@ import top.theillusivec4.curios.api.SlotResult
 import top.theillusivec4.curios.api.type.ISlotType
 import top.theillusivec4.curios.api.type.capability.ICurio
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler
-import java.util.Optional
+import java.util.*
 import java.util.function.Predicate
 
 /**

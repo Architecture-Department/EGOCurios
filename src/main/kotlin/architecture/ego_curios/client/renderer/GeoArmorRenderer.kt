@@ -17,7 +17,7 @@ import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.item.ItemStack
 
 open class GeoArmorRenderer<T, S> : IGeoRendererExpand<T, S> where S : IAnimatable<T> {
-	val boneInfoExpand: MutableMap<String, OBoneInfo> = mutableMapOf();
+	val boneInfoExpand: MutableMap<String, OBoneInfo> = mutableMapOf()
 	override val layers: MutableList<RenderLayer<T, S>> = mutableListOf()
 
 	var animatable: S? = null
@@ -96,33 +96,33 @@ open class GeoArmorRenderer<T, S> : IGeoRendererExpand<T, S> where S : IAnimatab
 		if (this.lastModelInstance === bakedModelInstance) return
 
 		this.lastModelInstance = bakedModelInstance
-		lastModelInstance?.origin?.bones?.forEach { (k, v) ->
+		lastModelInstance?.origin?.bones?.forEach { (_, v) ->
 			boneInfoExpand[v.name] = OBoneInfo(v)
 		}
 		val model: OModel = getModel() ?: return
 
-		bipedHead = getOrAddBone("bipedHead", model);
-		armorHead = getOrAddBone("armorHead", model);
+		bipedHead = getOrAddBone("bipedHead", model)
+		armorHead = getOrAddBone("armorHead", model)
 
-		bipedBody = getOrAddBone("bipedBody", model);
-		armorPants = getOrAddBone("armorPants", model);
-		armorBody = getOrAddBone("armorBody", model);
+		bipedBody = getOrAddBone("bipedBody", model)
+		armorPants = getOrAddBone("armorPants", model)
+		armorBody = getOrAddBone("armorBody", model)
 
-		bipedRightArm = getOrAddBone("bipedRightArm", model);
-		armorRightArm = getOrAddBone("armorRightArm", model);
-		armorFineRightArm = getOrAddBone("armorFineRightArm", model);
+		bipedRightArm = getOrAddBone("bipedRightArm", model)
+		armorRightArm = getOrAddBone("armorRightArm", model)
+		armorFineRightArm = getOrAddBone("armorFineRightArm", model)
 
-		bipedLeftArm = getOrAddBone("bipedLeftArm", model);
-		armorLeftArm = getOrAddBone("armorLeftArm", model);
-		armorFineLeftArm = getOrAddBone("armorFineLeftArm", model);
+		bipedLeftArm = getOrAddBone("bipedLeftArm", model)
+		armorLeftArm = getOrAddBone("armorLeftArm", model)
+		armorFineLeftArm = getOrAddBone("armorFineLeftArm", model)
 
-		bipedRightLeg = getOrAddBone("bipedRightLeg", model);
-		armorRightLeg = getOrAddBone("armorRightLeg", model);
-		armorRightBoot = getOrAddBone("armorRightBoot", model);
+		bipedRightLeg = getOrAddBone("bipedRightLeg", model)
+		armorRightLeg = getOrAddBone("armorRightLeg", model)
+		armorRightBoot = getOrAddBone("armorRightBoot", model)
 
-		bipedLeftLeg = getOrAddBone("bipedLeftLeg", model);
-		armorLeftLeg = getOrAddBone("armorLeftLeg", model);
-		armorLeftBoot = getOrAddBone("armorLeftBoot", model);
+		bipedLeftLeg = getOrAddBone("bipedLeftLeg", model)
+		armorLeftLeg = getOrAddBone("armorLeftLeg", model)
+		armorLeftBoot = getOrAddBone("armorLeftBoot", model)
 	}
 
 	protected fun applyBoneVisibilityBySlot(currentSlot: EquipmentSlot) {
