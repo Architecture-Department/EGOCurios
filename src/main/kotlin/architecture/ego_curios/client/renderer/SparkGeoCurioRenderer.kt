@@ -41,7 +41,6 @@ open class SparkGeoCurioRenderer : GeoArmorRenderer<ItemStack, CurioAnimAppurten
 		val entity = slotContext.entity
 		val animatable = entity.appurtenanceInfoMap["curio_" + slotContext.identifier]
 		if (animatable !is CurioAnimAppurtenanceInfo<*>) return
-		if (animatable.animatable != stack) return
 		val slot = getEquipmentSlot(slotContext)
 		prepForRender(
 			slotContext,

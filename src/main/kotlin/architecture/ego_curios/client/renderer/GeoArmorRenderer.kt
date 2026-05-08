@@ -15,10 +15,22 @@ import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.item.ItemStack
+import org.joml.Matrix4f
+import software.bernie.geckolib.util.RenderUtil
 
 open class GeoArmorRenderer<T, S> : IGeoRendererExpand<T, S> where S : IAnimatable<T> {
 	val boneInfoExpand: MutableMap<String, OBoneInfo> = mutableMapOf()
 	override val layers: MutableList<RenderLayer<T, S>> = mutableListOf()
+
+	override var scaleWidth: Float = 1f
+	override var scaleHeight: Float = 1f
+
+	override var entityRenderTranslations: Matrix4f = Matrix4f()
+	override var modelRenderTranslations: Matrix4f = Matrix4f()
+
+	var attackTime: Float = 0f
+	var riding: Boolean = false
+	var young: Boolean = false
 
 	var animatable: S? = null
 
@@ -218,6 +230,24 @@ open class GeoArmorRenderer<T, S> : IGeoRendererExpand<T, S> where S : IAnimatab
 		this.headPitch = headPitch
 	}
 
+	override fun render(
+		animatable: S,
+		partialTick: Float,
+		poseStack: PoseStack,
+		bufferSource: MultiBufferSource,
+		packedLight: Int
+	) {
+		poseStack.pushPose()
+		poseStack.translate(0f, 24 / 16f, 0f)
+		poseStack.scale(-1f, -1f, 1f)
+		this.modelRenderTranslations = Matrix4f(poseStack.last().pose())
+		val poseState = Matrix4f(poseStack.last().pose())
+		poseStack.mulPose(RenderUtil.invertAndMultiplyMatrices(poseState, this.modelRenderTranslations))
+		poseStack.mulPose(RenderUtil.invertAndMultiplyMatrices(poseState, this.entityRenderTranslations))
+		super.render(animatable, partialTick, poseStack, bufferSource, packedLight)
+		poseStack.popPose()
+	}
+
 	override fun preRender(
 		animatable: S,
 		partialTick: Float,
@@ -225,15 +255,44 @@ open class GeoArmorRenderer<T, S> : IGeoRendererExpand<T, S> where S : IAnimatab
 		bufferSource: MultiBufferSource,
 		packedLight: Int
 	) {
-//		this.entityRenderTranslations = Matrix4f(poseStack.last().pose())
+		this.entityRenderTranslations = Matrix4f(poseStack.last().pose())
 		grabRelevantBones(animatable.modelController.model)
 		applyBaseTransformations(this.baseHumanoidModel)
 		// 缩放
-//		scaleModelForBaby(poseStack, animatable, partialTick, isReRender)
-//		scaleModelForRender(this.scaleWidth, this.scaleHeight, poseStack, animatable, model, isReRender, partialTick, packedLight, packedOverlay)
-
-		currentSlot?.let { applyBoneVisibilityBySlot(it) }
+		scaleModelForBaby(poseStack, animatable, partialTick, false)
+		val packedOverlay = getOverlay(animatable, partialTick)
+		scaleModelForRender(
+			this.scaleWidth,
+			this.scaleHeight,
+			poseStack,
+			animatable,
+			lastModelInstance,
+			false,
+			partialTick,
+			packedLight,
+			packedOverlay
+		)
+		currentSlot?.run { applyBoneVisibilityBySlot(this) }
 		super.preRender(animatable, partialTick, poseStack, bufferSource, packedLight)
+	}
+
+	fun scaleModelForBaby(poseStack: PoseStack, animatable: S?, partialTick: Float, isReRender: Boolean) {
+//		if (!this.young || isReRender) return
+//
+//		if (this.currentSlot == EquipmentSlot.HEAD) {
+//			if (this.baseModel.scaleHead) {
+//				val headScale: Float = 1.5f / this.baseModel.babyHeadScale
+//
+//				poseStack.scale(headScale, headScale, headScale)
+//			}
+//
+//			poseStack.translate(0f, this.baseModel.babyYHeadOffset / 16f, this.baseModel.babyZHeadOffset / 16f)
+//		} else {
+//			val bodyScale: Float = 1 / this.baseModel.babyBodyScale
+//
+//			poseStack.scale(bodyScale, bodyScale, bodyScale)
+//			poseStack.translate(0f, this.baseModel.bodyYOffset / 16f, 0f)
+//		}
 	}
 
 	override fun renderBones(

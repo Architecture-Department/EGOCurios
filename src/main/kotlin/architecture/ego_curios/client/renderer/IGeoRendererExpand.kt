@@ -1,6 +1,7 @@
 package architecture.ego_curios.client.renderer
 
 import cn.solarmoon.spark_core.animation.IAnimatable
+import cn.solarmoon.spark_core.animation.model.ModelInstance
 import cn.solarmoon.spark_core.animation.model.ModelPose
 import cn.solarmoon.spark_core.animation.model.origin.OBone
 import cn.solarmoon.spark_core.animation.model.origin.OCube
@@ -12,8 +13,15 @@ import cn.solarmoon.spark_core.animation.renderer.tmpM3
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import net.minecraft.client.renderer.MultiBufferSource
+import org.joml.Matrix4f
 
 interface IGeoRendererExpand<T, S> : IGeoRenderer<T, S> where S : IAnimatable<T> {
+
+	var entityRenderTranslations: Matrix4f
+	var modelRenderTranslations: Matrix4f
+	var scaleWidth: Float
+	var scaleHeight: Float
+
 	// TODO 未满足要求
 	override val layers: MutableList<RenderLayer<T, S>>
 
@@ -151,5 +159,19 @@ interface IGeoRendererExpand<T, S> : IGeoRenderer<T, S> where S : IAnimatable<T>
 
 	// 渲染结束
 	fun doPostRenderCleanup() {
+	}
+
+	fun scaleModelForRender(
+		widthScale: Float,
+		heightScale: Float,
+		poseStack: PoseStack,
+		animatable: S?,
+		model: ModelInstance?,
+		isReRender: Boolean,
+		partialTick: Float,
+		packedLight: Int,
+		packedOverlay: Int
+	) {
+		if (!isReRender && (widthScale != 1f || heightScale != 1f)) poseStack.scale(widthScale, heightScale, widthScale)
 	}
 }
