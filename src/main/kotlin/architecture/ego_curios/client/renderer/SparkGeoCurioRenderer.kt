@@ -2,8 +2,8 @@ package architecture.ego_curios.client.renderer
 
 import architecture.ego_curios.CurioAnimatedAccessoryInfo
 import architecture.ego_curios.client.renderer.CuriosRenderer.Companion.getEquipmentSlot
+import architecture.resonator_combat_framework.client.renderer.SparkGeoArmorRenderer
 import cn.solarmoon.spark_core.animation.renderer.IGeoRenderer
-import cn.solarmoon.spark_core.animation.renderer.layer.RenderLayer
 import com.mojang.blaze3d.vertex.PoseStack
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.model.HumanoidModel
@@ -15,9 +15,9 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
 import top.theillusivec4.curios.api.SlotContext
 
-open class SparkGeoCurioRenderer : GeoArmorRenderer<ItemStack, CurioAnimatedAccessoryInfo<*>>(),
+open class SparkGeoCurioRenderer : SparkGeoArmorRenderer<ItemStack, CurioAnimatedAccessoryInfo<*>>(),
 	IGeoRenderer<ItemStack, CurioAnimatedAccessoryInfo<*>>, CuriosRenderer {
-	override val layers: MutableList<RenderLayer<ItemStack, CurioAnimatedAccessoryInfo<*>>> = mutableListOf()
+
 	protected var slotContext: SlotContext? = null
 
 	override fun <T : LivingEntity?, M : EntityModel<T?>?> render(

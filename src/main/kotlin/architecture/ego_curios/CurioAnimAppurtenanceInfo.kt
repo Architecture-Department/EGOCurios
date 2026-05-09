@@ -2,12 +2,10 @@ package architecture.ego_curios
 
 import architecture.resonator_combat_framework.api.appurtenance.AnimatedAccessoryInfo
 import cn.solarmoon.spark_core.animation.model.ModelIndex
-import cn.solarmoon.spark_core.util.toRadians
 import com.jme3.bullet.objects.PhysicsRigidBody
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
 import org.joml.Matrix4f
-import kotlin.math.PI
 
 open class CurioAnimatedAccessoryInfo<O>(
 	owner: O,
@@ -25,8 +23,8 @@ open class CurioAnimatedAccessoryInfo<O>(
 	}
 
 	override fun getWorldPositionMatrix(partialTicks: Number): Matrix4f {
-		return Matrix4f()
+		return Matrix4f()/*
 			.translate(owner.getPosition(partialTicks.toFloat()).toVector3f())
-			.rotateY(PI.toFloat() - owner.getPreciseBodyRotation(partialTicks.toFloat()).toRadians())
+			.rotateY(PI.toFloat() - owner.getPreciseBodyRotation(partialTicks.toFloat()).toRadians())*/
 	}
 }
