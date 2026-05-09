@@ -1,9 +1,9 @@
 package architecture.ego_curios.init;
 
-import architecture.ego_curios.client.renderer.ComprehensionBackCurioRenderer;
 import architecture.ego_curios.client.renderer.GeoCurioRenderer;
 import architecture.ego_curios.common.item.ComprehensionBackCurioItem;
 import architecture.ego_curios.common.item.EgoCurioItem;
+import architecture.ego_curios.common.item.TestEgoCurioItem;
 import architecture.ego_curios.core.EGOCurios;
 import architecture.ego_curios.core.EGOCuriosConstants;
 import architecture.ego_curios.core.registry.client.CurioRenderersRegistrar;
@@ -22,6 +22,9 @@ import java.util.function.Function;
 // TODO 可能需要给饰品添加等级
 public final class EGOCuriosItems {
 	public static final DeferredRegister.Items REGISTRY = DeferredRegister.createItems(EGOCurios.ID);
+
+	public static final DeferredItem<EgoCurioItem> TEST = REGISTRY.register("test_curios",
+		() -> new TestEgoCurioItem(new EgoCurioItem.Builder<>()));
 
 	//region 头饰
 	// TODO 受到精神伤害时，减少5%的精神损耗。

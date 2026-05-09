@@ -32,6 +32,7 @@ public final class CurioRenderersRegistrar {
 			CuriosRendererRegistry.register(egoCurioItem, () -> entry.getValue().apply(egoCurioItem));
 		}
 		CuriosRendererRegistry.register(EGOCuriosItems.COMPREHENSION_BACK.asItem(), SparkGeoCurioRenderer::new);
+		CuriosRendererRegistry.register(EGOCuriosItems.TEST.asItem(), SparkGeoCurioRenderer::new);
 	}
 
 	public static void addRenderer(DeferredItem<EgoCurioItem> item, Function<EgoCurioItem, GeoCurioRenderer<EgoCurioItem>> renderer) {

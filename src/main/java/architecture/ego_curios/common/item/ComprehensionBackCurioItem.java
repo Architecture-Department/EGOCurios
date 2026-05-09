@@ -188,11 +188,16 @@ public class ComprehensionBackCurioItem extends EgoCurioItem implements IAppurte
 	public void remove(@NotNull Entity entity, @NotNull ItemStack itemStack, @NotNull Map<@NotNull String, ? extends @NotNull Object> map) {
 		if (!(entity instanceof LivingEntity livingEntity)) return;
 
-		if (!(map.get("slotContext") instanceof SlotContextExpand slotContextExpand)) {
+		SlotContextExpand slotContext = getSlotContext(map);
+		if (slotContext == null) {
 			return;
 		}
 
-		removeAppurtenance(entity, slotContextExpand.getIdentifier());
+		removeAppurtenance(entity, slotContext.getIdentifier());
+	}
+
+	public static @Nullable SlotContextExpand getSlotContext(Map<@NotNull String, ?> map) {
+		return map.get("slotContext") instanceof SlotContextExpand slotContextExpand ? slotContextExpand : null;
 	}
 
 	public void removeAppurtenance(Entity entity, String identifier) {
@@ -211,11 +216,12 @@ public class ComprehensionBackCurioItem extends EgoCurioItem implements IAppurte
 	public void add(@NotNull Entity entity, @NotNull ItemStack itemStack, @NotNull Map<@NotNull String, ? extends @NotNull Object> map) {
 		if (!(entity instanceof LivingEntity livingEntity)) return;
 
-		if (!(map.get("slotContext") instanceof SlotContextExpand slotContextExpand)) {
+		SlotContextExpand slotContext = getSlotContext(map);
+		if (slotContext == null) {
 			return;
 		}
 
-		addAppurtenance(livingEntity, itemStack, slotContextExpand.getIdentifier());
+		addAppurtenance(livingEntity, itemStack, slotContext.getIdentifier());
 	}
 
 	public static class AttackLogic implements AttackLogicHolder.IAttackLogic {
