@@ -1,6 +1,6 @@
 package architecture.ego_curios.common.item;
 
-import architecture.ego_curios.CurioAnimAppurtenanceInfo;
+import architecture.ego_curios.CurioAnimatedAccessoryInfo;
 import architecture.ego_curios.api.AttackLogicHolder;
 import architecture.ego_curios.common.payload.toc.CurioAppurtenanceSynchroPayload;
 import architecture.ego_curios.common.payload.toc.SlotContextExpand;
@@ -200,7 +200,7 @@ public class ComprehensionBackCurioItem extends EgoCurioItem implements IAppurte
 	}
 
 	public void addAppurtenance(LivingEntity livingEntity, ItemStack itemStack, String identifier) {
-		livingEntity.getAppurtenanceInfoMap().put("curio_" + identifier, new CurioAnimAppurtenanceInfo<>(
+		livingEntity.getAppurtenanceInfoMap().put("curio_" + identifier, new CurioAnimatedAccessoryInfo<>(
 			livingEntity,
 			itemStack,
 			new ModelIndex("curio", EGOCurios.modRl("comprehension_back"))

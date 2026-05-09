@@ -1,19 +1,17 @@
 package architecture.ego_curios
 
-import architecture.resonator_combat_framework.api.appurtenance.AnimAppurtenanceInfo
-import cn.solarmoon.spark_core.animation.anim.AnimController
-import cn.solarmoon.spark_core.animation.model.ModelController
+import architecture.resonator_combat_framework.api.appurtenance.AnimatedAccessoryInfo
 import cn.solarmoon.spark_core.animation.model.ModelIndex
 import com.jme3.bullet.objects.PhysicsRigidBody
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import org.joml.Matrix4f
 
-class CurioAnimAppurtenanceInfo<O>(
+open class CurioAnimatedAccessoryInfo<O>(
 	owner: O,
-	animatable: ItemStack,
+	val itemStack: ItemStack,
 	defaultModelIndex: ModelIndex
-) : AnimAppurtenanceInfo<ItemStack, O>(owner, animatable, defaultModelIndex)
+) : AnimatedAccessoryInfo<ItemStack, O>(owner, itemStack, defaultModelIndex)
 	where O : LivingEntity {
 
 	override fun addPhysicsCollision(name: String, body: PhysicsRigidBody) {
@@ -22,5 +20,11 @@ class CurioAnimAppurtenanceInfo<O>(
 
 	override fun removePhysicsCollision(name: String) {
 		super.removePhysicsCollision("curio_$name")
+	}
+
+	override fun getWorldPositionMatrix(partialTicks: Number): Matrix4f {
+		return Matrix4f()/*
+			.translate(owner.getPosition(partialTicks.toFloat()).toVector3f())
+			.rotateY(PI.toFloat() - owner.getPreciseBodyRotation(partialTicks.toFloat()).toRadians())*/
 	}
 }
