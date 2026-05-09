@@ -16,7 +16,7 @@ public final class DatagenBlockTag extends BlockTagsProvider {
 	}
 
 	@Override
-	protected void addTags(final HolderLookup.Provider provider) {
+	public void addTags(final HolderLookup.Provider provider) {
 
 	}
 }
