@@ -2,9 +2,9 @@ package architecture.ego_curios.core.registry;
 
 import architecture.ego_curios.common.payload.toc.CurioAppurtenanceSynchroPayload;
 import architecture.ego_curios.core.EGOCurios;
-import architecture.goldenboughs_lib.common.payload.api.ToClientPayload;
-import architecture.goldenboughs_lib.common.payload.api.ToServerAndClientPayload;
-import architecture.goldenboughs_lib.common.payload.api.ToServerPayload;
+import architecture.goldenboughs_lib.api.payload.ToClientPayload;
+import architecture.goldenboughs_lib.api.payload.ToServerAndClientPayload;
+import architecture.goldenboughs_lib.api.payload.ToServerPayload;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
