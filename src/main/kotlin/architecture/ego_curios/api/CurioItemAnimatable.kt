@@ -1,4 +1,4 @@
-package architecture.ego_curios
+package architecture.ego_curios.api
 
 import cn.solarmoon.spark_core.animation.ItemAnimatable
 import net.minecraft.world.item.Item

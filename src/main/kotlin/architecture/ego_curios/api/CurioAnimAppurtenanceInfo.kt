@@ -1,4 +1,4 @@
-package architecture.ego_curios
+package architecture.ego_curios.api
 
 import architecture.resonator_combat_framework.api.appurtenance.AnimatedAccessoryInfo
 import cn.solarmoon.spark_core.animation.model.ModelIndex

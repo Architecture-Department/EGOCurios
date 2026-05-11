@@ -1,7 +1,7 @@
 package architecture.ego_curios.common.item;
 
-import architecture.ego_curios.CurioAnimatedAccessoryInfo;
 import architecture.ego_curios.api.AttackLogicHolder;
+import architecture.ego_curios.api.CurioAnimatedAccessoryInfo;
 import architecture.ego_curios.common.payload.toc.CurioAppurtenanceSynchroPayload;
 import architecture.ego_curios.common.payload.toc.SlotContextExpand;
 import architecture.ego_curios.core.EGOCurios;

@@ -1,6 +1,6 @@
 package architecture.ego_curios.client.renderer
 
-import architecture.ego_curios.CurioAnimatedAccessoryInfo
+import architecture.ego_curios.api.CurioAnimatedAccessoryInfo
 import architecture.ego_curios.client.renderer.CuriosRenderer.Companion.getEquipmentSlot
 import architecture.resonator_combat_framework.client.renderer.SparkGeoArmorRenderer
 import cn.solarmoon.spark_core.animation.renderer.IGeoRenderer

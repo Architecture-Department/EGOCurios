@@ -207,6 +207,10 @@ public class EgoCurioItem extends Item implements ICurioItem, GeoItem, IEgoItem 
 		});
 	}
 
+	public static <T extends EgoCurioItem> Builder<T> of() {
+		return new Builder<>();
+	}
+
 	public static class Builder<T extends EgoCurioItem> {
 		private final VirtueAttributeModifier.Builder virtueAddAttribute = new VirtueAttributeModifier.Builder();
 		private final List<String> tooltips = new ArrayList<>();
