@@ -13,6 +13,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
+import net.neoforged.neoforge.network.handling.IPayloadContext
 import top.theillusivec4.curios.api.SlotContext
 
 class CurioAppurtenanceSynchroPayload(
@@ -21,7 +22,7 @@ class CurioAppurtenanceSynchroPayload(
 	val slotContext: SlotContextExpand
 ) : AppurtenanceSynchroPayload(entityId, executeType) {
 
-	override fun work(player: Player) {
+	override fun work(context: IPayloadContext, player: Player) {
 		val entity = player.level().getEntity(entityId) as? LivingEntity ?: return
 		val (identifier, _, index, _, _) = slotContext
 		val itemStack = entity.getStackInSlot(identifier, index)
