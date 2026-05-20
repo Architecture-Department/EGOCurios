@@ -1,10 +1,9 @@
 package architecture.ego_curios.common.payload.toc
 
-import architecture.ego_curios.api.getStackInSlot
+import architecture.ego_curios.util.getStackInSlot
 import architecture.ego_curios.common.payload.toc.SlotContextExpand.Companion.toExpand
 import architecture.ego_curios.core.EGOCurios
 import architecture.goldenboughs_lib.util.PayloadUtil
-import architecture.resonator_combat_framework.api.IAppurtenanceExecute
 import architecture.resonator_combat_framework.common.payload.toc.AppurtenanceSynchroPayload
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
@@ -29,11 +28,11 @@ class CurioAppurtenanceSynchroPayload(
 		val map = mapOf(
 			"slotContext" to slotContext
 		)
-		val iAppurtenanceExecute = itemStack.item as? IAppurtenanceExecute ?: return
-		when (executeType.toInt()) {
-			0 -> iAppurtenanceExecute.remove(entity, itemStack, map)
-			1 -> iAppurtenanceExecute.add(entity, itemStack, map)
-		}
+//		val iAppurtenanceExecute = itemStack.item as? IAppurtenanceExecute ?: return
+//		when (executeType.toInt()) {
+//			0 -> iAppurtenanceExecute.remove(entity, itemStack, map)
+//			1 -> iAppurtenanceExecute.add(entity, itemStack, map)
+//		}
 	}
 
 	override fun type(): Type<out CustomPacketPayload?> = TYPE
