@@ -149,7 +149,9 @@ class EgoCurioItem(egoCurioBuilder: Builder<out EgoCurioItem>) : Item(
 		itemStack: ItemStack
 	): Multimap<Holder<Attribute>, AttributeModifier> {
 		val attributeModifiers = super.getAttributeModifiers(slotContext, attributeId, itemStack)
-		attributeModifiers.putAll(virtueAddAttribute.getAttributeModifiers(slotContext.entity(), attributeId, itemStack))
+		val entity = slotContext.entity()
+		entity ?: return attributeModifiers
+		attributeModifiers.putAll(virtueAddAttribute.getAttributeModifiers(entity, attributeId, itemStack))
 		return attributeModifiers
 	}
 
