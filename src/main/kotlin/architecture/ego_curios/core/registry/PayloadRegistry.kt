@@ -17,7 +17,6 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar
 @EventBusSubscriber(modid = EGOCurios.ID)
 object PayloadRegistry {
 	@SubscribeEvent
-	@JvmStatic
 	fun register(event: RegisterPayloadHandlersEvent) {
 		val registrar = event.registrar("1.0")
 		// 接收来自服务端和客户端的数据 发送到 客户端和服务端
