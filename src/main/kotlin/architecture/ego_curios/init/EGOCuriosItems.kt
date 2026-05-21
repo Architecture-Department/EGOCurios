@@ -555,7 +555,7 @@ object EGOCuriosItems {
 		if (curiosRenderer != null) {
 			CurioRenderersRegistrar.addRenderer(
 				deferredItem as DeferredItem<EgoCurioItem>,
-				curiosRenderer.apply(t.model) as Function<EgoCurioItem, GeoCurioRenderer<EgoCurioItem>>
+				curiosRenderer.apply(t.model!!) as Function<EgoCurioItem, GeoCurioRenderer<EgoCurioItem>>
 			)
 		}
 

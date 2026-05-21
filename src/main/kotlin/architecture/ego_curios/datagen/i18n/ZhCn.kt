@@ -44,7 +44,7 @@ class ZhCn(output: PackOutput) : DatagenI18n(output, EGOCurios.ID, "zh_cn") {
 			.filter { it is EgoCurioItem }
 			.map { it as EgoCurioItem }
 			.map { it.getAndClearTooltipsI18nMap() }
-			.forEach { map -> map.forEach { (key, value) -> add(key, value) } }
+			.forEach { it!!.forEach { (key, value) -> add(key, value) } }
 
 		addCurios(EGOCuriosConstants.EGO_CURIOS, "饰品", "E.G.O.饰品")
 		addCurios(EGOCuriosConstants.EGO_CURIOS_HEADWEAR, "头饰", "E.G.O.饰品-头饰")

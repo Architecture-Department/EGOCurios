@@ -24,7 +24,7 @@ import top.theillusivec4.curios.api.SlotContext
 /**
  * 理解 后背 饰品
  */
-class ComprehensionBackCurioItem(egoCurioBuilder: EgoCurioItem.Builder<ComprehensionBackCurioItem>) :
+class ComprehensionBackCurioItem(egoCurioBuilder: Builder<ComprehensionBackCurioItem>) :
 	EgoCurioItem(egoCurioBuilder) {
 
 	init {

@@ -5,8 +5,9 @@ import architecture.goldenboughs_lib.api.virtue.VirtueAttributeModifier
 import architecture.goldenboughs_lib.api.world.item.IEgoItem
 import architecture.goldenboughs_lib.client.model.curio.GeoCurioModel
 import architecture.goldenboughs_lib.init.LibDataComponentTypes
-import architecture.goldenboughs_lib.util.RationalityUtil
+import architecture.goldenboughs_lib.util.RationalityUtil.restrictRationalityValue
 import com.google.common.collect.Multimap
+import net.minecraft.client.model.HumanoidModel
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
@@ -21,7 +22,6 @@ import net.minecraft.world.entity.monster.EnderMan
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.TooltipFlag
 import net.neoforged.fml.loading.FMLEnvironment
 import org.jetbrains.annotations.ApiStatus
 import software.bernie.geckolib.animatable.GeoItem
@@ -33,7 +33,6 @@ import software.bernie.geckolib.renderer.GeoArmorRenderer
 import software.bernie.geckolib.util.GeckoLibUtil
 import top.theillusivec4.curios.api.SlotContext
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry
-import top.theillusivec4.curios.api.client.ICurioRenderer
 import top.theillusivec4.curios.api.type.capability.ICurioItem
 import java.util.function.Consumer
 import java.util.function.Function
@@ -44,7 +43,7 @@ import java.util.function.UnaryOperator
  *
  * @author Dusttt & 小尽(WangXiaoJin)
  */
-open class EgoCurioItem(egoCurioBuilder: Builder<out EgoCurioItem>) : Item(
+class EgoCurioItem(egoCurioBuilder: Builder<out EgoCurioItem>) : Item(
 	egoCurioBuilder.properties.component(LibDataComponentTypes.IS_RESTRAIN, false)
 		.stacksTo(1)
 		.fireResistant()
@@ -72,18 +71,20 @@ open class EgoCurioItem(egoCurioBuilder: Builder<out EgoCurioItem>) : Item(
 	}
 
 	override fun onUnequip(slotContext: SlotContext, newStackInSlot: ItemStack, stackBeingUnequipped: ItemStack) {
-		super<ICurioItem>.onUnequip(slotContext, newStackInSlot, stackBeingUnequipped)
+		super.onUnequip(slotContext, newStackInSlot, stackBeingUnequipped)
 		// curioDataUpdate(slotContext, newStackInSlot)
-		if (slotContext.entity() is Player) {
-			RationalityUtil.restrictRationalityValue(slotContext.entity() as Player)
+		val entity = slotContext.entity()
+		if (entity is Player) {
+			entity.restrictRationalityValue()
 		}
 	}
 
 	override fun onEquip(slotContext: SlotContext, previousStack: ItemStack, stackBeingEquipped: ItemStack) {
-		super<ICurioItem>.onEquip(slotContext, previousStack, stackBeingEquipped)
+		super.onEquip(slotContext, previousStack, stackBeingEquipped)
 		// curioDataUpdate(slotContext, previousStack)
-		if (slotContext.entity() is Player) {
-			RationalityUtil.restrictRationalityValue(slotContext.entity() as Player)
+		val entity = slotContext.entity()
+		if (entity is Player) {
+			entity.restrictRationalityValue()
 		}
 	}
 
@@ -125,13 +126,13 @@ open class EgoCurioItem(egoCurioBuilder: Builder<out EgoCurioItem>) : Item(
 	}
 
 	override fun getSlotsTooltip(
-		originalTooltips: List<Component>,
-		tooltipContext: TooltipFlag,
-		itemStack: ItemStack
-	): List<Component> {
-		val mutableTooltip = ArrayList(originalTooltips)
-		mutableTooltip.addAll(tooltips)
-		return super<ICurioItem>.getSlotsTooltip(mutableTooltip, tooltipContext, itemStack)
+		tooltips: List<Component?>?,
+		context: TooltipContext?,
+		stack: ItemStack?
+	): List<Component?>? {
+		val mutableTooltip = ArrayList(tooltips ?: arrayListOf())
+		mutableTooltip.addAll(this.tooltips)
+		return super.getSlotsTooltip(mutableTooltip, context, stack)
 	}
 
 	override fun canEquipFromUse(slotContext: SlotContext, itemStack: ItemStack): Boolean = true
@@ -147,7 +148,7 @@ open class EgoCurioItem(egoCurioBuilder: Builder<out EgoCurioItem>) : Item(
 		attributeId: ResourceLocation,
 		itemStack: ItemStack
 	): Multimap<Holder<Attribute>, AttributeModifier> {
-		val attributeModifiers = super<ICurioItem>.getAttributeModifiers(slotContext, attributeId, itemStack)
+		val attributeModifiers = super.getAttributeModifiers(slotContext, attributeId, itemStack)
 		attributeModifiers.putAll(virtueAddAttribute.getAttributeModifiers(slotContext.entity(), attributeId, itemStack))
 		return attributeModifiers
 	}
@@ -165,11 +166,11 @@ open class EgoCurioItem(egoCurioBuilder: Builder<out EgoCurioItem>) : Item(
 	}
 
 	override fun createGeoRenderer(consumer: Consumer<GeoRenderProvider>) {
-		consumer.accept(object : GeoRenderProvider() {
+		consumer.accept(object : GeoRenderProvider {
 			private var renderer: GeoArmorRenderer<*>? = null
 			private var isInitialized = false
 
-			override fun <T : LivingEntity> getGeoArmorRenderer(
+			override fun <T : LivingEntity?> getGeoArmorRenderer(
 				livingEntity: T?,
 				itemStack: ItemStack,
 				equipmentSlot: EquipmentSlot?,

@@ -12,7 +12,6 @@ import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
 import net.neoforged.neoforge.common.data.ExistingFileHelper
-import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredItem
 import java.util.concurrent.CompletableFuture
 
@@ -72,6 +71,6 @@ class DatagenItemTag(
 
 	@Suppress("UNCHECKED_CAST")
 	private fun addSet(tag: TagKey<Item>, set: Set<DeferredItem<out Item>>): IntrinsicTagAppender<Item> {
-		return tag(tag).add(*set.stream().map(DeferredHolder<Item>::get).toArray { size -> arrayOfNulls<Item>(size) })
+		return tag(tag).add(*set.stream().map { it.get() }.toArray { arrayOfNulls<Item>(it) })
 	}
 }

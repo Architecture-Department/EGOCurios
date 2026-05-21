@@ -12,8 +12,8 @@ import software.bernie.geckolib.cache.`object`.GeoBone
 import software.bernie.geckolib.model.GeoModel
 import top.theillusivec4.curios.api.SlotContext
 
-class ComprehensionBackCurioRenderer(model: GeoModel<ComprehensionBackCurioItem?>?) :
-	GeoCurioRenderer<ComprehensionBackCurioItem?>(model) {
+class ComprehensionBackCurioRenderer(model: GeoModel<ComprehensionBackCurioItem>) :
+	GeoCurioRenderer<ComprehensionBackCurioItem>(model) {
 	var leftUpperTentacleRoot: GeoBone? = null
 	var leftMiddleTentacleRoot: GeoBone? = null
 	var leftLowerTentacleRoot: GeoBone? = null

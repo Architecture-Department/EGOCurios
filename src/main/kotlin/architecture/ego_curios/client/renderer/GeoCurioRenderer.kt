@@ -16,8 +16,8 @@ import software.bernie.geckolib.model.GeoModel
 import software.bernie.geckolib.renderer.GeoArmorRenderer
 import top.theillusivec4.curios.api.SlotContext
 
-open class GeoCurioRenderer<T>(model: GeoModel<T?>?) : GeoArmorRenderer<T?>(model),
-	CuriosRenderer where T : Item?, T : GeoItem? {
+open class GeoCurioRenderer<T>(model: GeoModel<T>) : GeoArmorRenderer<T>(model),
+	CuriosRenderer where T : Item, T : GeoItem {
 	protected var slotContext: SlotContext? = null
 
 	open fun prepForRender(
