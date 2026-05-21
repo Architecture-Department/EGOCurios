@@ -1,5 +1,6 @@
 package architecture.ego_curios.init
 
+import architecture.ego_curios.client.renderer.ComprehensionBackCurioRenderer
 import architecture.ego_curios.client.renderer.GeoCurioRenderer
 import architecture.ego_curios.common.item.ComprehensionBackCurioItem
 import architecture.ego_curios.common.item.EgoCurioItem
@@ -10,7 +11,6 @@ import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.core.registry.client.CurioRenderersRegistrar
 import architecture.ego_curios.datagen.i18n.ZhCn
 import architecture.goldenboughs_lib.api.LcDamageType
-import architecture.resonator_combat_framework.util.ModelUtil
 import net.minecraft.network.chat.Style
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
@@ -502,10 +502,8 @@ object EGOCuriosItems {
 	val COMPREHENSION_BACK: DeferredItem<ComprehensionBackCurioItem> = register<ComprehensionBackCurioItem>(
 		"comprehension_back_curios", "理解", CuriosType.BACK, ::ComprehensionBackCurioItem
 	) {
-		it.model(
-			ModelUtil.ModelBuilder<ComprehensionBackCurioItem>(EGOCurios.ID).curioPath("comprehension_back").build()
-		)
-			//.renderer(ComprehensionBackCurioRenderer::new)
+		it.model(modRl("comprehension_back"))
+			.renderer(::ComprehensionBackCurioRenderer)
 			.fortitude(2).prudence(2).temperance(2).justice(2)
 	}
 
@@ -526,7 +524,10 @@ object EGOCuriosItems {
 	@JvmField
 	val PARADISE_LOST: DeferredItem<EgoCurioItem> = register(
 		"paradise_lost_curios", "失乐园", CuriosType.BACK, ::EgoCurioItem
-	) { it.model(modRl("paradise_lost")).fortitude(10).prudence(10).temperance(0).justice(10) }
+	) {
+		it.model(modRl("paradise_lost"))
+			.fortitude(10).prudence(10).temperance(0).justice(10)
+	}
 
 	//endregion
 	private fun <T : EgoCurioItem> register(
@@ -537,7 +538,7 @@ object EGOCuriosItems {
 		builder: Function<EgoCurioItem.Builder<T>, EgoCurioItem.Builder<T>>
 	): DeferredItem<T> {
 		return register(
-			"%s_curios_%s".format(entityType.getDescriptionId(), type), zhName, type, item, builder
+			"%s_curios_%s".format(entityType.descriptionId, type), zhName, type, item, builder
 		)
 	}
 

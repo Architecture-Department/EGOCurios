@@ -4,6 +4,8 @@ import architecture.ego_curios.core.EGOCurios
 import architecture.ego_curios.datagen.i18n.ZhCn
 import architecture.ego_curios.datagen.tag.DatagenBlockTag
 import architecture.ego_curios.datagen.tag.DatagenItemTag
+import architecture.goldenboughs_lib.util.buildClient
+import architecture.goldenboughs_lib.util.buildServer
 import net.minecraft.core.RegistrySetBuilder
 import net.minecraft.data.DataGenerator
 import net.minecraft.data.DataProvider
@@ -24,11 +26,11 @@ object Datagen {
 
 		val existingFileHelper = event.existingFileHelper
 		// 服务端数据生成
-		buildServer(event, generator, ModDatagenDatapackBuiltinEntries(output, completableFuture, RegistrySetBuilder()))
-		buildServer(event, generator, DatagenCuriosTest(output, existingFileHelper, completableFuture))
+		event.buildServer(ModDatagenDatapackBuiltinEntries(output, completableFuture, RegistrySetBuilder()))
+		event.buildServer(DatagenCuriosTest(output, existingFileHelper, completableFuture))
 
 		val datagenBlockTag = DatagenBlockTag(output, completableFuture, existingFileHelper)
-		buildServer(event, generator, datagenBlockTag)
+		event.buildServer(datagenBlockTag)
 		buildServer(
 			event,
 			generator,
@@ -36,8 +38,8 @@ object Datagen {
 		)
 
 		// 客户端数据生成
-		buildClient(event, generator, ZhCn(output))
-		buildClient(event, generator, DatagenItemModel(output, existingFileHelper))
+		event.buildClient(ZhCn(output))
+		event.buildClient(DatagenItemModel(output, existingFileHelper))
 	}
 
 	private fun <T : DataProvider> buildClient(event: GatherDataEvent, generator: DataGenerator, provider: T): T {
