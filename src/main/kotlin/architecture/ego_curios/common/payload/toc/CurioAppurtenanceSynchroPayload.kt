@@ -1,8 +1,8 @@
 package architecture.ego_curios.common.payload.toc
 
-import architecture.ego_curios.util.getStackInSlot
 import architecture.ego_curios.common.payload.toc.SlotContextExpand.Companion.toExpand
 import architecture.ego_curios.core.EGOCurios
+import architecture.ego_curios.util.getStackInSlot
 import architecture.goldenboughs_lib.util.PayloadUtil
 import architecture.resonator_combat_framework.common.payload.toc.AppurtenanceSynchroPayload
 import io.netty.buffer.ByteBuf

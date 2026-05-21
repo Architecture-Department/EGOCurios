@@ -3,7 +3,6 @@ package architecture.ego_curios.core.registry.client
 import architecture.ego_curios.client.renderer.GeoCurioRenderer
 import architecture.ego_curios.common.item.EgoCurioItem
 import architecture.ego_curios.core.EGOCurios
-import architecture.ego_curios.init.EGOCuriosItems
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
