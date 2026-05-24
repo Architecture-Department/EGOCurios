@@ -1,6 +1,7 @@
 package architecture.ego_curios.init.tag
 
 import architecture.ego_curios.core.EGOCurios.modRl
+import architecture.goldenboughs_lib.util.LibUtil.rlOf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.ItemTags
 import net.minecraft.tags.TagKey
@@ -100,7 +101,7 @@ object CuriosItemTags {
 	}
 
 	private fun createCTag(name: String): TagKey<Item> {
-		return createTag(ResourceLocation.fromNamespaceAndPath("c", name))
+		return createTag(rlOf("c", name))
 	}
 
 	private fun createMcTag(name: String): TagKey<Item> {

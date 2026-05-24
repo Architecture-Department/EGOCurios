@@ -4,6 +4,7 @@ import architecture.ego_curios.core.registry.CurioRegistry
 import architecture.ego_curios.init.EGOCuriosAttachments
 import architecture.ego_curios.init.EGOCuriosCreativeModeTabs
 import architecture.ego_curios.init.EGOCuriosItems
+import architecture.goldenboughs_lib.util.LibUtil.rlOf
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
@@ -45,7 +46,7 @@ object EGOCurios {
 	@JvmStatic
 	@Contract("_ -> new")
 	fun modRl(name: String): ResourceLocation {
-		return ResourceLocation.fromNamespaceAndPath(ID, name)
+		return rlOf(ID, name)
 	}
 
 	@JvmStatic
