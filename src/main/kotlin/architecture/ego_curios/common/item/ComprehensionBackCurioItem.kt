@@ -155,8 +155,8 @@ class ComprehensionBackCurioItem(egoCurioBuilder: Builder<ComprehensionBackCurio
 
 		val data = entity.getData(EGOCuriosAttachments.ATTACK_LOGIC_HOLDER)
 		when (identifier) {
-			EGOCuriosConstants.EGO_CURIOS_LEFT_BACK -> data.remove(EGOCurios.modRl("$descriptionId.left_back"))
-			EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK -> data.remove(EGOCurios.modRl("$descriptionId.right_back"))
+			EGOCuriosConstants.EGO_CURIOS_LEFT_BACK -> data.remove(EGOCuriosConstants.modRl("$descriptionId.left_back"))
+			EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK -> data.remove(EGOCuriosConstants.modRl("$descriptionId.right_back"))
 		}
 	}
 
@@ -176,10 +176,10 @@ class ComprehensionBackCurioItem(egoCurioBuilder: Builder<ComprehensionBackCurio
 		val data = entity.getData(EGOCuriosAttachments.ATTACK_LOGIC_HOLDER)
 		when (identifier) {
 			EGOCuriosConstants.EGO_CURIOS_LEFT_BACK ->
-				data.add(EGOCurios.modRl("$descriptionId.left_back"), AttackLogic(entity, stackBeingEquipped, true))
+				data.add(EGOCuriosConstants.modRl("$descriptionId.left_back"), AttackLogic(entity, stackBeingEquipped, true))
 
 			EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK ->
-				data.add(EGOCurios.modRl("$descriptionId.right_back"), AttackLogic(entity, stackBeingEquipped, false))
+				data.add(EGOCuriosConstants.modRl("$descriptionId.right_back"), AttackLogic(entity, stackBeingEquipped, false))
 		}
 	}
 
@@ -200,7 +200,7 @@ class ComprehensionBackCurioItem(egoCurioBuilder: Builder<ComprehensionBackCurio
 		// livingEntity.getAppurtenanceInfoMap().put("curio_" + identifier, new CurioAnimatedAccessoryInfo<>(
 		//     livingEntity,
 		//     itemStack,
-		//     new ModelIndex("curio", EGOCurios.modRl("comprehension_back"))
+		//     new ModelIndex("curio", EGOCuriosConstants.modRl("comprehension_back"))
 		// ))
 	}
 

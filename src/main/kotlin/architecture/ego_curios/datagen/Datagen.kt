@@ -12,11 +12,12 @@ import net.minecraft.data.DataProvider
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.data.event.GatherDataEvent
+import architecture.ego_curios.core.EGOCuriosConstants
 
 /**
  * 数据生成主类
  */
-@EventBusSubscriber(modid = EGOCurios.ID)
+@EventBusSubscriber(modid = EGOCuriosConstants.ID)
 object Datagen {
 	@SubscribeEvent
 	fun gatherData(event: GatherDataEvent) {

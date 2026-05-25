@@ -1,10 +1,45 @@
 package architecture.ego_curios.core
 
+import architecture.goldenboughs_lib.util.LibUtil.rlOf
+import net.minecraft.core.Registry
+import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
+import net.neoforged.neoforge.registries.DeferredRegister
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
+import org.jetbrains.annotations.Contract
 import net.minecraft.world.item.Item
 import net.neoforged.neoforge.registries.DeferredItem
 
 object EGOCuriosConstants {
+	const val ID: String = "ego_curios"
+	const val NAME: String = "E.G.O.Curios"
+
+	@JvmField
+	val LOGGER: Logger = LogManager.getLogger(ID)
+
+	@JvmStatic
+	@Contract("_ -> new")
+	fun modRl(name: String): ResourceLocation {
+		return rlOf(ID, name)
+	}
+
+	@JvmStatic
+	@Contract(pure = true)
+	fun modRlText(name: String): String {
+		return "$ID:$name"
+	}
+
+	@JvmStatic
+	fun <T> modRegister(registry: Registry<T>): DeferredRegister<T> {
+		return DeferredRegister.create<T>(registry, ID)
+	}
+
+	@JvmStatic
+	fun <T> modRegister(registry: ResourceKey<Registry<T>>): DeferredRegister<T> {
+		return DeferredRegister.create<T>(registry, ID)
+	}
+
 	const val EGO_CURIOS = "ego_curios"
 	const val EGO_CURIOS_HEADWEAR = "ego_curios_headwear"
 	const val EGO_CURIOS_HEAD = "ego_curios_head"
@@ -105,7 +140,7 @@ object EGOCuriosConstants {
 	@JvmField
 	val EGO_CURIOS_BACK_SET: MutableSet<DeferredItem<out Item>> = HashSet()
 
-	private fun createId(name: String): String = EGOCurios.modRlText(name)
+	private fun createId(name: String): String = modRlText(name)
 
-	private fun createTagId(name: String): ResourceLocation = EGOCurios.modRl(name + "_tag")
+	private fun createTagId(name: String): ResourceLocation = modRl(name + "_tag")
 }

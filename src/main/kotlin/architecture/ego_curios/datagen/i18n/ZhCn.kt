@@ -12,7 +12,7 @@ import net.neoforged.fml.loading.FMLEnvironment
 import net.neoforged.neoforge.registries.DeferredHolder
 import java.util.function.Supplier
 
-class ZhCn(output: PackOutput) : DatagenI18n(output, EGOCurios.ID, "zh_cn") {
+class ZhCn(output: PackOutput) : DatagenI18n(output, EGOCuriosConstants.ID, "zh_cn") {
 
 	companion object {
 		private val ITEMS: MutableMap<Supplier<out Item>, String> = HashMap()
@@ -34,7 +34,7 @@ class ZhCn(output: PackOutput) : DatagenI18n(output, EGOCurios.ID, "zh_cn") {
 	}
 
 	override fun addTranslations() {
-		addPackDescription(EGOCurios.ID, "E.G.O.饰品")
+		addPackDescription(EGOCuriosConstants.ID, "E.G.O.饰品")
 		addItemList(ITEMS)
 		MAP.forEach { (key, value) -> add(key, value) }
 

@@ -13,8 +13,9 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler
 import net.neoforged.neoforge.network.registration.PayloadRegistrar
+import architecture.ego_curios.core.EGOCuriosConstants
 
-@EventBusSubscriber(modid = EGOCurios.ID)
+@EventBusSubscriber(modid = EGOCuriosConstants.ID)
 object PayloadRegistry {
 	@SubscribeEvent
 	fun register(event: RegisterPayloadHandlersEvent) {
@@ -26,7 +27,7 @@ object PayloadRegistry {
 
 		// 接收来自客户端的数据 发送到 服务端
 
-		EGOCurios.LOGGER.info("Registering payloads finish")
+		EGOCuriosConstants.LOGGER.info("Registering payloads finish")
 	}
 
 	private fun <T : ToServerAndClientPayload> playToServerAndClient(

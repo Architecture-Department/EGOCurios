@@ -16,7 +16,7 @@ class DatagenCuriosTest(
 	output: PackOutput,
 	fileHelper: ExistingFileHelper,
 	registries: CompletableFuture<HolderLookup.Provider>
-) : CuriosDataProvider(EGOCurios.ID, output, fileHelper, registries) {
+) : CuriosDataProvider(EGOCuriosConstants.ID, output, fileHelper, registries) {
 
 	override fun generate(registries: HolderLookup.Provider, fileHelper: ExistingFileHelper) {
 		createSlot(EGOCuriosConstants.EGO_CURIOS, EGOCuriosConstants.EGO_CURIOS_VALIDATOR)
@@ -65,6 +65,6 @@ class DatagenCuriosTest(
 	}
 
 	fun createSlot(nameID: String, icon: String, validator: ResourceLocation): ISlotData {
-		return createSlot(nameID, validator).icon(EGOCurios.modRl(icon))
+		return createSlot(nameID, validator).icon(EGOCuriosConstants.modRl(icon))
 	}
 }

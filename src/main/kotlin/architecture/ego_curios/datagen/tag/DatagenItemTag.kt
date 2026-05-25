@@ -20,7 +20,7 @@ class DatagenItemTag(
 	lookupProvider: CompletableFuture<HolderLookup.Provider>,
 	blockTags: CompletableFuture<TagLookup<Block>>,
 	existingFileHelper: ExistingFileHelper
-) : ItemTagsProvider(output, lookupProvider, blockTags, EGOCurios.ID, existingFileHelper) {
+) : ItemTagsProvider(output, lookupProvider, blockTags, EGOCuriosConstants.ID, existingFileHelper) {
 
 	override fun addTags(provider: HolderLookup.Provider) {
 		addSet(CuriosItemTags.EGO_CURIOS_HEADWEAR, EGOCuriosConstants.EGO_CURIOS_HEADWEAR_SET)

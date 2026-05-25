@@ -7,8 +7,9 @@ import net.neoforged.bus.api.EventPriority
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.tick.EntityTickEvent
+import architecture.ego_curios.core.EGOCuriosConstants
 
-@EventBusSubscriber(modid = EGOCurios.ID)
+@EventBusSubscriber(modid = EGOCuriosConstants.ID)
 object LivingEntityEvents {
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)

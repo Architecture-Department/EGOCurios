@@ -5,6 +5,7 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
 import top.theillusivec4.curios.api.SlotContext
+import architecture.ego_curios.core.EGOCuriosConstants
 
 class TestEgoCurioItem(egoCurioBuilder: Builder<out EgoCurioItem>) : EgoCurioItem(egoCurioBuilder) {
 
@@ -25,7 +26,7 @@ class TestEgoCurioItem(egoCurioBuilder: Builder<out EgoCurioItem>) : EgoCurioIte
 		// livingEntity.getAppurtenanceInfoMap().put("curio_" + slotContext.getIdentifier(), new CurioAnimatedAccessoryInfo<>(
 		//     livingEntity,
 		//     itemStack,
-		//     new ModelIndex("curio", EGOCurios.modRl("test"))
+		//     new ModelIndex("curio", EGOCuriosConstants.modRl("test"))
 		// ))
 	}
 

@@ -10,8 +10,9 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.registries.DeferredItem
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry
 import java.util.function.Function
+import architecture.ego_curios.core.EGOCuriosConstants
 
-@EventBusSubscriber(modid = EGOCurios.ID, value = [Dist.CLIENT])
+@EventBusSubscriber(modid = EGOCuriosConstants.ID, value = [Dist.CLIENT])
 object CurioRenderersRegistrar {
 	private val RENDERER_MAP: MutableMap<DeferredItem<EgoCurioItem>, Function<EgoCurioItem, GeoCurioRenderer<EgoCurioItem>>> =
 		HashMap()

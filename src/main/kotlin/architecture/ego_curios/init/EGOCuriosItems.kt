@@ -6,7 +6,7 @@ import architecture.ego_curios.common.item.ComprehensionBackCurioItem
 import architecture.ego_curios.common.item.EgoCurioItem
 import architecture.ego_curios.common.item.TestEgoCurioItem
 import architecture.ego_curios.core.EGOCurios
-import architecture.ego_curios.core.EGOCurios.modRl
+import architecture.ego_curios.core.EGOCuriosConstants.modRl
 import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.core.registry.client.CurioRenderersRegistrar
 import architecture.ego_curios.datagen.i18n.ZhCn
@@ -21,7 +21,7 @@ import java.util.function.Function
 // TODO 可能需要给饰品添加等级
 object EGOCuriosItems {
 	@JvmField
-	val REGISTRY: DeferredRegister.Items = DeferredRegister.createItems(EGOCurios.ID)
+	val REGISTRY: DeferredRegister.Items = DeferredRegister.createItems(EGOCuriosConstants.ID)
 
 	@JvmField
 	val TEST: DeferredItem<EgoCurioItem> = REGISTRY.register(
@@ -111,7 +111,7 @@ object EGOCuriosItems {
 	val IN_THE_NAME_OF_LOVE_AND_HATE: DeferredItem<EgoCurioItem> = register(
 		"in_the_name_of_love_and_hate_curios", "以爱与恨之名", CuriosType.HEAD, ::EgoCurioItem
 	) {
-		it.model(modRl("in_the_name_of_love_and_hate"))
+		it.model(EGOCuriosConstants.modRl("in_the_name_of_love_and_hate"))
 			.fortitude(0).prudence(0).temperance(2).justice(4)
 	}
 
@@ -374,7 +374,7 @@ object EGOCuriosItems {
 	val MAGIC_BULLET: DeferredItem<EgoCurioItem> = register(
 		"magic_bullet_curios", "魔弹", CuriosType.MOUTH, ::EgoCurioItem
 	) {
-		it.model(modRl("magic_bullet"))
+		it.model(EGOCuriosConstants.modRl("magic_bullet"))
 			.fortitude(-5).prudence(-5).temperance(0).justice(10)
 			.addTooltip("持有“魔弹”E.G.O武器时，提高3点最大与最小攻击力。")
 	}
@@ -502,7 +502,7 @@ object EGOCuriosItems {
 	val COMPREHENSION_BACK: DeferredItem<ComprehensionBackCurioItem> = register<ComprehensionBackCurioItem>(
 		"comprehension_back_curios", "理解", CuriosType.BACK, ::ComprehensionBackCurioItem
 	) {
-		it.model(modRl("comprehension_back"))
+		it.model(EGOCuriosConstants.modRl("comprehension_back"))
 			.renderer(::ComprehensionBackCurioRenderer)
 			.fortitude(2).prudence(2).temperance(2).justice(2)
 	}
@@ -525,7 +525,7 @@ object EGOCuriosItems {
 	val PARADISE_LOST: DeferredItem<EgoCurioItem> = register(
 		"paradise_lost_curios", "失乐园", CuriosType.BACK, ::EgoCurioItem
 	) {
-		it.model(modRl("paradise_lost"))
+		it.model(EGOCuriosConstants.modRl("paradise_lost"))
 			.fortitude(10).prudence(10).temperance(0).justice(10)
 	}
 

@@ -14,6 +14,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.network.handling.IPayloadContext
 import top.theillusivec4.curios.api.SlotContext
+import architecture.ego_curios.core.EGOCuriosConstants
 
 class CurioAppurtenanceSynchroPayload(
 	entityId: Int,
@@ -54,7 +55,8 @@ class CurioAppurtenanceSynchroPayload(
 		}
 
 		@JvmStatic
-		val TYPE: Type<CurioAppurtenanceSynchroPayload> = Type(EGOCurios.modRl("curio_appurtenance_synchro_payload"))
+		val TYPE: Type<CurioAppurtenanceSynchroPayload> =
+			Type(EGOCuriosConstants.modRl("curio_appurtenance_synchro_payload"))
 
 		@JvmStatic
 		val STREAM_CODEC: StreamCodec<ByteBuf, CurioAppurtenanceSynchroPayload> =
