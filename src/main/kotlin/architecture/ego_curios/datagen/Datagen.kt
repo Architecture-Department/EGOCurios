@@ -1,18 +1,17 @@
 package architecture.ego_curios.datagen
 
-import architecture.ego_curios.core.EGOCurios
+import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.datagen.i18n.ZhCn
 import architecture.ego_curios.datagen.tag.DatagenBlockTag
 import architecture.ego_curios.datagen.tag.DatagenItemTag
-import architecture.goldenboughs_lib.util.buildClient
-import architecture.goldenboughs_lib.util.buildServer
+import architecture.goldenboughs_lib.util.datagen.buildClient
+import architecture.goldenboughs_lib.util.datagen.buildServer
 import net.minecraft.core.RegistrySetBuilder
 import net.minecraft.data.DataGenerator
 import net.minecraft.data.DataProvider
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.data.event.GatherDataEvent
-import architecture.ego_curios.core.EGOCuriosConstants
 
 /**
  * 数据生成主类
