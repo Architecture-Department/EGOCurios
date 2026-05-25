@@ -1,12 +1,11 @@
 package architecture.ego_curios.datagen
 
-import architecture.ego_curios.core.EGOCurios
+import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.init.EGOCuriosItems
 import architecture.goldenboughs_lib.util.client.DatagenItemModelUtil.withExistingParent
 import net.minecraft.data.PackOutput
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
-import architecture.ego_curios.core.EGOCuriosConstants
 
 /**
  * 物品模型数据生成器
@@ -16,6 +15,6 @@ class DatagenItemModel(output: PackOutput, existingFileHelper: ExistingFileHelpe
 	ItemModelProvider(output, EGOCuriosConstants.ID, existingFileHelper) {
 
 	override fun registerModels() {
-		withExistingParent("item/curio/", EGOCuriosItems.REGISTRY)
+		withExistingParent(pathPrefix = "item/curio/", registry = EGOCuriosItems.REGISTRY)
 	}
 }
