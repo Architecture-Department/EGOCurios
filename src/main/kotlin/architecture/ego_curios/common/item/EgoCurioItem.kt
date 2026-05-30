@@ -1,11 +1,11 @@
-package architecture.ego_curios.common.item
+﻿package architecture.ego_curios.common.item
 
 import architecture.ego_curios.client.renderer.GeoCurioRenderer
-import architecture.goldenboughs_lib.api.virtue.VirtueAttributeModifier
 import architecture.goldenboughs_lib.api.world.item.IEgoItem
 import architecture.goldenboughs_lib.client.model.curio.GeoCurioModel
 import architecture.goldenboughs_lib.init.LibDataComponentTypes
-import architecture.goldenboughs_lib.util.RationalityUtil.restrictRationalityValue
+import architecture.goldenboughs_lib.module.rationality.util.RationalityUtil.restrictRationalityValue
+import architecture.goldenboughs_lib.module.virtue.api.VirtueAttributeModifier
 import com.google.common.collect.Multimap
 import net.minecraft.client.model.HumanoidModel
 import net.minecraft.core.Holder

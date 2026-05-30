@@ -1,4 +1,4 @@
-package architecture.ego_curios.init
+﻿package architecture.ego_curios.init
 
 import architecture.ego_curios.client.renderer.ComprehensionBackCurioRenderer
 import architecture.ego_curios.client.renderer.GeoCurioRenderer
@@ -9,7 +9,7 @@ import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.core.EGOCuriosConstants.modRl
 import architecture.ego_curios.datagen.i18n.ZhCn
 import architecture.ego_curios.events.registry.client.CurioRenderersRegistrar
-import architecture.goldenboughs_lib.api.LcDamageType
+import architecture.goldenboughs_lib.module.lc_damage.api.LcDamageType
 import net.minecraft.network.chat.Style
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
