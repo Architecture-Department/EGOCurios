@@ -5,7 +5,6 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
 import top.theillusivec4.curios.api.SlotContext
-import architecture.ego_curios.core.EGOCuriosConstants
 
 class TestEgoCurioItem(egoCurioBuilder: Builder<out EgoCurioItem>) : EgoCurioItem(egoCurioBuilder) {
 

@@ -1,7 +1,6 @@
 package architecture.ego_curios.datagen.i18n
 
 import architecture.ego_curios.common.item.EgoCurioItem
-import architecture.ego_curios.core.EGOCurios
 import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.init.EGOCuriosItems
 import architecture.ego_curios.init.tag.CuriosItemTags

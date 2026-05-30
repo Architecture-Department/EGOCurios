@@ -1,7 +1,7 @@
 package architecture.ego_curios.core.registry
 
 import architecture.ego_curios.common.payload.toc.CurioAppurtenanceSynchroPayload
-import architecture.ego_curios.core.EGOCurios
+import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.goldenboughs_lib.api.payload.ToClientPayload
 import architecture.goldenboughs_lib.api.payload.ToServerAndClientPayload
 import architecture.goldenboughs_lib.api.payload.ToServerPayload
@@ -13,7 +13,6 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler
 import net.neoforged.neoforge.network.registration.PayloadRegistrar
-import architecture.ego_curios.core.EGOCuriosConstants
 
 @EventBusSubscriber(modid = EGOCuriosConstants.ID)
 object PayloadRegistry {

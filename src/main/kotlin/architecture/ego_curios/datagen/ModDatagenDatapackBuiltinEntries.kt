@@ -1,12 +1,11 @@
 package architecture.ego_curios.datagen
 
-import architecture.ego_curios.core.EGOCurios
+import architecture.ego_curios.core.EGOCuriosConstants
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.RegistrySetBuilder
 import net.minecraft.data.PackOutput
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider
 import java.util.concurrent.CompletableFuture
-import architecture.ego_curios.core.EGOCuriosConstants
 
 /**
  * 创建一个数据包内置条目

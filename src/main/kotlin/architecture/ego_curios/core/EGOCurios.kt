@@ -11,7 +11,6 @@ import net.neoforged.fml.common.Mod
 import net.neoforged.neoforge.event.server.ServerStartingEvent
 import thedarkcolour.kotlinforforge.neoforge.forge.LOADING_CONTEXT
 import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
-import architecture.ego_curios.core.EGOCuriosConstants
 
 @Mod(EGOCuriosConstants.ID)
 @EventBusSubscriber

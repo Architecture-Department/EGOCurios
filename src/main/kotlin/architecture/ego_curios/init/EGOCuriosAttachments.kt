@@ -13,7 +13,6 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries
 import org.jetbrains.annotations.Contract
 import java.util.function.Function
 import java.util.function.Supplier
-import architecture.ego_curios.core.EGOCuriosConstants
 
 object EGOCuriosAttachments {
 	@JvmField

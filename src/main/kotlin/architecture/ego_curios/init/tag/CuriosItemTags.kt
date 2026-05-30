@@ -6,7 +6,6 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.ItemTags
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
-import architecture.ego_curios.core.EGOCuriosConstants
 
 object CuriosItemTags {
 	/**

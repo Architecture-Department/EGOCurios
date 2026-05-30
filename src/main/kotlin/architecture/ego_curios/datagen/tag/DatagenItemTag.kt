@@ -1,6 +1,5 @@
 package architecture.ego_curios.datagen.tag
 
-import architecture.ego_curios.core.EGOCurios
 import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.init.EGOCuriosItems
 import architecture.ego_curios.init.tag.CuriosItemTags

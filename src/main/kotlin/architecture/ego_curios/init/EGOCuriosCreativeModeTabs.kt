@@ -1,6 +1,6 @@
 package architecture.ego_curios.init
 
-import architecture.ego_curios.core.EGOCurios
+import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.core.EGOCuriosConstants.modRegister
 import architecture.ego_curios.datagen.i18n.ZhCn
 import net.minecraft.core.registries.BuiltInRegistries
@@ -12,7 +12,6 @@ import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 import java.util.function.BiFunction
 import java.util.function.Supplier
-import architecture.ego_curios.core.EGOCuriosConstants
 
 /**
  * 创造模式物品栏

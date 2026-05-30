@@ -1,6 +1,5 @@
 package architecture.ego_curios.datagen
 
-import architecture.ego_curios.core.EGOCurios
 import architecture.ego_curios.core.EGOCuriosConstants
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput

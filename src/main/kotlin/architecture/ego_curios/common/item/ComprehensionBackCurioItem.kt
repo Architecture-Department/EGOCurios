@@ -3,7 +3,6 @@ package architecture.ego_curios.common.item
 import architecture.ego_curios.api.AttackLogicHolder
 import architecture.ego_curios.common.payload.toc.CurioAppurtenanceSynchroPayload
 import architecture.ego_curios.common.payload.toc.SlotContextExpand
-import architecture.ego_curios.core.EGOCurios
 import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.init.EGOCuriosAttachments
 import architecture.goldenboughs_lib.mixed.geckolib.IAnimationController

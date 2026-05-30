@@ -1,7 +1,7 @@
 package architecture.ego_curios.common.payload.toc
 
 import architecture.ego_curios.common.payload.toc.SlotContextExpand.Companion.toExpand
-import architecture.ego_curios.core.EGOCurios
+import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.util.getStackInSlot
 import architecture.goldenboughs_lib.util.PayloadUtil
 import architecture.resonator_combat_framework.common.payload.toc.AppurtenanceSynchroPayload
@@ -14,7 +14,6 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.network.handling.IPayloadContext
 import top.theillusivec4.curios.api.SlotContext
-import architecture.ego_curios.core.EGOCuriosConstants
 
 class CurioAppurtenanceSynchroPayload(
 	entityId: Int,

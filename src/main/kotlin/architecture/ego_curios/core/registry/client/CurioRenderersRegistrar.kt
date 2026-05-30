@@ -2,7 +2,7 @@ package architecture.ego_curios.core.registry.client
 
 import architecture.ego_curios.client.renderer.GeoCurioRenderer
 import architecture.ego_curios.common.item.EgoCurioItem
-import architecture.ego_curios.core.EGOCurios
+import architecture.ego_curios.core.EGOCuriosConstants
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
@@ -10,7 +10,6 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.registries.DeferredItem
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry
 import java.util.function.Function
-import architecture.ego_curios.core.EGOCuriosConstants
 
 @EventBusSubscriber(modid = EGOCuriosConstants.ID, value = [Dist.CLIENT])
 object CurioRenderersRegistrar {
