@@ -1,4 +1,4 @@
-package architecture.ego_curios.core.registry
+package architecture.ego_curios.events.registry
 
 import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.init.EGOCuriosItems

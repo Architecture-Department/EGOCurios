@@ -1,7 +1,7 @@
 package architecture.ego_curios.core
 
 import architecture.ego_curios.core.EGOCuriosConstants.LOGGER
-import architecture.ego_curios.core.registry.CurioRegistry
+import architecture.ego_curios.events.registry.CurioRegistry
 import architecture.ego_curios.init.EGOCuriosAttachments
 import architecture.ego_curios.init.EGOCuriosCreativeModeTabs
 import architecture.ego_curios.init.EGOCuriosItems

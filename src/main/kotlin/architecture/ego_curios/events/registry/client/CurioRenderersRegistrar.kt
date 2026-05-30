@@ -1,4 +1,4 @@
-package architecture.ego_curios.core.registry.client
+package architecture.ego_curios.events.registry.client
 
 import architecture.ego_curios.client.renderer.GeoCurioRenderer
 import architecture.ego_curios.common.item.EgoCurioItem

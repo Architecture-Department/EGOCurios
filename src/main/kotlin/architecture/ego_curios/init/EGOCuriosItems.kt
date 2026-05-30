@@ -7,8 +7,8 @@ import architecture.ego_curios.common.item.EgoCurioItem
 import architecture.ego_curios.common.item.TestEgoCurioItem
 import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.core.EGOCuriosConstants.modRl
-import architecture.ego_curios.core.registry.client.CurioRenderersRegistrar
 import architecture.ego_curios.datagen.i18n.ZhCn
+import architecture.ego_curios.events.registry.client.CurioRenderersRegistrar
 import architecture.goldenboughs_lib.api.LcDamageType
 import net.minecraft.network.chat.Style
 import net.minecraft.world.entity.EntityType
