@@ -9,13 +9,6 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${ mod_id }]]
-modId = "eyelib"
-type = "required"
-versionRange = "${eyelib_version}"
-ordering = "NONE"
-side = "BOTH"
-
-[[dependencies.${ mod_id }]]
 modId = "curios"
 type = "required"
 versionRange = "${curios_api_version}"

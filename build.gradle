@@ -9,7 +9,6 @@ dependencies {
 	addModuleDeps('GoldenBoughsLib', 'ResonatorCombatFramework')
 	addCurios()
 	addMixinSquared()
-	addEyelib()
 	addJade()
 	addJEI()
 	addDummyMobs()
