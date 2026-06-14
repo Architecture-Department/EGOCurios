@@ -1,6 +1,6 @@
-package architecture.ego_curios.core
+package architecture.ego_curios.util
 
-import architecture.goldenboughs_lib.util.LibUtil.rlOf
+import architecture.goldenboughs_lib.util.LibUtil
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.jetbrains.annotations.Contract
 
-object EGOCuriosConstants {
+object EGOCuriosUtil {
 	const val ID: String = "ego_curios"
 	const val NAME: String = "E.G.O.Curios"
 
@@ -21,7 +21,7 @@ object EGOCuriosConstants {
 	@JvmStatic
 	@Contract("_ -> new")
 	fun modRl(name: String): ResourceLocation {
-		return rlOf(ID, name)
+		return LibUtil.rlOf(ID, name)
 	}
 
 	@JvmStatic

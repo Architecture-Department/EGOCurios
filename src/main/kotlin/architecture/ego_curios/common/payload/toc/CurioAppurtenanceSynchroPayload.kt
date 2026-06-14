@@ -1,7 +1,7 @@
 package architecture.ego_curios.common.payload.toc
 
 import architecture.ego_curios.common.payload.toc.SlotContextExpand.Companion.toExpand
-import architecture.ego_curios.core.EGOCuriosConstants
+import architecture.ego_curios.util.EGOCuriosUtil
 import architecture.ego_curios.util.getStackInSlot
 import architecture.goldenboughs_lib.util.PayloadUtil
 import architecture.resonator_combat_framework.common.payload.toc.AppurtenanceSynchroPayload
@@ -55,7 +55,7 @@ class CurioAppurtenanceSynchroPayload(
 
 		@JvmStatic
 		val TYPE: Type<CurioAppurtenanceSynchroPayload> =
-			Type(EGOCuriosConstants.modRl("curio_appurtenance_synchro_payload"))
+			Type(EGOCuriosUtil.modRl("curio_appurtenance_synchro_payload"))
 
 		@JvmStatic
 		val STREAM_CODEC: StreamCodec<ByteBuf, CurioAppurtenanceSynchroPayload> =

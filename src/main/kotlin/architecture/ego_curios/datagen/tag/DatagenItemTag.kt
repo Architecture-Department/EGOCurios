@@ -1,8 +1,8 @@
 package architecture.ego_curios.datagen.tag
 
-import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.init.EGOCuriosItems
 import architecture.ego_curios.init.tag.CuriosItemTags
+import architecture.ego_curios.util.EGOCuriosUtil
 import architecture.goldenboughs_lib.init.tag.LibItemTags
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
@@ -19,34 +19,34 @@ class DatagenItemTag(
 	lookupProvider: CompletableFuture<HolderLookup.Provider>,
 	blockTags: CompletableFuture<TagLookup<Block>>,
 	existingFileHelper: ExistingFileHelper
-) : ItemTagsProvider(output, lookupProvider, blockTags, EGOCuriosConstants.ID, existingFileHelper) {
+) : ItemTagsProvider(output, lookupProvider, blockTags, EGOCuriosUtil.ID, existingFileHelper) {
 
 	override fun addTags(provider: HolderLookup.Provider) {
-		addSet(CuriosItemTags.EGO_CURIOS_HEADWEAR, EGOCuriosConstants.EGO_CURIOS_HEADWEAR_SET)
+		addSet(CuriosItemTags.EGO_CURIOS_HEADWEAR, EGOCuriosUtil.EGO_CURIOS_HEADWEAR_SET)
 			.add(EGOCuriosItems.TEST.get())
-		addSet(CuriosItemTags.EGO_CURIOS_HEAD, EGOCuriosConstants.EGO_CURIOS_HEAD_SET)
+		addSet(CuriosItemTags.EGO_CURIOS_HEAD, EGOCuriosUtil.EGO_CURIOS_HEAD_SET)
 			.add(EGOCuriosItems.TEST.get())
-		addSet(CuriosItemTags.EGO_CURIOS_HINDBRAIN, EGOCuriosConstants.EGO_CURIOS_HINDBRAIN_SET)
+		addSet(CuriosItemTags.EGO_CURIOS_HINDBRAIN, EGOCuriosUtil.EGO_CURIOS_HINDBRAIN_SET)
 			.add(EGOCuriosItems.TEST.get())
-		addSet(CuriosItemTags.EGO_CURIOS_EYE, EGOCuriosConstants.EGO_CURIOS_EYE_SET)
+		addSet(CuriosItemTags.EGO_CURIOS_EYE, EGOCuriosUtil.EGO_CURIOS_EYE_SET)
 			.add(EGOCuriosItems.TEST.get())
-		addSet(CuriosItemTags.EGO_CURIOS_FACE, EGOCuriosConstants.EGO_CURIOS_FACE_SET)
+		addSet(CuriosItemTags.EGO_CURIOS_FACE, EGOCuriosUtil.EGO_CURIOS_FACE_SET)
 			.add(EGOCuriosItems.TEST.get())
-		addSet(CuriosItemTags.EGO_CURIOS_CHEEK, EGOCuriosConstants.EGO_CURIOS_CHEEK_SET)
+		addSet(CuriosItemTags.EGO_CURIOS_CHEEK, EGOCuriosUtil.EGO_CURIOS_CHEEK_SET)
 			.add(EGOCuriosItems.TEST.get())
-		addSet(CuriosItemTags.EGO_CURIOS_MASK, EGOCuriosConstants.EGO_CURIOS_MASK_SET)
+		addSet(CuriosItemTags.EGO_CURIOS_MASK, EGOCuriosUtil.EGO_CURIOS_MASK_SET)
 			.add(EGOCuriosItems.TEST.get())
-		addSet(CuriosItemTags.EGO_CURIOS_MOUTH, EGOCuriosConstants.EGO_CURIOS_MOUTH_SET)
+		addSet(CuriosItemTags.EGO_CURIOS_MOUTH, EGOCuriosUtil.EGO_CURIOS_MOUTH_SET)
 			.add(EGOCuriosItems.TEST.get())
-		addSet(CuriosItemTags.EGO_CURIOS_NECK, EGOCuriosConstants.EGO_CURIOS_NECK_SET)
+		addSet(CuriosItemTags.EGO_CURIOS_NECK, EGOCuriosUtil.EGO_CURIOS_NECK_SET)
 			.add(EGOCuriosItems.TEST.get())
-		addSet(CuriosItemTags.EGO_CURIOS_BROOCH, EGOCuriosConstants.EGO_CURIOS_BROOCH_SET)
+		addSet(CuriosItemTags.EGO_CURIOS_BROOCH, EGOCuriosUtil.EGO_CURIOS_BROOCH_SET)
 			.add(EGOCuriosItems.TEST.get())
-		addSet(CuriosItemTags.EGO_CURIOS_HAND, EGOCuriosConstants.EGO_CURIOS_HAND_SET)
+		addSet(CuriosItemTags.EGO_CURIOS_HAND, EGOCuriosUtil.EGO_CURIOS_HAND_SET)
 			.add(EGOCuriosItems.TEST.get())
-		addSet(CuriosItemTags.EGO_CURIOS_GLOVE, EGOCuriosConstants.EGO_CURIOS_GLOVE_SET)
+		addSet(CuriosItemTags.EGO_CURIOS_GLOVE, EGOCuriosUtil.EGO_CURIOS_GLOVE_SET)
 			.add(EGOCuriosItems.TEST.get())
-		addSet(CuriosItemTags.EGO_CURIOS_BACK, EGOCuriosConstants.EGO_CURIOS_BACK_SET)
+		addSet(CuriosItemTags.EGO_CURIOS_BACK, EGOCuriosUtil.EGO_CURIOS_BACK_SET)
 			.add(EGOCuriosItems.TEST.get())
 		tag(CuriosItemTags.EGO_CURIOS).addTags(
 			CuriosItemTags.EGO_CURIOS_HEADWEAR,

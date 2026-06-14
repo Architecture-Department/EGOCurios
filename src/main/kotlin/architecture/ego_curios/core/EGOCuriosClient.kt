@@ -1,5 +1,6 @@
 package architecture.ego_curios.core
 
+import architecture.ego_curios.util.EGOCuriosUtil
 import net.minecraft.client.Minecraft
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
@@ -11,8 +12,8 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory
 import thedarkcolour.kotlinforforge.neoforge.forge.LOADING_CONTEXT
 import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
 
-@Mod(value = EGOCuriosConstants.ID, dist = [Dist.CLIENT])
-@EventBusSubscriber(modid = EGOCuriosConstants.ID, value = [Dist.CLIENT])
+@Mod(value = EGOCuriosUtil.ID, dist = [Dist.CLIENT])
+@EventBusSubscriber(modid = EGOCuriosUtil.ID, value = [Dist.CLIENT])
 object EGOCuriosClient {
 	init {
 		val modContainer = LOADING_CONTEXT.activeContainer
@@ -26,7 +27,7 @@ object EGOCuriosClient {
 
 	@SubscribeEvent
 	fun onClientSetup(event: FMLClientSetupEvent) {
-		EGOCuriosConstants.LOGGER.info("HELLO FROM CLIENT SETUP")
-		EGOCuriosConstants.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().user.name)
+		EGOCuriosUtil.LOGGER.info("HELLO FROM CLIENT SETUP")
+		EGOCuriosUtil.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().user.name)
 	}
 }

@@ -3,8 +3,8 @@ package architecture.ego_curios.common.item
 import architecture.ego_curios.api.AttackLogicHolder
 import architecture.ego_curios.common.payload.toc.CurioAppurtenanceSynchroPayload
 import architecture.ego_curios.common.payload.toc.SlotContextExpand
-import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.init.EGOCuriosAttachments
+import architecture.ego_curios.util.EGOCuriosUtil
 import architecture.goldenboughs_lib.mixed.geckolib.IAnimationController
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.RandomSource
@@ -154,8 +154,8 @@ class ComprehensionBackCurioItem(egoCurioBuilder: Builder<ComprehensionBackCurio
 
 		val data = entity.getData(EGOCuriosAttachments.ATTACK_LOGIC_HOLDER)
 		when (identifier) {
-			EGOCuriosConstants.EGO_CURIOS_LEFT_BACK -> data.remove(EGOCuriosConstants.modRl("$descriptionId.left_back"))
-			EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK -> data.remove(EGOCuriosConstants.modRl("$descriptionId.right_back"))
+			EGOCuriosUtil.EGO_CURIOS_LEFT_BACK -> data.remove(EGOCuriosUtil.modRl("$descriptionId.left_back"))
+			EGOCuriosUtil.EGO_CURIOS_RIGHT_BACK -> data.remove(EGOCuriosUtil.modRl("$descriptionId.right_back"))
 		}
 	}
 
@@ -174,11 +174,11 @@ class ComprehensionBackCurioItem(egoCurioBuilder: Builder<ComprehensionBackCurio
 
 		val data = entity.getData(EGOCuriosAttachments.ATTACK_LOGIC_HOLDER)
 		when (identifier) {
-			EGOCuriosConstants.EGO_CURIOS_LEFT_BACK ->
-				data.add(EGOCuriosConstants.modRl("$descriptionId.left_back"), AttackLogic(entity, stackBeingEquipped, true))
+			EGOCuriosUtil.EGO_CURIOS_LEFT_BACK ->
+				data.add(EGOCuriosUtil.modRl("$descriptionId.left_back"), AttackLogic(entity, stackBeingEquipped, true))
 
-			EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK ->
-				data.add(EGOCuriosConstants.modRl("$descriptionId.right_back"), AttackLogic(entity, stackBeingEquipped, false))
+			EGOCuriosUtil.EGO_CURIOS_RIGHT_BACK ->
+				data.add(EGOCuriosUtil.modRl("$descriptionId.right_back"), AttackLogic(entity, stackBeingEquipped, false))
 		}
 	}
 

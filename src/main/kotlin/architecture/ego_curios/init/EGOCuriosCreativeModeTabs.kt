@@ -1,8 +1,8 @@
 package architecture.ego_curios.init
 
-import architecture.ego_curios.core.EGOCuriosConstants
-import architecture.ego_curios.core.EGOCuriosConstants.modRegister
 import architecture.ego_curios.datagen.i18n.ZhCn
+import architecture.ego_curios.util.EGOCuriosUtil
+import architecture.ego_curios.util.EGOCuriosUtil.modRegister
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
@@ -58,7 +58,7 @@ object EGOCuriosCreativeModeTabs {
 	private fun createCreativeModeTab(
 		name: String, zhCn: String, displayItemsGenerator: CreativeModeTab.DisplayItemsGenerator
 	): CreativeModeTab.Builder {
-		val key = "itemGroup.${EGOCuriosConstants.ID}.$name"
+		val key = "itemGroup.${EGOCuriosUtil.ID}.$name"
 		ZhCn.addI18nText(zhCn, key)
 		return CreativeModeTab.builder().title(Component.translatable(key)).displayItems(displayItemsGenerator)
 	}

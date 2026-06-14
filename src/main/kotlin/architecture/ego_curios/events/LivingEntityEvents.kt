@@ -1,14 +1,14 @@
 package architecture.ego_curios.events
 
-import architecture.ego_curios.core.EGOCuriosConstants
 import architecture.ego_curios.init.EGOCuriosAttachments
+import architecture.ego_curios.util.EGOCuriosUtil
 import net.minecraft.world.entity.LivingEntity
 import net.neoforged.bus.api.EventPriority
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.tick.EntityTickEvent
 
-@EventBusSubscriber(modid = EGOCuriosConstants.ID)
+@EventBusSubscriber(modid = EGOCuriosUtil.ID)
 object LivingEntityEvents {
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)

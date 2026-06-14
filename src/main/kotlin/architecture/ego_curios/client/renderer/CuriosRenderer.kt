@@ -1,6 +1,6 @@
 package architecture.ego_curios.client.renderer
 
-import architecture.ego_curios.core.EGOCuriosConstants
+import architecture.ego_curios.util.EGOCuriosUtil
 import net.minecraft.world.entity.EquipmentSlot
 import top.theillusivec4.curios.api.SlotContext
 import top.theillusivec4.curios.api.client.ICurioRenderer
@@ -30,14 +30,14 @@ interface CuriosRenderer : ICurioRenderer {
 		@JvmStatic
 		fun isHead(slotId: String): Boolean {
 			return when (slotId) {
-				EGOCuriosConstants.EGO_CURIOS_HEADWEAR,
-				EGOCuriosConstants.EGO_CURIOS_HEAD,
-				EGOCuriosConstants.EGO_CURIOS_HINDBRAIN,
-				EGOCuriosConstants.EGO_CURIOS_EYE,
-				EGOCuriosConstants.EGO_CURIOS_FACE,
-				EGOCuriosConstants.EGO_CURIOS_CHEEK,
-				EGOCuriosConstants.EGO_CURIOS_MASK,
-				EGOCuriosConstants.EGO_CURIOS_MOUTH -> true
+				EGOCuriosUtil.EGO_CURIOS_HEADWEAR,
+				EGOCuriosUtil.EGO_CURIOS_HEAD,
+				EGOCuriosUtil.EGO_CURIOS_HINDBRAIN,
+				EGOCuriosUtil.EGO_CURIOS_EYE,
+				EGOCuriosUtil.EGO_CURIOS_FACE,
+				EGOCuriosUtil.EGO_CURIOS_CHEEK,
+				EGOCuriosUtil.EGO_CURIOS_MASK,
+				EGOCuriosUtil.EGO_CURIOS_MOUTH -> true
 
 				else -> false
 			}
@@ -46,10 +46,10 @@ interface CuriosRenderer : ICurioRenderer {
 		@JvmStatic
 		fun isNeck(slotId: String): Boolean {
 			return when (slotId) {
-				EGOCuriosConstants.EGO_CURIOS_NECK,
-				EGOCuriosConstants.EGO_CURIOS_BROOCH,
-				EGOCuriosConstants.EGO_CURIOS_LEFT_BACK,
-				EGOCuriosConstants.EGO_CURIOS_RIGHT_BACK -> true
+				EGOCuriosUtil.EGO_CURIOS_NECK,
+				EGOCuriosUtil.EGO_CURIOS_BROOCH,
+				EGOCuriosUtil.EGO_CURIOS_LEFT_BACK,
+				EGOCuriosUtil.EGO_CURIOS_RIGHT_BACK -> true
 
 				else -> false
 			}
@@ -58,8 +58,8 @@ interface CuriosRenderer : ICurioRenderer {
 		@JvmStatic
 		fun isHand(slotId: String): Boolean {
 			return when (slotId) {
-				EGOCuriosConstants.EGO_CURIOS_HAND,
-				EGOCuriosConstants.EGO_CURIOS_GLOVE -> true
+				EGOCuriosUtil.EGO_CURIOS_HAND,
+				EGOCuriosUtil.EGO_CURIOS_GLOVE -> true
 
 				else -> false
 			}

@@ -1,10 +1,11 @@
 package architecture.ego_curios.core
 
-import architecture.ego_curios.core.EGOCuriosConstants.LOGGER
 import architecture.ego_curios.events.registry.CurioRegistry
 import architecture.ego_curios.init.EGOCuriosAttachments
 import architecture.ego_curios.init.EGOCuriosCreativeModeTabs
 import architecture.ego_curios.init.EGOCuriosItems
+import architecture.ego_curios.util.EGOCuriosUtil
+import architecture.ego_curios.util.EGOCuriosUtil.LOGGER
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.common.Mod
@@ -12,7 +13,7 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent
 import thedarkcolour.kotlinforforge.neoforge.forge.LOADING_CONTEXT
 import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
 
-@Mod(EGOCuriosConstants.ID)
+@Mod(EGOCuriosUtil.ID)
 @EventBusSubscriber
 object EGOCurios {
 	@SubscribeEvent

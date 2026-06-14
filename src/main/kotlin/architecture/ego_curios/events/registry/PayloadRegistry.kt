@@ -1,7 +1,7 @@
 package architecture.ego_curios.events.registry
 
 import architecture.ego_curios.common.payload.toc.CurioAppurtenanceSynchroPayload
-import architecture.ego_curios.core.EGOCuriosConstants
+import architecture.ego_curios.util.EGOCuriosUtil
 import architecture.goldenboughs_lib.api.payload.ToClientPayload
 import architecture.goldenboughs_lib.api.payload.ToServerAndClientPayload
 import architecture.goldenboughs_lib.api.payload.ToServerPayload
@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler
 import net.neoforged.neoforge.network.registration.PayloadRegistrar
 
-@EventBusSubscriber(modid = EGOCuriosConstants.ID)
+@EventBusSubscriber(modid = EGOCuriosUtil.ID)
 object PayloadRegistry {
 	@SubscribeEvent
 	fun register(event: RegisterPayloadHandlersEvent) {
@@ -26,7 +26,7 @@ object PayloadRegistry {
 
 		// 接收来自客户端的数据 发送到 服务端
 
-		EGOCuriosConstants.LOGGER.info("Registering payloads finish")
+		EGOCuriosUtil.LOGGER.info("Registering payloads finish")
 	}
 
 	private fun <T : ToServerAndClientPayload> playToServerAndClient(
