@@ -6,22 +6,23 @@ import architecture.ego_curios.util.getStackInSlot
 import architecture.goldenboughs_lib.util.PayloadUtil
 import architecture.resonator_combat_framework.common.payload.toc.AppurtenanceSynchroPayload
 import io.netty.buffer.ByteBuf
+import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.network.handling.IPayloadContext
 import top.theillusivec4.curios.api.SlotContext
 
+// TODO
 class CurioAppurtenanceSynchroPayload(
 	entityId: Int,
 	executeType: Byte,
 	val slotContext: SlotContextExpand
 ) : AppurtenanceSynchroPayload(entityId, executeType) {
 
-	override fun work(context: IPayloadContext, player: Player) {
+	override fun work(context: IPayloadContext, player: AbstractClientPlayer) {
 		val entity = player.level().getEntity(entityId) as? LivingEntity ?: return
 		val (identifier, _, index, _, _) = slotContext
 		val itemStack = entity.getStackInSlot(identifier, index)
