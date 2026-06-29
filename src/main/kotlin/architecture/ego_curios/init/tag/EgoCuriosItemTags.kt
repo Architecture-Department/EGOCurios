@@ -1,13 +1,13 @@
 package architecture.ego_curios.init.tag
 
-import architecture.ego_curios.util.EGOCuriosUtil.modRl
+import architecture.ego_curios.util.EgoCuriosUtil.modRl
 import architecture.goldenboughs_lib.util.LibUtil.rlOf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.ItemTags
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 
-object CuriosItemTags {
+object EgoCuriosItemTags {
 	/**
 	 * E.G.O饰品
 	 */

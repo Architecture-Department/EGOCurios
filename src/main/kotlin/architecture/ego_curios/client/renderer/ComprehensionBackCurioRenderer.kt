@@ -1,7 +1,7 @@
 package architecture.ego_curios.client.renderer
 
 import architecture.ego_curios.common.item.ComprehensionBackCurioItem
-import architecture.ego_curios.util.EGOCuriosUtil
+import architecture.ego_curios.util.EgoCuriosUtil
 import net.minecraft.client.model.HumanoidModel
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.world.entity.Entity
@@ -61,13 +61,13 @@ class ComprehensionBackCurioRenderer(model: GeoModel<ComprehensionBackCurioItem>
 			headPitch
 		)
 		when (slotContext.identifier()) {
-			EGOCuriosUtil.EGO_CURIOS_LEFT_BACK -> {
+			EgoCuriosUtil.EGO_CURIOS_LEFT_BACK -> {
 				setBoneVisible(rightUpperTentacleRoot, false)
 				setBoneVisible(rightMiddleTentacleRoot, false)
 				setBoneVisible(rightLowerTentacleRoot, false)
 			}
 
-			EGOCuriosUtil.EGO_CURIOS_RIGHT_BACK -> {
+			EgoCuriosUtil.EGO_CURIOS_RIGHT_BACK -> {
 				setBoneVisible(leftUpperTentacleRoot, false)
 				setBoneVisible(leftMiddleTentacleRoot, false)
 				setBoneVisible(leftLowerTentacleRoot, false)

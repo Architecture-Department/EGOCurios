@@ -7,8 +7,8 @@ import architecture.ego_curios.common.item.EgoCurioItem
 import architecture.ego_curios.common.item.TestEgoCurioItem
 import architecture.ego_curios.datagen.i18n.ZhCn
 import architecture.ego_curios.events.registry.client.CurioRenderersRegistrar
-import architecture.ego_curios.util.EGOCuriosUtil
-import architecture.ego_curios.util.EGOCuriosUtil.modRl
+import architecture.ego_curios.util.EgoCuriosUtil
+import architecture.ego_curios.util.EgoCuriosUtil.modRl
 import architecture.goldenboughs_lib.module.lc_damage.api.LcDamageType
 import net.minecraft.network.chat.Style
 import net.minecraft.world.entity.EntityType
@@ -18,9 +18,9 @@ import net.neoforged.neoforge.registries.DeferredRegister
 import java.util.function.Function
 
 // TODO 可能需要给饰品添加等级
-object EGOCuriosItems {
+object EgoCuriosItems {
 	@JvmField
-	val REGISTRY: DeferredRegister.Items = DeferredRegister.createItems(EGOCuriosUtil.ID)
+	val REGISTRY: DeferredRegister.Items = DeferredRegister.createItems(EgoCuriosUtil.ID)
 
 	@JvmField
 	val TEST: DeferredItem<EgoCurioItem> = REGISTRY.register(
@@ -566,19 +566,19 @@ object EGOCuriosItems {
 	}
 
 	enum class CuriosType(val typeName: String, private val set: MutableSet<DeferredItem<out Item>>) {
-		HEADWEAR("headwear", EGOCuriosUtil.EGO_CURIOS_HEADWEAR_SET),
-		CHEEK("cheek", EGOCuriosUtil.EGO_CURIOS_CHEEK_SET),
-		HEAD("head", EGOCuriosUtil.EGO_CURIOS_HEAD_SET),
-		HINDBRAIN("hindbrain", EGOCuriosUtil.EGO_CURIOS_HINDBRAIN_SET),
-		EYE("eye", EGOCuriosUtil.EGO_CURIOS_EYE_SET),
-		FACE("face", EGOCuriosUtil.EGO_CURIOS_FACE_SET),
-		MASK("mask", EGOCuriosUtil.EGO_CURIOS_MASK_SET),
-		MOUTH("mouth", EGOCuriosUtil.EGO_CURIOS_MOUTH_SET),
-		NECK("neck", EGOCuriosUtil.EGO_CURIOS_NECK_SET),
-		BROOCH("brooch", EGOCuriosUtil.EGO_CURIOS_NECK_SET),
-		HAND("hand", EGOCuriosUtil.EGO_CURIOS_HAND_SET),
-		GLOVE("glove", EGOCuriosUtil.EGO_CURIOS_GLOVE_SET),
-		BACK("back", EGOCuriosUtil.EGO_CURIOS_BACK_SET), ;
+		HEADWEAR("headwear", EgoCuriosUtil.EGO_CURIOS_HEADWEAR_SET),
+		CHEEK("cheek", EgoCuriosUtil.EGO_CURIOS_CHEEK_SET),
+		HEAD("head", EgoCuriosUtil.EGO_CURIOS_HEAD_SET),
+		HINDBRAIN("hindbrain", EgoCuriosUtil.EGO_CURIOS_HINDBRAIN_SET),
+		EYE("eye", EgoCuriosUtil.EGO_CURIOS_EYE_SET),
+		FACE("face", EgoCuriosUtil.EGO_CURIOS_FACE_SET),
+		MASK("mask", EgoCuriosUtil.EGO_CURIOS_MASK_SET),
+		MOUTH("mouth", EgoCuriosUtil.EGO_CURIOS_MOUTH_SET),
+		NECK("neck", EgoCuriosUtil.EGO_CURIOS_NECK_SET),
+		BROOCH("brooch", EgoCuriosUtil.EGO_CURIOS_NECK_SET),
+		HAND("hand", EgoCuriosUtil.EGO_CURIOS_HAND_SET),
+		GLOVE("glove", EgoCuriosUtil.EGO_CURIOS_GLOVE_SET),
+		BACK("back", EgoCuriosUtil.EGO_CURIOS_BACK_SET), ;
 
 		fun addCurio(item: DeferredItem<out Item>) {
 			this.set.add(item)

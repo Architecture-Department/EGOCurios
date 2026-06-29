@@ -3,7 +3,7 @@ package architecture.ego_curios.datagen
 import architecture.ego_curios.datagen.i18n.ZhCn
 import architecture.ego_curios.datagen.tag.DatagenBlockTag
 import architecture.ego_curios.datagen.tag.DatagenItemTag
-import architecture.ego_curios.util.EGOCuriosUtil
+import architecture.ego_curios.util.EgoCuriosUtil
 import architecture.goldenboughs_lib.util.datagen.buildClient
 import architecture.goldenboughs_lib.util.datagen.buildServer
 import net.minecraft.core.RegistrySetBuilder
@@ -16,7 +16,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent
 /**
  * 数据生成主类
  */
-@EventBusSubscriber(modid = EGOCuriosUtil.ID)
+@EventBusSubscriber(modid = EgoCuriosUtil.ID)
 object Datagen {
 	@SubscribeEvent
 	fun gatherData(event: GatherDataEvent) {

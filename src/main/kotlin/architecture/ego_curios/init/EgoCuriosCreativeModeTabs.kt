@@ -1,8 +1,8 @@
 package architecture.ego_curios.init
 
 import architecture.ego_curios.datagen.i18n.ZhCn
-import architecture.ego_curios.util.EGOCuriosUtil
-import architecture.ego_curios.util.EGOCuriosUtil.modRegister
+import architecture.ego_curios.util.EgoCuriosUtil
+import architecture.ego_curios.util.EgoCuriosUtil.modRegister
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
@@ -16,7 +16,7 @@ import java.util.function.Supplier
 /**
  * 创造模式物品栏
  */
-object EGOCuriosCreativeModeTabs {
+object EgoCuriosCreativeModeTabs {
 	@JvmField
 	val REGISTRY: DeferredRegister<CreativeModeTab> = modRegister<CreativeModeTab>(BuiltInRegistries.CREATIVE_MODE_TAB)
 
@@ -28,9 +28,9 @@ object EGOCuriosCreativeModeTabs {
 			name,
 			zhCn,
 			{ parameters, output ->
-				addRegistryItem(EGOCuriosItems.REGISTRY, output)
+				addRegistryItem(EgoCuriosItems.REGISTRY, output)
 			},
-			{ EGOCuriosItems.BENEDICTION.get().defaultInstance })
+			{ EgoCuriosItems.BENEDICTION.get().defaultInstance })
 	}
 
 	private fun register(
@@ -58,7 +58,7 @@ object EGOCuriosCreativeModeTabs {
 	private fun createCreativeModeTab(
 		name: String, zhCn: String, displayItemsGenerator: CreativeModeTab.DisplayItemsGenerator
 	): CreativeModeTab.Builder {
-		val key = "itemGroup.${EGOCuriosUtil.ID}.$name"
+		val key = "itemGroup.${EgoCuriosUtil.ID}.$name"
 		ZhCn.addI18nText(zhCn, key)
 		return CreativeModeTab.builder().title(Component.translatable(key)).displayItems(displayItemsGenerator)
 	}

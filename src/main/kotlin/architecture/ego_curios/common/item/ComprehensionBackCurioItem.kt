@@ -3,8 +3,8 @@ package architecture.ego_curios.common.item
 import architecture.ego_curios.api.AttackLogicHolder
 import architecture.ego_curios.common.payload.toc.CurioAppurtenanceSynchroPayload
 import architecture.ego_curios.common.payload.toc.SlotContextExpand
-import architecture.ego_curios.init.EGOCuriosAttachments
-import architecture.ego_curios.util.EGOCuriosUtil
+import architecture.ego_curios.init.EgoCuriosAttachments
+import architecture.ego_curios.util.EgoCuriosUtil
 import architecture.goldenboughs_lib.mixed.geckolib.IAnimationController
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.RandomSource
@@ -152,10 +152,10 @@ class ComprehensionBackCurioItem(egoCurioBuilder: Builder<ComprehensionBackCurio
 		val identifier = slotContext.identifier()
 		removeAppurtenance(entity, identifier)
 
-		val data = entity.getData(EGOCuriosAttachments.ATTACK_LOGIC_HOLDER)
+		val data = entity.getData(EgoCuriosAttachments.ATTACK_LOGIC_HOLDER)
 		when (identifier) {
-			EGOCuriosUtil.EGO_CURIOS_LEFT_BACK -> data.remove(EGOCuriosUtil.modRl("$descriptionId.left_back"))
-			EGOCuriosUtil.EGO_CURIOS_RIGHT_BACK -> data.remove(EGOCuriosUtil.modRl("$descriptionId.right_back"))
+			EgoCuriosUtil.EGO_CURIOS_LEFT_BACK -> data.remove(EgoCuriosUtil.modRl("$descriptionId.left_back"))
+			EgoCuriosUtil.EGO_CURIOS_RIGHT_BACK -> data.remove(EgoCuriosUtil.modRl("$descriptionId.right_back"))
 		}
 	}
 
@@ -172,13 +172,13 @@ class ComprehensionBackCurioItem(egoCurioBuilder: Builder<ComprehensionBackCurio
 		val identifier = slotContext.identifier()
 		addAppurtenance(entity, stackBeingEquipped, identifier)
 
-		val data = entity.getData(EGOCuriosAttachments.ATTACK_LOGIC_HOLDER)
+		val data = entity.getData(EgoCuriosAttachments.ATTACK_LOGIC_HOLDER)
 		when (identifier) {
-			EGOCuriosUtil.EGO_CURIOS_LEFT_BACK ->
-				data.add(EGOCuriosUtil.modRl("$descriptionId.left_back"), AttackLogic(entity, stackBeingEquipped, true))
+			EgoCuriosUtil.EGO_CURIOS_LEFT_BACK ->
+				data.add(EgoCuriosUtil.modRl("$descriptionId.left_back"), AttackLogic(entity, stackBeingEquipped, true))
 
-			EGOCuriosUtil.EGO_CURIOS_RIGHT_BACK ->
-				data.add(EGOCuriosUtil.modRl("$descriptionId.right_back"), AttackLogic(entity, stackBeingEquipped, false))
+			EgoCuriosUtil.EGO_CURIOS_RIGHT_BACK ->
+				data.add(EgoCuriosUtil.modRl("$descriptionId.right_back"), AttackLogic(entity, stackBeingEquipped, false))
 		}
 	}
 

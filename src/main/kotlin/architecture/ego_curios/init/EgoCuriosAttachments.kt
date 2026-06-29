@@ -1,7 +1,7 @@
 package architecture.ego_curios.init
 
 import architecture.ego_curios.api.AttackLogicHolder
-import architecture.ego_curios.util.EGOCuriosUtil.modRegister
+import architecture.ego_curios.util.EgoCuriosUtil.modRegister
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Contract
 import java.util.function.Function
 import java.util.function.Supplier
 
-object EGOCuriosAttachments {
+object EgoCuriosAttachments {
 	@JvmField
 	val REGISTRY: DeferredRegister<AttachmentType<*>> =
 		modRegister<AttachmentType<*>>(NeoForgeRegistries.ATTACHMENT_TYPES)

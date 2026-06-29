@@ -1,6 +1,6 @@
 package architecture.ego_curios.datagen.tag
 
-import architecture.ego_curios.util.EGOCuriosUtil
+import architecture.ego_curios.util.EgoCuriosUtil
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.neoforged.neoforge.common.data.BlockTagsProvider
@@ -11,7 +11,7 @@ class DatagenBlockTag(
 	output: PackOutput,
 	lookupProvider: CompletableFuture<HolderLookup.Provider>,
 	existingFileHelper: ExistingFileHelper?
-) : BlockTagsProvider(output, lookupProvider, EGOCuriosUtil.ID, existingFileHelper) {
+) : BlockTagsProvider(output, lookupProvider, EgoCuriosUtil.ID, existingFileHelper) {
 
 	override fun addTags(provider: HolderLookup.Provider) {
 	}
