@@ -553,6 +553,7 @@ object EgoCuriosItems {
 
 		val curiosRenderer = t.curiosRenderer
 		if (curiosRenderer != null) {
+			@Suppress("UNCHECKED_CAST")
 			CurioRenderersRegistrar.addRenderer(
 				deferredItem as DeferredItem<EgoCurioItem>,
 				curiosRenderer.apply(t.model!!) as Function<EgoCurioItem, GeoCurioRenderer<EgoCurioItem>>
