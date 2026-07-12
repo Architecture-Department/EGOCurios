@@ -4,7 +4,7 @@ import architecture.ego_curios.common.payload.toc.SlotContextExpand.Companion.to
 import architecture.ego_curios.util.EgoCuriosUtil
 import architecture.ego_curios.util.getStackInSlot
 import architecture.goldenboughs_lib.util.PayloadUtil
-import architecture.resonator_combat_framework.common.payload.toc.AppurtenanceSynchroPayload
+import architecture.resonator_combat_framework.payload.toc.AppurtenanceSynchroPayload
 import io.netty.buffer.ByteBuf
 import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.network.codec.ByteBufCodecs
